@@ -71,12 +71,20 @@ export jmat, spin_Jx, spin_Jy, spin_Jz, spin_Jm, spin_Jp, spin_J_set, sigmap, si
 # random_objects
 export rand_stochastic, rand_super_bcsz, rand_super, rand_kraus_map, rand_dm_hs, rand_dm_ginibre, rand_dm, ket_haar, rand_ket, rand_unitary_haar, rand_unitary, rand_herm, randnz, rand_jacobi_rotation
 
+# continuous_variables
+export logarithmic_negativity, wigner_covariance_matrix, correlation_matrix_quadrature, correlation_matrix_field, covariance_matrix, correlation_matrix
+
 const states = (:ghz_state, :w_state, :triplet_states, :singlet_state, :bell_state, :spin_coherent, :spin_state, :zero_ket, :phase_basis, :enr_thermal_dm, :enr_fock, :enr_state_dictionaries, :state_number_qobj, :state_index_number, :state_number_index, :state_number_enumerate, :bra, :ket, :qstate, :projection, :ket2dm, :maximally_mixed_dm, :thermal_dm, :fock, :fock_dm, :coherent_dm, :coherent, :qutrit_basis, :basis)
-const operators = (:jmat, :spin_Jx, :spin_Jy, :spin_Jz, :spin_Jm, :spin_Jp, :spin_J_set, :sigmap, :sigmam, :sigmax, :sigmay, :sigmaz, :destroy, :create, :qeye, :identity, :position, :momentum, :num, :squeeze, :squeezing, :displace, :commutator, :qutrit_ops, :qdiags, :phase, :zero_oper, :enr_destroy, :enr_idenitty)
+
 const random_objects = (:rand_stochastic, :rand_super_bcsz, :rand_super, :rand_kraus_map, :rand_dm_hs, :rand_dm_ginibre, :rand_dm, :ket_haar, :rand_ket, :rand_unitary_haar, :rand_unitary, :rand_herm, :randnz, :rand_jacobi_rotation)
 
+const continuous_variables = (:logarithmic_negativity, :wigner_covariance_matrix, :correlation_matrix_quadrature, :correlation_matrix_field, :covariance_matrix, :correlation_matrix)
+
+const operators = (:jmat, :spin_Jx, :spin_Jy, :spin_Jz, :spin_Jm, :spin_Jp, :spin_J_set, :sigmap, :sigmam, :sigmax, :sigmay, :sigmaz, :destroy, :create, :qeye, :identity, :position, :momentum, :num, :squeeze, :squeezing, :displace, :commutator, :qutrit_ops, :qdiags, :phase, :zero_oper, :enr_destroy, :enr_idenitty)
+
 const qutipfn = (states..., 
-				random_objects..., 
+				random_objects...,
+                continuous_variables...,
                 operators...)
 for f in qutipfn
     sf = string(f)
