@@ -62,6 +62,9 @@ const qutip = PyNULL()
 
 
 # export ducumented qutip API
+# three_level_atom
+export three_level_ops, three_level_basis
+
 # states
 export ghz_state, w_state, triplet_states, singlet_state, bell_state, spin_coherent, spin_state, zero_ket, phase_basis, enr_thermal_dm, enr_fock, enr_state_dictionaries, state_number_qobj, state_index_number, state_number_index, state_number_enumerate, bra, ket, qstate, projection, ket2dm, maximally_mixed_dm, thermal_dm, fock, fock_dm, coherent_dm, coherent, qutrit_basis, basis 
 
@@ -83,6 +86,7 @@ export subsystem_apply
 # operatos
 export jmat, spin_Jx, spin_Jy, spin_Jz, spin_Jm, spin_Jp, spin_J_set, sigmap, sigmam, sigmax, sigmay, sigmaz, destroy, create, qeye, identity, position, momentum, num, squeeze, squeezing, displace, commutator, qutrit_ops, qdiags, phase, zero_oper, enr_destroy, enr_idenitty
 
+three_level_atom = (:three_level_ops, :three_level_basis)
 
 const states = (:ghz_state, :w_state, :triplet_states, :singlet_state, :bell_state, :spin_coherent, :spin_state, :zero_ket, :phase_basis, :enr_thermal_dm, :enr_fock, :enr_state_dictionaries, :state_number_qobj, :state_index_number, :state_number_index, :state_number_enumerate, :bra, :ket, :qstate, :projection, :ket2dm, :maximally_mixed_dm, :thermal_dm, :fock, :fock_dm, :coherent_dm, :coherent, :qutrit_basis, :basis)
 
@@ -95,17 +99,20 @@ const superoperator = (:sprepost, :spre, :spost, :mat2vec_index, :vec2mat_index,
 
 const superop_reps = (:to_stinespring, :to_kraus, :to_super, :to_chi, :to_choi, :choi_to_stinespring, :chi_to_choi, :choi_to_chi, :kraus_to_super, :kraus_to_choi, :choi_to_kraus, :choi_to_super, :super_to_choi)
 
-const subsystem_apply = (subsystem_apply, )
+const subsystem_apply_class = (:subsystem_apply, )
 
 const operators = (:jmat, :spin_Jx, :spin_Jy, :spin_Jz, :spin_Jm, :spin_Jp, :spin_J_set, :sigmap, :sigmam, :sigmax, :sigmay, :sigmaz, :destroy, :create, :qeye, :identity, :position, :momentum, :num, :squeeze, :squeezing, :displace, :commutator, :qutrit_ops, :qdiags, :phase, :zero_oper, :enr_destroy, :enr_idenitty)
 
-const qutipfn = (states..., 
+
+const qutipfn = (three_level_atom...,
+                states..., 
 				random_objects...,
                 continuous_variables...,
                 superoperator..., 
                 superop_reps..., 
-                subsystem_apply..., 
+                subsystem_apply_class..., 
                 operators...)
+
 for f in qutipfn
     sf = string(f)
     @eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
