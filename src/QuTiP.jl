@@ -74,6 +74,12 @@ export logarithmic_negativity, wigner_covariance_matrix, correlation_matrix_quad
 # superoperator
 export sprepost, spre, spost, mat2vec_index, vec2mat_index, vec2mat, mat2vec, vector_to_operator, operator_to_vector, lindblad_dissipator, liouvillian_ref, liouvillian
 
+# superop_reps
+export to_stinespring, to_kraus, to_super, to_chi, to_choi, choi_to_stinespring, chi_to_choi, choi_to_chi, kraus_to_super, kraus_to_choi, choi_to_kraus, choi_to_super, super_to_choi
+
+# subsystem_apply
+export subsystem_apply
+
 # operatos
 export jmat, spin_Jx, spin_Jy, spin_Jz, spin_Jm, spin_Jp, spin_J_set, sigmap, sigmam, sigmax, sigmay, sigmaz, destroy, create, qeye, identity, position, momentum, num, squeeze, squeezing, displace, commutator, qutrit_ops, qdiags, phase, zero_oper, enr_destroy, enr_idenitty
 
@@ -87,12 +93,18 @@ const continuous_variables = (:logarithmic_negativity, :wigner_covariance_matrix
 const superoperator = (:sprepost, :spre, :spost, :mat2vec_index, :vec2mat_index, :vec2mat, :mat2vec, :vector_to_operator, :operator_to_vector, :lindblad_dissipator, :liouvillian_ref, :liouvillian
 )
 
+const superop_reps = (:to_stinespring, :to_kraus, :to_super, :to_chi, :to_choi, :choi_to_stinespring, :chi_to_choi, :choi_to_chi, :kraus_to_super, :kraus_to_choi, :choi_to_kraus, :choi_to_super, :super_to_choi)
+
+const subsystem_apply = (subsystem_apply, )
+
 const operators = (:jmat, :spin_Jx, :spin_Jy, :spin_Jz, :spin_Jm, :spin_Jp, :spin_J_set, :sigmap, :sigmam, :sigmax, :sigmay, :sigmaz, :destroy, :create, :qeye, :identity, :position, :momentum, :num, :squeeze, :squeezing, :displace, :commutator, :qutrit_ops, :qdiags, :phase, :zero_oper, :enr_destroy, :enr_idenitty)
 
 const qutipfn = (states..., 
 				random_objects...,
                 continuous_variables...,
                 superoperator..., 
+                superop_reps..., 
+                subsystem_apply..., 
                 operators...)
 for f in qutipfn
     sf = string(f)
