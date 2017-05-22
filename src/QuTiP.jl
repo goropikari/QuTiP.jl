@@ -64,6 +64,7 @@ const qutip = PyNULL()
 # export ducumented qutip API
 include("qobj.jl")
 include("partial_transpose.jl")
+include("expect.jl")
 
 
 include("three_level_atom.jl")
