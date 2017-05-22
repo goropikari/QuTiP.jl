@@ -1,2 +1,2 @@
 export Options, Result, SolverConfiguration
-solver = (:Options, :Result, :SolverConfiguration, )
+solver_class = (:Options, :Result, :SolverConfiguration, )

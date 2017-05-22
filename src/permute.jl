@@ -1,2 +1,2 @@
 export reshuffle
-permute = (:reshuffle, )
+permute_class = (:reshuffle, )

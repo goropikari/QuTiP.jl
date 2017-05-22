@@ -1,2 +1,2 @@
 export Bloch
-bloch = (:Bloch, )
+bloch_class = (:Bloch, )

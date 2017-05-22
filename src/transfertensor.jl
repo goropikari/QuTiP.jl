@@ -1,2 +1,2 @@
 export TTMSolverOptions, ttmsolve
-transfertensor = (:TTMSolverOptions, :ttmsolve, )
+transfertensor_class = (:TTMSolverOptions, :ttmsolve, )

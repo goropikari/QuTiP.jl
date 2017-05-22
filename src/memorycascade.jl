@@ -1,2 +1,2 @@
 export MemoryCascade
-memorycascade = (:MemoryCascade, )
+memorycascade_class = (:MemoryCascade, )

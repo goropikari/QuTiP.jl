@@ -3,6 +3,8 @@ __precompile__()
 module QuTiP 
 using PyCall
 import PyCall: PyNULL, pyimport_conda, pycall
+using Base
+import Base: +, -, *, /
 export qutip
 
 using Compat
@@ -46,6 +48,7 @@ end
 
 
 const qutip = PyNULL()
+const ipynbtools = PyNULL()
 
 # ref
 # https://github.com/JuliaPy/PyPlot.jl/blob/master/src/PyPlot.jl#L166
@@ -118,37 +121,39 @@ include("tomography.jl")
 include("visualization.jl")
 include("wigner.jl")
 
+include("gate.jl")
 
-const qutipfn = (utilities...,
-                sparse...,
+
+const qutipfn = (utilities_class...,
+                sparse_class...,
                 simdiag_class...,
-                permute...,
-                parallel...,
-                ipynbtools...,
+                permute_class...,
+                parallel_class...,
+                # ipynbtools_class...,
                 hardware_info_class...,
-                graph...,
-                fileio...,
+                graph_class...,
+                fileio_class...,
                 about_class...,
                 tensor_class..., 
-                qobj...,
+                qobj_class...,
                 partial_transpose_class...,
                 expect_class...,
-                metrics...,
+                metrics_class...,
                 entropy_class..., 
-                countstat..., 
-                three_level_atom...,
-                states..., 
-		        random_objects...,
-                continuous_variables...,
-                superoperator..., 
-                superop_reps..., 
+                countstat_class..., 
+                three_level_atom_class...,
+                states_class..., 
+		        random_objects_class...,
+                continuous_variables_class...,
+                superoperator_class..., 
+                superop_reps_class..., 
                 subsystem_apply_class..., 
-                operators...,
-                bloch_redfield...,
+                operators_class...,
+                bloch_redfield_class...,
                 correlation_class...,
                 eseries_class...,
                 essolve_class...,
-                floquet...,
+                floquet_class...,
                 hsolve_class...,
                 mcsolve_class...,
                 mesolve_class...,
@@ -156,19 +161,20 @@ const qutipfn = (utilities...,
                 rcsolve_class...,
                 rhs_generate_class...,
                 sesolve_class...,
-                solver...,
+                solver_class...,
                 steadystate_class...,
-                stochastic...,
-                memorycascade...,
-                transfertensor...,
-                settings...,
-                bloch...,
-                bloch3d...,
-                distributions...,
+                stochastic_class...,
+                memorycascade_class...,
+                transfertensor_class...,
+                settings_class...,
+                bloch_class...,
+                bloch3d_class...,
+                distributions_class...,
                 orbital_class...,
-                tomography...,
-                visualization...,
-                wigner_class...
+                tomography_class...,
+                visualization_class...,
+                wigner_class...,
+                gate_class...
                )
 
 for f in qutipfn
@@ -181,9 +187,28 @@ for f in qutipfn
     end
 end
 
+for f in ipynbtools_class
+    sf = string(f)
+    @eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
+        if !haskey(ipynbtools, $sf)
+            error("qutip.ipynbtools ", version, " does not have qutip.ipynbtools", $sf)
+        end
+        return pycall(ipynbtools[$sf], PyAny, args...; kws...)
+    end
+end
+
+
+
+# arithmetic
++(a::Number, b::PyCall.PyObject) = b + a
+-(a::Number, b::PyCall.PyObject) = b - a
+*(a::Number, b::PyCall.PyObject) = b * a
+/(a::Number, b::PyCall.PyObject) = b / a
+
 
 function __init__()
     copy!(qutip, pyimport_conda("qutip", "qutip"))
+    copy!(ipynbtools, pyimport("qutip.ipynbtools"))
     global const version = try
         convert(VersionNumber, qutip[:__version__])
     catch

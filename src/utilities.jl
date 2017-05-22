@@ -1,2 +1,2 @@
 export view_methods, convert_mK_to_GHz, convert_GHz_to_mK, convert_mK_to_meV, convert_meV_to_mK, convert_meV_to_J, convert_J_to_meV, convert_meV_to_GHz, convert_GHz_to_meV, convert_unit, clebsch, linspace_with, n_thermal
-utilities = (:view_methods, :convert_mK_to_GHz, :convert_GHz_to_mK, :convert_mK_to_meV, :convert_meV_to_mK, :convert_meV_to_J, :convert_J_to_meV, :convert_meV_to_GHz, :convert_GHz_to_meV, :convert_unit, :clebsch, :linspace_with, :n_thermal)
+utilities_class = (:view_methods, :convert_mK_to_GHz, :convert_GHz_to_mK, :convert_mK_to_meV, :convert_meV_to_mK, :convert_meV_to_J, :convert_J_to_meV, :convert_meV_to_GHz, :convert_GHz_to_meV, :convert_unit, :clebsch, :linspace_with, :n_thermal)
