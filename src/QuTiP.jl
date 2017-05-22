@@ -65,6 +65,7 @@ const qutip = PyNULL()
 include("qobj.jl")
 include("partial_transpose.jl")
 include("expect.jl")
+include("metrics.jl")
 
 
 include("three_level_atom.jl")
@@ -78,7 +79,9 @@ include("operators.jl")
 
 
 const qutipfn = (qobj...,
-                partial_transpose_class..., 
+                partial_transpose_class...,
+                expect_class...,
+                metrics...,
                 three_level_atom...,
                 states..., 
 		        random_objects...,
