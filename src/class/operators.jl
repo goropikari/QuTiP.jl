@@ -18,6 +18,7 @@ sf = string(:identity)
     if  typeof(args) <: Integer
         return pycall(qutip[$sf], PyAny, args)
     elseif typeof(args) <: Array
-        return pycall(qutip[$sf], PyAny, [[i] for i in args])
+        # return pycall(qutip[$sf], PyAny, [[i] for i in args])
+        return pycall(qutip[$sf], PyAny, map(x -> [x], args))
     end
 end
