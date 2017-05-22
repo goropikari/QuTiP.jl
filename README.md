@@ -13,7 +13,7 @@ The [QuTiP](http://qutip.org/) package is a Python library for quantum informati
 # Install
 
 ```julia
- Pkg.clone("git@github.com:goorpikari/QuTiP.jl.git")
+ Pkg.clone("https://github.com/goropikari/QuTiP.jl")
 ```
 
 # Translate Python code to Julia code
