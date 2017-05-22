@@ -62,51 +62,23 @@ const qutip = PyNULL()
 
 
 # export ducumented qutip API
-# three_level_atom
-export three_level_ops, three_level_basis
-
-# states
-export ghz_state, w_state, triplet_states, singlet_state, bell_state, spin_coherent, spin_state, zero_ket, phase_basis, enr_thermal_dm, enr_fock, enr_state_dictionaries, state_number_qobj, state_index_number, state_number_index, state_number_enumerate, bra, ket, qstate, projection, ket2dm, maximally_mixed_dm, thermal_dm, fock, fock_dm, coherent_dm, coherent, qutrit_basis, basis 
-
-# random_objects
-export rand_stochastic, rand_super_bcsz, rand_super, rand_kraus_map, rand_dm_hs, rand_dm_ginibre, rand_dm, ket_haar, rand_ket, rand_unitary_haar, rand_unitary, rand_herm, randnz, rand_jacobi_rotation
-
-# continuous_variables
-export logarithmic_negativity, wigner_covariance_matrix, correlation_matrix_quadrature, correlation_matrix_field, covariance_matrix, correlation_matrix
-
-# superoperator
-export sprepost, spre, spost, mat2vec_index, vec2mat_index, vec2mat, mat2vec, vector_to_operator, operator_to_vector, lindblad_dissipator, liouvillian_ref, liouvillian
-
-# superop_reps
-export to_stinespring, to_kraus, to_super, to_chi, to_choi, choi_to_stinespring, chi_to_choi, choi_to_chi, kraus_to_super, kraus_to_choi, choi_to_kraus, choi_to_super, super_to_choi
-
-# subsystem_apply
-export subsystem_apply
-
-# operatos
-export jmat, spin_Jx, spin_Jy, spin_Jz, spin_Jm, spin_Jp, spin_J_set, sigmap, sigmam, sigmax, sigmay, sigmaz, destroy, create, qeye, identity, position, momentum, num, squeeze, squeezing, displace, commutator, qutrit_ops, qdiags, phase, zero_oper, enr_destroy, enr_idenitty
-
-three_level_atom = (:three_level_ops, :three_level_basis)
-
-const states = (:ghz_state, :w_state, :triplet_states, :singlet_state, :bell_state, :spin_coherent, :spin_state, :zero_ket, :phase_basis, :enr_thermal_dm, :enr_fock, :enr_state_dictionaries, :state_number_qobj, :state_index_number, :state_number_index, :state_number_enumerate, :bra, :ket, :qstate, :projection, :ket2dm, :maximally_mixed_dm, :thermal_dm, :fock, :fock_dm, :coherent_dm, :coherent, :qutrit_basis, :basis)
-
-const random_objects = (:rand_stochastic, :rand_super_bcsz, :rand_super, :rand_kraus_map, :rand_dm_hs, :rand_dm_ginibre, :rand_dm, :ket_haar, :rand_ket, :rand_unitary_haar, :rand_unitary, :rand_herm, :randnz, :rand_jacobi_rotation)
-
-const continuous_variables = (:logarithmic_negativity, :wigner_covariance_matrix, :correlation_matrix_quadrature, :correlation_matrix_field, :covariance_matrix, :correlation_matrix)
-
-const superoperator = (:sprepost, :spre, :spost, :mat2vec_index, :vec2mat_index, :vec2mat, :mat2vec, :vector_to_operator, :operator_to_vector, :lindblad_dissipator, :liouvillian_ref, :liouvillian
-)
-
-const superop_reps = (:to_stinespring, :to_kraus, :to_super, :to_chi, :to_choi, :choi_to_stinespring, :chi_to_choi, :choi_to_chi, :kraus_to_super, :kraus_to_choi, :choi_to_kraus, :choi_to_super, :super_to_choi)
-
-const subsystem_apply_class = (:subsystem_apply, )
-
-const operators = (:jmat, :spin_Jx, :spin_Jy, :spin_Jz, :spin_Jm, :spin_Jp, :spin_J_set, :sigmap, :sigmam, :sigmax, :sigmay, :sigmaz, :destroy, :create, :qeye, :identity, :position, :momentum, :num, :squeeze, :squeezing, :displace, :commutator, :qutrit_ops, :qdiags, :phase, :zero_oper, :enr_destroy, :enr_idenitty)
+include("qobj.jl")
 
 
-const qutipfn = (three_level_atom...,
+include("three_level_atom.jl")
+include("states.jl")
+include("random_objects.jl")
+include("continuous_variables.jl")
+include("superoperator.jl")
+include("superop_reps.jl")
+include("subsystem_apply.jl")
+include("operators.jl")
+
+
+const qutipfn = (qobj...,
+                three_level_atom...,
                 states..., 
-				random_objects...,
+		        random_objects...,
                 continuous_variables...,
                 superoperator..., 
                 superop_reps..., 
