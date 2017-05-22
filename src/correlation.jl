@@ -1,0 +1,2 @@
+export correlation_2op_1t, correlation_2op_2t, correlation_3op_1t, correlation_3op_2t, coherence_function_g1, coherence_function_g2, spectrum, spectrum_correlation_fft, correlation_ss, correlation, correlation_4op_1t, correlation_4op_2t, spectrum_ss, spectrum_pi
+correlation_class = (:correlation_2op_1t, :correlation_2op_2t, :correlation_3op_1t, :correlation_3op_2t, :coherence_function_g1, :coherence_function_g2, :spectrum, :spectrum_correlation_fft, :correlation_ss, :correlation, :correlation_4op_1t, :correlation_4op_2t, :spectrum_ss, :spectrum_pi, )

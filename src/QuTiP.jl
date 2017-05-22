@@ -90,33 +90,33 @@ include("superop_reps.jl")
 include("subsystem_apply.jl")
 include("operators.jl")
 
-# include("bloch_redfield.jl")
-# include("correlation.jl")
-# include("eseries.jl")
-# include("essolve.jl")
-# include("floquet.jl")
-# include("hsolve.jl")
-# include("mcsolve.jl")
-# include("mesolve.jl")
-# include("propagator.jl")
-# include("rcsolve.jl")
-# include("rhs_generate.jl")
-# include("sesolve.jl")
-# include("solver.jl")
-# include("steadystate.jl")
-# include("stochastic.jl")
-# include("memorycascade.jl")
-# include("transfertensor.jl")
-#
-# include("settings.jl")
-#
-# include("bloch.jl")
-# include("bloch3d.jl")
-# include("distributions.jl")
-# include("orbital.jl")
-# include("tomography.jl")
-# include("visualization.jl")
-# include("wigner.jl")
+include("bloch_redfield.jl")
+include("correlation.jl")
+include("eseries.jl")
+include("essolve.jl")
+include("floquet.jl")
+include("hsolve.jl")
+include("mcsolve.jl")
+include("mesolve.jl")
+include("propagator.jl")
+include("rcsolve.jl")
+include("rhs_generate.jl")
+include("sesolve.jl")
+include("solver.jl")
+include("steadystate.jl")
+include("stochastic.jl")
+include("memorycascade.jl")
+include("transfertensor.jl")
+
+include("settings.jl")
+
+include("bloch.jl")
+include("bloch3d.jl")
+include("distributions.jl")
+include("orbital.jl")
+include("tomography.jl")
+include("visualization.jl")
+include("wigner.jl")
 
 
 const qutipfn = (utilities...,
@@ -143,7 +143,33 @@ const qutipfn = (utilities...,
                 superoperator..., 
                 superop_reps..., 
                 subsystem_apply_class..., 
-                operators...)
+                operators...,
+                bloch_redfield...,
+                correlation_class...,
+                eseries_class...,
+                essolve_class...,
+                floquet...,
+                hsolve_class...,
+                mcsolve_class...,
+                mesolve_class...,
+                propagator_class...,
+                rcsolve_class...,
+                rhs_generate_class...,
+                sesolve_class...,
+                solver...,
+                steadystate_class...,
+                stochastic...,
+                memorycascade...,
+                transfertensor...,
+                settings...,
+                bloch...,
+                bloch3d...,
+                distributions...,
+                orbital_class...,
+                tomography...,
+                visualization...,
+                wigner_class...
+               )
 
 for f in qutipfn
     sf = string(f)
