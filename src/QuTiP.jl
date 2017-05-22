@@ -3,7 +3,7 @@ __precompile__()
 module QuTiP 
 using PyCall
 import PyCall: PyNULL, pyimport_conda, pycall
-using Base
+# using Base
 import Base: +, -, *, /
 export qutip
 
@@ -49,6 +49,7 @@ end
 
 const qutip = PyNULL()
 const ipynbtools = PyNULL()
+const visualization = PyNULL()
 
 # ref
 # https://github.com/JuliaPy/PyPlot.jl/blob/master/src/PyPlot.jl#L166
@@ -172,7 +173,7 @@ const qutipfn = (utilities_class...,
                 distributions_class...,
                 orbital_class...,
                 tomography_class...,
-                visualization_class...,
+                # visualization_class...,
                 wigner_class...,
                 gate_class...
                )
@@ -189,7 +190,7 @@ end
 
 for f in ipynbtools_class
     sf = string(f)
-    @eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
+    @eval @doc LazyHelp(ipynbtools,$sf) function $f(args...; kws...)
         if !haskey(ipynbtools, $sf)
             error("qutip.ipynbtools ", version, " does not have qutip.ipynbtools", $sf)
         end
@@ -197,6 +198,15 @@ for f in ipynbtools_class
     end
 end
 
+for f in visualization_class
+    sf = string(f)
+    @eval @doc LazyHelp(visualization,$sf) function $f(args...; kws...)
+        if !haskey(visualization, $sf)
+            error("qutip.visualization ", version, " does not have qutip.visualization", $sf)
+        end
+        return pycall(visualization[$sf], PyAny, args...; kws...)
+    end
+end
 
 
 # arithmetic
@@ -209,6 +219,7 @@ end
 function __init__()
     copy!(qutip, pyimport_conda("qutip", "qutip"))
     copy!(ipynbtools, pyimport("qutip.ipynbtools"))
+    copy!(visualization, pyimport("qutip.visualization"))
     global const version = try
         convert(VersionNumber, qutip[:__version__])
     catch
