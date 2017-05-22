@@ -6,4 +6,26 @@
 
 [![codecov.io](http://codecov.io/github/goropikari/QuTiP.jl/coverage.svg?branch=master)](http://codecov.io/github/goropikari/QuTiP.jl?branch=master)
 
-http://qutip.org/
+This package is a wrapper of [QuTiP](http://qutip.org/) using [PyCall](https://github.com/stevengj/PyCall.jl).
+
+The [QuTiP](http://qutip.org/) package is a Python library for quantum information.
+
+# Install
+
+```julia
+ Pkg.clone("git@github.com:goorpikari/QuTiP.jl.git")
+```
+
+# Translate Python code to Julia code
+```python
+    # python
+    q = basis(2,0)
+    q.dag()
+```
+
+```julia
+    # julia
+    q = basis(2,0)
+    q[:dag]() # or dag(q)
+```
+
