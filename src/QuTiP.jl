@@ -46,7 +46,6 @@ end
 
 
 const qutip = PyNULL()
-# copy!(qutip, pyimport_conda("qutip", "qutip"))
 
 # ref
 # https://github.com/JuliaPy/PyPlot.jl/blob/master/src/PyPlot.jl#L166
@@ -62,6 +61,17 @@ const qutip = PyNULL()
 
 
 # export ducumented qutip API
+include("utilities.jl")
+include("sparse.jl")
+include("simdiag.jl")
+include("permute.jl")
+include("parallel.jl")
+include("ipynbtools.jl")
+include("hardware_info.jl")
+include("graph.jl")
+include("fileio.jl")
+include("about.jl")
+
 include("tensor.jl")
 include("qobj.jl")
 include("partial_transpose.jl")
@@ -80,8 +90,46 @@ include("superop_reps.jl")
 include("subsystem_apply.jl")
 include("operators.jl")
 
+# include("bloch_redfield.jl")
+# include("correlation.jl")
+# include("eseries.jl")
+# include("essolve.jl")
+# include("floquet.jl")
+# include("hsolve.jl")
+# include("mcsolve.jl")
+# include("mesolve.jl")
+# include("propagator.jl")
+# include("rcsolve.jl")
+# include("rhs_generate.jl")
+# include("sesolve.jl")
+# include("solver.jl")
+# include("steadystate.jl")
+# include("stochastic.jl")
+# include("memorycascade.jl")
+# include("transfertensor.jl")
+#
+# include("settings.jl")
+#
+# include("bloch.jl")
+# include("bloch3d.jl")
+# include("distributions.jl")
+# include("orbital.jl")
+# include("tomography.jl")
+# include("visualization.jl")
+# include("wigner.jl")
 
-const qutipfn = (tensor_class..., 
+
+const qutipfn = (utilities...,
+                sparse...,
+                simdiag_class...,
+                permute...,
+                parallel...,
+                ipynbtools...,
+                hardware_info_class...,
+                graph...,
+                fileio...,
+                about_class...,
+                tensor_class..., 
                 qobj...,
                 partial_transpose_class...,
                 expect_class...,
