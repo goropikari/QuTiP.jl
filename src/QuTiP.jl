@@ -62,9 +62,11 @@ const qutip = PyNULL()
 
 
 # export ducumented qutip API
+include("tensor.jl")
 include("qobj.jl")
 include("partial_transpose.jl")
 include("expect.jl")
+
 include("metrics.jl")
 include("entropy.jl")
 include("countstat.jl")
@@ -79,7 +81,8 @@ include("subsystem_apply.jl")
 include("operators.jl")
 
 
-const qutipfn = (qobj...,
+const qutipfn = (tensor_class..., 
+                qobj...,
                 partial_transpose_class...,
                 expect_class...,
                 metrics...,
