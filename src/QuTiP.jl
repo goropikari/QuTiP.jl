@@ -63,6 +63,7 @@ const qutip = PyNULL()
 
 # export ducumented qutip API
 include("qobj.jl")
+include("partial_transpose.jl")
 
 
 include("three_level_atom.jl")
@@ -76,6 +77,7 @@ include("operators.jl")
 
 
 const qutipfn = (qobj...,
+                partial_transpose_class..., 
                 three_level_atom...,
                 states..., 
 		        random_objects...,
