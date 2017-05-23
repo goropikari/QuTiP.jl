@@ -18,7 +18,7 @@ Pkg.clone("https://github.com/goropikari/QuTiP.jl")
 ```
 
 # Translate Python code into Julia code
-Almost all syntax is same as original QuTiP, but some features are different.  
+Almost all syntax is same as original QuTiP, but some features are different. 
 As [PyCall](https://github.com/JuliaPy/PyCall.jl)'s troubleshooting says, use `foo[:bar]` and `foo[:bar](...)` rather than `foo.bar` and `foo.bar(...)`, respectively.
 
 ```python
