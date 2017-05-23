@@ -3,7 +3,6 @@ __precompile__()
 module QuTiP 
 using PyCall
 import PyCall: PyNULL, pyimport_conda, pycall
-# using Base
 import Base: +, -, *, /
 import Base: num, squeeze
 export qutip
