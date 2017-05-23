@@ -46,7 +46,7 @@ hinton(qidentity([2, 3])[:unit]()) # instead of identity use qidentity
 ```
 
 # convert Qobj to Julia array
-To convert Oobj to julia array, use full.
+To convert Oobj to julia array, use `full`.
 ```julia
 julia> x = basis(2,0)
 PyObject Quantum object: dims = [[2], [1]], shape = (2, 1), type = ket
