@@ -217,7 +217,7 @@ end
 
 
 function __init__()
-    copy!(qutip, pyimport_conda("qutip", "qutip"))
+    copy!(qutip, pyimport_conda("qutip", "qutip", "conda-forge"))
     copy!(ipynbtools, pyimport("qutip.ipynbtools"))
     copy!(visualization, pyimport("qutip.visualization"))
     global const version = try
