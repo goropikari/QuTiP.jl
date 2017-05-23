@@ -19,6 +19,8 @@ The [QuTiP](http://qutip.org/) package is a Python library for quantum informati
 ```
 
 # Translate Python code to Julia code
+Almost all syntax is same as original QuTiP, but some features are different.  
+As [PyCall](https://github.com/JuliaPy/PyCall.jl)'s troubleshooting says, use `foo[:bar]` and `foo[:bar](...)` rather than `foo.bar` and `foo.bar(...)`, respectively.
 ```python
     # python
     # quoted from [QuTiP tutorial](http://nbviewer.jupyter.org/github/qutip/qutip-notebooks/blob/master/examples/superop-contract.ipynb)
@@ -41,6 +43,26 @@ The [QuTiP](http://qutip.org/) package is a Python library for quantum informati
     q[:dag]() # or dag(q)
 
     hinton(qidentity([2, 3])[:unit]()) # instead of identity use qidentity
+```
+
+# convert Qobj to Julia array
+To convert Oobj to julia array, use full.
+```julia
+julia> x = basis(2,0)
+PyObject Quantum object: dims = [[2], [1]], shape = (2, 1), type = ket
+Qobj data =
+[[ 1.]
+ [ 0.]]
+
+julia> x[:full]()
+2×1 Array{Complex{Float64},2}:
+ 1.0+0.0im
+ 0.0+0.0im
+
+julia> sigmax()[:full]()
+2×2 Array{Complex{Float64},2}:
+ 0.0+0.0im  1.0+0.0im
+ 1.0+0.0im  0.0+0.0im
 ```
 
 # Renamed functions
