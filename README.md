@@ -10,39 +10,39 @@
 
 This package is a wrapper of [QuTiP](http://qutip.org/) using [PyCall](https://github.com/stevengj/PyCall.jl).
 
-The [QuTiP](http://qutip.org/) package is a Python library for quantum information.
 
 # Install
 
 ```julia
- Pkg.clone("https://github.com/goropikari/QuTiP.jl")
+Pkg.clone("https://github.com/goropikari/QuTiP.jl")
 ```
 
-# Translate Python code to Julia code
+# Translate Python code into Julia code
 Almost all syntax is same as original QuTiP, but some features are different.  
 As [PyCall](https://github.com/JuliaPy/PyCall.jl)'s troubleshooting says, use `foo[:bar]` and `foo[:bar](...)` rather than `foo.bar` and `foo.bar(...)`, respectively.
+
 ```python
-    # python
-    # quoted from [QuTiP tutorial](http://nbviewer.jupyter.org/github/qutip/qutip-notebooks/blob/master/examples/superop-contract.ipynb)
-    import numpy as np
-    import qutip as qt
-    %matplotlib inline
-    qt.settings.colorblind_safe = True
+# python
+# quoted from [QuTiP tutorial](http://nbviewer.jupyter.org/github/qutip/qutip-notebooks/blob/master/examples/superop-contract.ipynb)
+import numpy as np
+import qutip as qt
+%matplotlib inline
+qt.settings.colorblind_safe = True
 
-    q = basis(2,0)
-    q.dag()
+q = basis(2,0)
+q.dag()
 
-    qt.visualization.hinton(qt.identity([2, 3]).unit());
+qt.visualization.hinton(qt.identity([2, 3]).unit());
 ```
 
 ```julia
-    # julia
-    using QuTiP, PyPlot
+# julia
+using QuTiP, PyPlot
 
-    q = basis(2,0)
-    q[:dag]() # or dag(q)
+q = basis(2,0)
+q[:dag]() # or dag(q)
 
-    hinton(qidentity([2, 3])[:unit]()) # instead of identity use qidentity
+hinton(qidentity([2, 3])[:unit]()) # instead of identity use qidentity
 ```
 
 # convert Qobj to Julia array
@@ -66,6 +66,7 @@ julia> sigmax()[:full]()
 ```
 
 # Renamed functions
+In order to avoid name conflict, some functions are rennamed.  
 original name --> renamed
 - position --> qposition
 - identity --> qidentity
