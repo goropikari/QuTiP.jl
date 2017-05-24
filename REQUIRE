@@ -1,4 +1,4 @@
 julia 0.5
-PyCall
-PyPlot
-Compat
+PyCall 1.12.0
+PyPlot 2.3.2
+Compat 0.25.2
