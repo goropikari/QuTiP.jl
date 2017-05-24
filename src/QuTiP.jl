@@ -2,12 +2,32 @@ __precompile__()
 
 module QuTiP 
 using PyCall
-import PyCall: PyNULL, pyimport_conda, pycall
-import Base: +, -, *, /
+import PyCall: PyNULL, pyimport_conda, pycall, PyObject
+import Base: +, -, *, /, ==, hash, getindex, setindex!, haskey, keys, show
 import Base: num, squeeze
 export qutip
 
 import Base.show
+
+type Quantum
+    o::PyObject
+end
+
+PyObject(f::Quantum) = f.o
+convert(::Type{Quantum}, o::PyObject) = Quantum(o)
+==(f::Quantum, g::Quantum) = f.o == g.o
+==(f::Quantum, g::PyObject) = f.o == g
+==(f::PyObject, g::Quantum) = f == g.o
+hash(f::Quantum) = hash(f.o)
+pycall(f::Quantum, args...; kws...) = pycall(f.o, args...; kws...)
+(f::Quantum)(args...; kws...) = pycall(f.o, PyAny, args...; kws...)
+Base.Docs.doc(f::Quantum) = Base.Docs.doc(f.o)
+
+getindex(f::Quantum, x) = getindex(f.o, x)
+setindex!(f::Quantum, v, x) = setindex!(f.o, v, x)
+haskey(f::Quantum, x) = haskey(f.o, x)
+keys(f::Quantum) = keys(f.o)
+
 
 ###########################################################################
 # quoted from PyPlot.jl
@@ -183,7 +203,7 @@ for f in qutipfn
         if !haskey(qutip, $sf)
             error("qutip ", version, " does not have qutip.", $sf)
         end
-        return pycall(qutip[$sf], PyAny, args...; kws...)
+        return convert(Quantum, pycall(qutip[$sf], PyAny, args...; kws...))
     end
 end
 
@@ -209,10 +229,14 @@ end
 
 
 # arithmetic
-+(a::Number, b::PyCall.PyObject) = b + a
--(a::Number, b::PyCall.PyObject) = b - a
-*(a::Number, b::PyCall.PyObject) = b * a
-/(a::Number, b::PyCall.PyObject) = b / a
++(a::Number, b::Quantum) = PyObject(b) + a
+-(a::Number, b::Quantum) = - PyObject(b) + a
+*(a::Number, b::Quantum) = PyObject(b) * a
+# /(a::Number, b::Quantum) = b / a
++(a::Quantum, b::Number) = PyObject(a) + b
+-(a::Quantum, b::Number) = PyObject(a) - b
+*(a::Quantum, b::Number) = PyObject(a) * b
+
 
 
 function __init__()
