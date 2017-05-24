@@ -7,8 +7,7 @@ import Base: +, -, *, /
 import Base: num, squeeze
 export qutip
 
-using Compat
-@compat import Base.show
+import Base.show
 
 ###########################################################################
 # quoted from PyPlot.jl
@@ -18,13 +17,13 @@ using Compat
 # to load up all of the documentation strings right away.
 immutable LazyHelp
     o::PyObject
-    keys::Tuple{Vararg{Compat.String}}
+    keys::Tuple{Vararg{String}}
     LazyHelp(o::PyObject) = new(o, ())
     LazyHelp(o::PyObject, k::AbstractString) = new(o, (k,))
     LazyHelp(o::PyObject, k1::AbstractString, k2::AbstractString) = new(o, (k1,k2))
     LazyHelp(o::PyObject, k::Tuple{Vararg{AbstractString}}) = new(o, k)
 end
-@compat function show(io::IO, ::MIME"text/plain", h::LazyHelp)
+function show(io::IO, ::MIME"text/plain", h::LazyHelp)
     o = h.o
     for k in h.keys
         o = o[k]
@@ -35,11 +34,11 @@ end
         print(io, "no Python docstring found for ", h.k)
     end
 end
-Base.show(io::IO, h::LazyHelp) = @compat show(io, "text/plain", h)
+Base.show(io::IO, h::LazyHelp) = show(io, "text/plain", h)
 function Base.Docs.catdoc(hs::LazyHelp...)
     Base.Docs.Text() do io
         for h in hs
-            @compat show(io, MIME"text/plain"(), h)
+            show(io, MIME"text/plain"(), h)
         end
     end
 end
