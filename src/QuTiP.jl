@@ -4,7 +4,6 @@ module QuTiP
 using PyCall
 import PyCall: PyNULL, pyimport_conda, pycall, PyObject
 import Base: +, -, *, /, ==, hash, getindex, setindex!, haskey, keys, show, convert
-import Base: num, squeeze
 export qutip
 
 import Base.show
@@ -162,7 +161,7 @@ const qutipfn = (utilities_class...,
                 countstat_class..., 
                 three_level_atom_class...,
                 states_class..., 
-		        random_objects_class...,
+                random_objects_class...,
                 continuous_variables_class...,
                 superoperator_class..., 
                 superop_reps_class..., 
@@ -226,6 +225,20 @@ for f in visualization_class
     end
 end
 
+
+# To avoid name conflict with Base module functions, add prefix 'q'.
+export qidentity, qnum, qposition, qsqueeze # operators class
+const renamedfn = (:identity, :num, :position, :squeeze)
+for f in renamedfn
+    sf = string(f)
+    nf = Symbol("q", f)
+    @eval @doc LazyHelp(qutip,$sf) function $nf(args...; kws...)
+        if !haskey(qutip, $sf)
+            error("qutip ", version, " does not have qutip.", $sf)
+        end
+        return pycall(qutip[$sf], Quantum, args...; kws...)
+    end
+end
 
 # arithmetic
 +(a::Number, b::Quantum) = convert(Quantum, PyObject(b) + a)
