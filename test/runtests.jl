@@ -7,8 +7,20 @@ using Base.Test
 x = sigmax() * basis(2,0)
 @test vec(x[:full]()) == Complex{Float64}[0,1]
 
+x = sigmay() * basis(2,0)   
+@test vec(x[:full]()) == Complex{Float64}[0,im]
+
+x = sigmaz() * basis(2,0)   
+@test vec(x[:full]()) == Complex{Float64}[1,0]
+
+@test sigmay() == im * sigmax() * sigmaz()
+
 q = Qobj([1,0])
 @test (q[:isherm], q[:type]) == (false, "ket")
+
+@test cnot()[:full]() == Complex{Float64}[1 0 0 0; 0 1 0 0; 0 0 0 1; 0 0 1 0]
+
+@test hadamard_transform() == Qobj(1/sqrt(2) * [1 1; 1 -1])
 
 X = sigmax()
 Y = 1 + dag(X) + dag(X) + X + 1
