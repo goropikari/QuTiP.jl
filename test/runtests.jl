@@ -34,3 +34,6 @@ es3_expect = expect(rho, es3)
 q = tensor(qidentity(2), basis(2))
 s_prep = sprepost(q, dag(q))
 @test (tensor_contract(to_super(cnot()), (1, 3)) * s_prep)[:full]() == Complex{Float64}[1 0 0 0; 0 0 0 0; 0 0 0 0; 0 0 0 1]
+
+
+@test qnum(3, offset=10)[:full]() == Complex{Float64}[10 0 0; 0 11 0; 0 0 12];
