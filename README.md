@@ -70,3 +70,5 @@ In order to avoid name conflict, some functions are rennamed.
 original name --> renamed
 - position --> qposition
 - identity --> qidentity
+- num      --> qnum
+- squeeze  --> qsqueeze
