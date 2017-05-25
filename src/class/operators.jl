@@ -3,58 +3,14 @@ const operators_class = (:jmat, :spin_Jx, :spin_Jy, :spin_Jz, :spin_Jm, :spin_Jp
 
 # To avoid conflict with Base module
 export qidentity, qnum, qposition, qsqueeze
-sf = string(:identity)
-@eval @doc LazyHelp(qutip,$sf) function qidentity(args)
-	if !haskey(qutip, $sf)
-		error("qutip ", version, " does not have qutip", $sf)
-	end
-    if  typeof(args) <: Integer
-        return pycall(qutip[$sf], PyAny, args)
-    elseif typeof(args) <: Array
-        # return pycall(qutip[$sf], PyAny, [[i] for i in args])
-        return pycall(qutip[$sf], PyAny, map(x -> [x], args))
+const renamedfn = (:identity, :num, :position, :squeeze)
+for f in renamedfn
+    sf = string(f)
+    nf = Symbol("q", f)
+    @eval @doc LazyHelp(qutip,$sf) function $nf(args...; kws...)
+        if !haskey(qutip, $sf)
+            error("qutip ", version, " does not have qutip.", $sf)
+        end
+        return pycall(qutip[$sf], Quantum, args...; kws...)
     end
 end
-
-# num   
-sf = string(:num)
-@eval @doc LazyHelp(qutip,$sf) function qnum(args::Integer)
-	if !haskey(qutip, $sf)
-		error("qutip ", version, " does not have qutip", $sf)
-	end
-    if  typeof(args) <: Integer
-        return pycall(qutip[$sf], PyAny, args)
-    elseif typeof(args) <: Array
-        # return pycall(qutip[$sf], PyAny, [[i] for i in args])
-        return pycall(qutip[$sf], PyAny, map(x -> [x], args))
-    end
-end
-
-# position
-sf = string(:position)
-@eval @doc LazyHelp(qutip,$sf) function qposition(args)
-	if !haskey(qutip, $sf)
-		error("qutip ", version, " does not have qutip", $sf)
-	end
-    if  typeof(args) <: Integer
-        return pycall(qutip[$sf], PyAny, args)
-    elseif typeof(args) <: Array
-        # return pycall(qutip[$sf], PyAny, [[i] for i in args])
-        return pycall(qutip[$sf], PyAny, map(x -> [x], args))
-    end
-end
-
-# squeeze
-sf = string(:squeeze)
-@eval @doc LazyHelp(qutip,$sf) function qsqueeze(args)
-	if !haskey(qutip, $sf)
-		error("qutip ", version, " does not have qutip", $sf)
-	end
-    if  typeof(args) <: Integer
-        return pycall(qutip[$sf], PyAny, args)
-    elseif typeof(args) <: Array
-        # return pycall(qutip[$sf], PyAny, [[i] for i in args])
-        return pycall(qutip[$sf], PyAny, map(x -> [x], args))
-    end
-end
-
