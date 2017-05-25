@@ -264,6 +264,7 @@ end
 
 
 function __init__()
+    pyimport_conda("matplotlib", "matplotlib")
     copy!(qutip, pyimport_conda("qutip", "qutip", "conda-forge"))
     copy!(ipynbtools, pyimport("qutip.ipynbtools"))
     copy!(visualization, pyimport("qutip.visualization"))
