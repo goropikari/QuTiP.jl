@@ -3,7 +3,7 @@ __precompile__()
 module QuTiP 
 using PyCall
 import PyCall: PyNULL, pyimport_conda, pycall, PyObject
-import Base: +, -, *, /, ==, hash, getindex, setindex!, haskey, keys, show
+import Base: +, -, *, /, ==, hash, getindex, setindex!, haskey, keys, show, convert
 import Base: num, squeeze
 export qutip
 
@@ -20,8 +20,7 @@ convert(::Type{Quantum}, o::PyObject) = Quantum(o)
 ==(f::PyObject, g::Quantum) = f == g.o
 hash(f::Quantum) = hash(f.o)
 pycall(f::Quantum, args...; kws...) = pycall(f.o, args...; kws...)
-(f::Quantum)(args...; kws...) = pycall(f.o, PyAny, args...; kws...)
-Base.Docs.doc(f::Quantum) = Base.Docs.doc(f.o)
+(f::Quantum)(args...; kws...) = pycall(f.o, Quantum, args...; kws...)
 
 getindex(f::Quantum, x) = getindex(f.o, x)
 setindex!(f::Quantum, v, x) = setindex!(f.o, v, x)
@@ -203,7 +202,7 @@ for f in qutipfn
         if !haskey(qutip, $sf)
             error("qutip ", version, " does not have qutip.", $sf)
         end
-        return convert(Quantum, pycall(qutip[$sf], PyAny, args...; kws...))
+        return pycall(qutip[$sf], Quantum, args...; kws...)
     end
 end
 
@@ -229,14 +228,26 @@ end
 
 
 # arithmetic
-+(a::Number, b::Quantum) = PyObject(b) + a
--(a::Number, b::Quantum) = - PyObject(b) + a
-*(a::Number, b::Quantum) = PyObject(b) * a
-# /(a::Number, b::Quantum) = b / a
-+(a::Quantum, b::Number) = PyObject(a) + b
--(a::Quantum, b::Number) = PyObject(a) - b
-*(a::Quantum, b::Number) = PyObject(a) * b
++(a::Number, b::Quantum) = convert(Quantum, PyObject(b) + a)
+-(a::Number, b::Quantum) = convert(Quantum, - PyObject(b) + a)
+*(a::Number, b::Quantum) = convert(Quantum, PyObject(b) * a)
 
++(a::Quantum, b::Number) = convert(Quantum, PyObject(a) + b)
+-(a::Quantum, b::Number) = convert(Quantum, PyObject(a) - b)
+*(a::Quantum, b::Number) = convert(Quantum, PyObject(a) * b)
+/(a::Quantum, b::Number) = convert(Quantum, PyObject(a) / b)
+
++(a::PyObject, b::Quantum) = convert(Quantum, PyObject(a) + PyObject(b))
+-(a::PyObject, b::Quantum) = convert(Quantum, PyObject(a) - PyObject(b))
+*(a::PyObject, b::Quantum) = convert(Quantum, PyObject(a) * PyObject(b))
+
++(a::Quantum, b::PyObject) = convert(Quantum, PyObject(a) + PyObject(b))
+-(a::Quantum, b::PyObject) = convert(Quantum, PyObject(a) - PyObject(b))
+*(a::Quantum, b::PyObject) = convert(Quantum, PyObject(a) * PyObject(b))
+
++(a::Quantum, b::Quantum) = convert(Quantum, PyObject(a) + PyObject(b))
+-(a::Quantum, b::Quantum) = convert(Quantum, PyObject(a) - PyObject(b))
+*(a::Quantum, b::Quantum) = convert(Quantum, PyObject(a) * PyObject(b))
 
 
 function __init__()
