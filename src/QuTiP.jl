@@ -12,20 +12,6 @@ type Quantum
     o::PyObject
 end
 
-PyObject(f::Quantum) = f.o
-convert(::Type{Quantum}, o::PyObject) = Quantum(o)
-==(f::Quantum, g::Quantum) = f.o == g.o
-==(f::Quantum, g::PyObject) = f.o == g
-==(f::PyObject, g::Quantum) = f == g.o
-hash(f::Quantum) = hash(f.o)
-pycall(f::Quantum, args...; kws...) = pycall(f.o, args...; kws...)
-(f::Quantum)(args...; kws...) = pycall(f.o, Quantum, args...; kws...)
-
-getindex(f::Quantum, x) = getindex(f.o, x)
-setindex!(f::Quantum, v, x) = setindex!(f.o, v, x)
-haskey(f::Quantum, x) = haskey(f.o, x)
-keys(f::Quantum) = keys(f.o)
-
 
 ###########################################################################
 # quoted from PyPlot.jl
@@ -63,10 +49,39 @@ end
 
 ###########################################################################
 
-
 const qutip = PyNULL()
 const ipynbtools = PyNULL()
 const visualization = PyNULL()
+
+function __init__()
+    pyimport_conda("IPython", "IPython")
+    pyimport_conda("matplotlib", "matplotlib")
+    copy!(qutip, pyimport_conda("qutip", "qutip", "conda-forge"))
+    copy!(ipynbtools, pyimport("qutip.ipynbtools"))
+    copy!(visualization, pyimport("qutip.visualization"))
+    global const version = try
+        convert(VersionNumber, qutip[:__version__])
+    catch
+        v"0.0" # fallback
+    end
+end
+
+
+PyObject(f::Quantum) = f.o
+convert(::Type{Quantum}, o::PyObject) = Quantum(o)
+==(f::Quantum, g::Quantum) = f.o == g.o
+==(f::Quantum, g::PyObject) = f.o == g
+==(f::PyObject, g::Quantum) = f == g.o
+hash(f::Quantum) = hash(f.o)
+pycall(f::Quantum, args...; kws...) = pycall(f.o, args...; kws...)
+(f::Quantum)(args...; kws...) = pycall(f.o, Quantum, args...; kws...)
+
+getindex(f::Quantum, x) = getindex(f.o, x)
+setindex!(f::Quantum, v, x) = setindex!(f.o, v, x)
+haskey(f::Quantum, x) = haskey(f.o, x)
+keys(f::Quantum) = keys(f.o)
+
+
 
 # ref
 # https://github.com/JuliaPy/PyPlot.jl/blob/master/src/PyPlot.jl#L166
@@ -262,19 +277,6 @@ end
 -(a::Quantum, b::Quantum) = convert(Quantum, PyObject(a) - PyObject(b))
 *(a::Quantum, b::Quantum) = convert(Quantum, PyObject(a) * PyObject(b))
 
-
-function __init__()
-    pyimport_conda("IPython", "IPython")
-    pyimport_conda("matplotlib", "matplotlib")
-    copy!(qutip, pyimport_conda("qutip", "qutip", "conda-forge"))
-    copy!(ipynbtools, pyimport("qutip.ipynbtools"))
-    copy!(visualization, pyimport("qutip.visualization"))
-    global const version = try
-        convert(VersionNumber, qutip[:__version__])
-    catch
-        v"0.0" # fallback
-    end
-end
 
 
 
