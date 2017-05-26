@@ -13,7 +13,7 @@ This package is a wrapper of [QuTiP](http://qutip.org/) using [PyCall](https://g
 # Install
 
 ```julia
-Pkg.clone("https://github.com/goropikari/QuTiP.jl")
+Pkg.add("QuTiP")
 ```
 
 # Translate Python code into Julia code
@@ -41,17 +41,17 @@ using QuTiP, PyPlot
 q = basis(2,0)
 q[:dag]() # or dag(q)
 
-hinton(qidentity([2, 3])[:unit]()) # instead of identity use qidentity
+hinton(qidentity([[2], [3]])[:unit]()) # instead of identity use qidentity
 ```
 
 # convert Qobj to Julia array
 To convert Oobj to julia array, use `full`.
 ```julia
 julia> x = basis(2,0)
-PyObject Quantum object: dims = [[2], [1]], shape = (2, 1), type = ket
+QuTiP.Quantum(PyObject Quantum object: dims = [[2], [1]], shape = (2, 1), type = ket
 Qobj data =
 [[ 1.]
- [ 0.]]
+ [ 0.]])
 
 julia> x[:full]()
 2×1 Array{Complex{Float64},2}:
