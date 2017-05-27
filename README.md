@@ -44,6 +44,12 @@ q[:dag]() # or dag(q)
 hinton(qidentity([[2], [3]])[:unit]()) # instead of identity use qidentity
 ```
 
+To test this package and compare python and julia, I translate some Jupyter notebooks about qutip into Julia. 
+All original python codes are left as comment.
+- [Lecture 0 - Introduction to QuTiP - The Quantum Toolbox in Python](https://github.com/goropikari/qutip-lectures/blob/master/Lecture-0-Introduction-to-QuTiP.ipynb) from [jrjohansson/qutip-lectures](https://github.com/jrjohansson/qutip-lectures)
+- [QuTiP example: Single-Qubit Dynamics](https://github.com/goropikari/qutip-notebooks/blob/master/examples/qubit-dynamics.ipynb) from [qutip/qutip-notebooks](https://github.com/qutip/qutip-notebooks)
+
+
 # convert Qobj to Julia array
 To convert Oobj to julia array, use `full`.
 ```julia
