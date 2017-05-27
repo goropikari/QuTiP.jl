@@ -76,7 +76,8 @@ hash(f::Quantum) = hash(f.o)
 pycall(f::Quantum, args...; kws...) = pycall(f.o, args...; kws...)
 (f::Quantum)(args...; kws...) = pycall(f.o, Quantum, args...; kws...)
 
-getindex(f::Quantum, x) = getindex(f.o, x)
+getindex(f::Quantum, x) = getindex(f.o, x) # 
+# getindex(f::Quantum, x) = convert(Quantum, getindex(f.o, x)) # error when basis(2,0)[:isherm]
 setindex!(f::Quantum, v, x) = setindex!(f.o, v, x)
 haskey(f::Quantum, x) = haskey(f.o, x)
 keys(f::Quantum) = keys(f.o)
@@ -255,7 +256,26 @@ for f in renamedfn
     end
 end
 
+###################################################
 # arithmetic
+#
+# Why I define arithmetic?
+# julia> @pyimport qutip as qt
+# julia> qt.sigmax() + 1
+# PyObject Quantum object: dims = [[2], [2]], shape = (2, 2), type = oper, isherm = True
+# Qobj data =
+# [[ 1.  1.]
+#  [ 1.  1.]]
+#
+# julia> 1 + qt.sigmax()
+# ERROR: MethodError: no method matching +(::Int64, ::PyCall.PyObject)
+# Closest candidates are:
+#   +(::Any, ::Any, ::Any, ::Any...) at operators.jl:424
+#   +(::PyCall.PyObject, ::Any) at /home/tk/.julia/v0.6/PyCall/src/PyCall.jl:702
+#   +(::T<:Union{Int128, Int16, Int32, Int64, Int8, UInt128, UInt16, UInt32, UInt64, UInt8}, ::T<:Union{Int128, Int16, Int32, Int64, Int8, UInt128, UInt16, UInt32, UInt64, UInt8}) where T<:Union{Int128, Int16, Int32, Int64, Int8, UInt128, UInt16, UInt32, UInt64, UInt8} at int.jl:32
+#   ...
+###################################################
+
 +(a::Number, b::Quantum) = convert(Quantum, PyObject(b) + a)
 -(a::Number, b::Quantum) = convert(Quantum, - PyObject(b) + a)
 *(a::Number, b::Quantum) = convert(Quantum, PyObject(b) * a)
@@ -276,8 +296,6 @@ end
 +(a::Quantum, b::Quantum) = convert(Quantum, PyObject(a) + PyObject(b))
 -(a::Quantum, b::Quantum) = convert(Quantum, PyObject(a) - PyObject(b))
 *(a::Quantum, b::Quantum) = convert(Quantum, PyObject(a) * PyObject(b))
-
-
 
 
 end # module
