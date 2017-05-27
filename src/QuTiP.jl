@@ -76,8 +76,13 @@ hash(f::Quantum) = hash(f.o)
 pycall(f::Quantum, args...; kws...) = pycall(f.o, args...; kws...)
 (f::Quantum)(args...; kws...) = pycall(f.o, Quantum, args...; kws...)
 
-getindex(f::Quantum, x) = getindex(f.o, x) # 
+# getindex(f::Quantum, x) = getindex(f.o, x)
 # getindex(f::Quantum, x) = convert(Quantum, getindex(f.o, x)) # error when basis(2,0)[:isherm]
+getindex(f::Quantum, x) = try
+        convert(Quantum, getindex(f.o, x)) 
+    catch
+        getindex(f.o, x)
+    end
 setindex!(f::Quantum, v, x) = setindex!(f.o, v, x)
 haskey(f::Quantum, x) = haskey(f.o, x)
 keys(f::Quantum) = keys(f.o)
@@ -156,6 +161,8 @@ include("class/visualization.jl")
 include("class/wigner.jl")
 
 include("class/gate.jl")
+
+include("attributes_methods.jl")
 
 
 const qutipfn = (utilities_class...,
@@ -242,6 +249,21 @@ for f in visualization_class
 end
 
 
+for m in methods
+    sm = string(m)
+    @eval function $m(x::Quantum, args...; kws...)
+        if !haskey(x, $sm)
+            error("KeyError: key $sm not found")
+        end
+        try
+            return convert(Quantum, x[$sm](args...; kws...))
+        end
+        return x[$sm](args...; kws...)
+    end
+end
+
+
+
 # To avoid name conflict with Base module functions, add prefix 'q'.
 export qidentity, qnum, qposition, qsqueeze # operators class
 const renamedfn = (:identity, :num, :position, :squeeze)
@@ -253,6 +275,23 @@ for f in renamedfn
             error("qutip ", version, " does not have qutip.", $sf)
         end
         return pycall(qutip[$sf], Quantum, args...; kws...)
+    end
+end
+
+
+export qconj, qexpm, qfull, qnorm, qpermute, qsqrtm # methdos
+const renamedmethods = (:conj, :expm, :full, :norm, :permute, :sqrtm)
+for m in renamedmethods
+    sm = string(m)
+    nm = Symbol("q", m)
+    @eval function $nm(x, args...; kws...)
+        if !haskey(x, $nm)
+            error("KeyError: key $nm not found")
+        end
+        try
+            return convert(Quantum, x[$nm](args...; kws...))
+        end
+        return x[$nm](args...; kws...)
     end
 end
 
