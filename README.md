@@ -45,10 +45,16 @@ hinton(qidentity([[2], [3]])[:unit]()) # instead of identity use qidentity
 ```
 
 To test this package and compare python and julia, I translate some Jupyter notebooks about qutip into Julia. 
-All original python codes are left as comment.
-- [Lecture 0 - Introduction to QuTiP - The Quantum Toolbox in Python](https://github.com/goropikari/qutip-lectures/blob/master/Lecture-0-Introduction-to-QuTiP.ipynb) from [jrjohansson/qutip-lectures](https://github.com/jrjohansson/qutip-lectures)
-- [QuTiP example: Single-Qubit Dynamics](https://github.com/goropikari/qutip-notebooks/blob/master/examples/qubit-dynamics.ipynb) from [qutip/qutip-notebooks](https://github.com/qutip/qutip-notebooks)
+All original python codes are left as comment.  
 
+From [jrjohansson/qutip-lectures](https://github.com/jrjohansson/qutip-lectures)
+- [Lecture 0 - Introduction to QuTiP - The Quantum Toolbox in Python](https://github.com/goropikari/qutip-lectures/blob/master/Lecture-0-Introduction-to-QuTiP.ipynb)
+
+From [qutip/qutip-notebooks](https://github.com/qutip/qutip-notebooks)
+- [QuTiP example: Single-Qubit Dynamics](https://github.com/goropikari/qutip-notebooks/blob/master/examples/qubit-dynamics.ipynb)
+- [QuTiP example: Energy-levels of a quantum systems as a function of a single parameter](https://github.com/goropikari/qutip-notebooks/blob/master/examples/energy-levels.ipynb)
+- [QuTiP example: eseries](https://github.com/goropikari/qutip-notebooks/blob/master/examples/eseries.ipynb)
+- [QuTiP example: Dynamics of a Spin Chain](https://github.com/goropikari/qutip-notebooks/blob/master/examples/spin-chain.ipynb)
 
 # convert Qobj to Julia array
 To convert Oobj to julia array, use `full`.
