@@ -280,20 +280,28 @@ end
 
 
 export qconj, qexpm, qfull, qnorm, qpermute, qsqrtm # methdos
-const renamedmethods = (:conj, :expm, :full, :norm, :permute, :sqrtm)
+const renamedmethods = (:conj, :expm, :norm, :permute, :sqrtm)
 for m in renamedmethods
     sm = string(m)
     nm = Symbol("q", m)
     @eval function $nm(x, args...; kws...)
-        if !haskey(x, $nm)
-            error("KeyError: key $nm not found")
+        if !haskey(x, $sm)
+            error("KeyError: key $sm not found")
         end
         try
-            return convert(Quantum, x[$nm](args...; kws...))
+            return convert(PyAny, x[$sm](args...; kws...))
         end
-        return x[$nm](args...; kws...)
+        return x[$sm](args...; kws...)
     end
 end
+
+function qfull(x::Quantum, args...; kws...)
+    if !haskey(x, "full")
+        error("KeyError; key 'full' now found")
+    end
+    return getindex(x.o, "full")()
+end
+
 
 ###################################################
 # arithmetic
