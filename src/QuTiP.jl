@@ -78,7 +78,7 @@ pycall(f::Quantum, args...; kws...) = pycall(f.o, args...; kws...)
 
 # getindex(f::Quantum, x) = getindex(f.o, x)
 # getindex(f::Quantum, x) = convert(Quantum, getindex(f.o, x)) # error when basis(2,0)[:isherm]
-getindex(f::Quantum, x) = try
+getindex(f::Quantum, x) = try # inefficient
         convert(Quantum, getindex(f.o, x)) 
     catch
         getindex(f.o, x)
