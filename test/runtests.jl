@@ -1,26 +1,24 @@
-using QuTiP
+using QuTiP, PyCall
 using Base.Test
+@pyimport qutip as qt
 
 # write your own tests here
 # @test 1 == 1
 
-x = sigmax() * basis(2,0)
-@test vec(x[:full]()) == Complex{Float64}[0,1]
+@test  sigmax() * basis(2,0) == qt.sigmax() * qt.basis(2,0)
 
-x = sigmay() * basis(2,0)   
-@test vec(x[:full]()) == Complex{Float64}[0,im]
+@test sigmay() * basis(2,0) == qt.sigmay() * qt.basis(2,0)
 
-x = sigmaz() * basis(2,0)   
-@test vec(x[:full]()) == Complex{Float64}[1,0]
+@test sigmaz() * basis(2,0) == qt.sigmaz() * qt.basis(2,0)
 
-@test sigmay() == im * sigmax() * sigmaz()
+@test qt.sigmay() == im * sigmax() * sigmaz()
 
 q = Qobj([1,0])
 @test (q[:isherm], q[:type]) == (false, "ket")
 
-@test cnot()[:full]() == Complex{Float64}[1 0 0 0; 0 1 0 0; 0 0 0 1; 0 0 1 0]
+@test cnot() == qt.cnot()
 
-@test hadamard_transform() == Qobj(1/sqrt(2) * [1 1; 1 -1])
+@test hadamard_transform() == qt.hadamard_transform()
 
 X = sigmax()
 Y = 1 + dag(X) + dag(X) + X + 1
