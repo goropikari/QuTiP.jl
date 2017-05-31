@@ -39,7 +39,7 @@ qt.visualization.hinton(qt.identity([2, 3]).unit());
 using QuTiP, PyPlot
 
 q = basis(2,0)
-q[:dag]() # or dag(q)
+dag(q)
 
 hinton(qidentity([[2], [3]])[:unit]()) # instead of identity use qidentity
 ```
@@ -66,14 +66,14 @@ julia> x = basis(2,0)
 QuTiP.Quantum(PyObject Quantum object: dims = [[2], [1]], shape = (2, 1), type = ket
 Qobj data =
 [[ 1.]
- [ 0.]])
+ [ 0.]]
 
-julia> x[:full]()
+julia> full(x)
 2×1 Array{Complex{Float64},2}:
  1.0+0.0im
  0.0+0.0im
 
-julia> sigmax()[:full]()
+julia> full(sigmax())
 2×2 Array{Complex{Float64},2}:
  0.0+0.0im  1.0+0.0im
  1.0+0.0im  0.0+0.0im
