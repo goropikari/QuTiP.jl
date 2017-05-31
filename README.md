@@ -51,6 +51,8 @@ From [jrjohansson/qutip-lectures](https://github.com/jrjohansson/qutip-lectures)
 - [Lecture 0 - Introduction to QuTiP - The Quantum Toolbox in Python](https://github.com/goropikari/qutip-lectures/blob/master/Lecture-0-Introduction-to-QuTiP.ipynb)
 
 From [qutip/qutip-notebooks](https://github.com/qutip/qutip-notebooks)
+- [QuTiP example: Correlation functions and spectrum of a atom-cavity system](https://github.com/goropikari/qutip-notebooks/blob/master/examples/atom-cavity-correlation-function.ipynb)
+- [QuTiP example: Dynamics of an atom-cavity system using three different solvers](https://github.com/goropikari/qutip-notebooks/blob/master/examples/atom-cavity-dynamics.ipynb)
 - [QuTiP example: Single-Qubit Dynamics](https://github.com/goropikari/qutip-notebooks/blob/master/examples/qubit-dynamics.ipynb)
 - [QuTiP example: Energy-levels of a quantum systems as a function of a single parameter](https://github.com/goropikari/qutip-notebooks/blob/master/examples/energy-levels.ipynb)
 - [QuTiP example: eseries](https://github.com/goropikari/qutip-notebooks/blob/master/examples/eseries.ipynb)
