@@ -4,6 +4,8 @@ module QuTiP
 using PyCall
 import PyCall: PyNULL, pyimport_conda, pycall, PyObject
 import Base: +, -, *, /, ==, hash, getindex, setindex!, haskey, keys, show, convert
+import Base: conj, expm, sqrtm
+
 export qutip
 
 import Base.show
@@ -290,18 +292,38 @@ for m in attributes
     end
 end
 
+for m in methods_qobj
+    sm = string(m)
+    @eval function $m(x::Quantum, args...; kws...)
+        if !haskey(x, $sm)
+            error("KeyError: key $sm not found")
+        end
+        return convert(Quantum, x[$sm](args...; kws...))
+    end
+end
+
 for m in methods
     sm = string(m)
     @eval function $m(x::Quantum, args...; kws...)
         if !haskey(x, $sm)
             error("KeyError: key $sm not found")
         end
-        try
-            return convert(Quantum, x[$sm](args...; kws...))
-        end
         return x[$sm](args...; kws...)
     end
 end
+
+export conj, expm, sqrtm, sinm, cosm
+for m in (:conj, :expm, :sqrtm, :sinm, :cosm)
+    sm = string(m)
+    @eval function $m(x::Quantum, args...; kws...)
+        if !haskey(x, $sm)
+            error("KeyError: key $sm not found")
+        end
+        return convert(Quantum, x[$sm](args...; kws...))
+    end
+end
+
+
 
 #######################################################################
 # To avoid name conflict with Base module functions, add prefix 'q'.
@@ -328,17 +350,14 @@ function qtype(x::Quantum)
     return x[sm]
 end
 
-export qconj, qexpm, qfull, qnorm, qpermute, qsqrtm # methdos
-const renamedmethods = (:conj, :expm, :full, :norm, :permute, :sqrtm, )
+export qfull, qnorm, qpermute # methdos
+const renamedmethods = (:full, :norm, :permute,)
 for m in renamedmethods
     sm = string(m)
     nm = Symbol("q", m)
     @eval function $nm(x, args...; kws...)
         if !haskey(x, $sm)
             error("KeyError: key $sm not found")
-        end
-        try
-            return convert(PyAny, x[$sm](args...; kws...))
         end
         return x[$sm](args...; kws...)
     end
