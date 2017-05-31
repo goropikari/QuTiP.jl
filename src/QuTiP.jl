@@ -191,7 +191,7 @@ const qutipfn = (utilities_class...,
                 subsystem_apply_class..., 
                 operators_class...,
                 bloch_redfield_class...,
-                correlation_class...,
+                # correlation_class...,
                 eseries_class...,
                 essolve_class...,
                 floquet_class...,
@@ -264,7 +264,8 @@ end
 
 # Functions whose type of return value is not Qobj.
 export  expect
-for f in (:expect, )
+for f in (:expect, 
+         correlation_class..., )
     sf = string(f)
     @eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
         if !haskey(qutip, $sf)
