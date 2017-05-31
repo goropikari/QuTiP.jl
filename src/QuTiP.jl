@@ -4,7 +4,7 @@ module QuTiP
 using PyCall
 import PyCall: PyNULL, pyimport_conda, pycall, PyObject
 import Base: +, -, *, /, ==, hash, getindex, setindex!, haskey, keys, show, convert
-import Base: conj, expm, sqrtm, full, norm, permute
+import Base: conj, expm, sqrtm, full, norm, permute, diag
 
 export qutip
 

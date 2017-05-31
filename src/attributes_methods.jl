@@ -4,8 +4,8 @@ const attributes = (:data, :dims, :shape, :type, :superrep, :isherm, :iscp, :ish
 export dnorm, dual_chan, tidyup, trans, transform, trunc_neg, unit
 const methods_qobj =  (:dnorm, :dual_chan, :tidyup, :trans, :transform, :trunc_neg, :unit)
 
-export full, norm, permute, eigenenergies, eigenstates, groundstate, matrix_element, tr
-const methods = (:full, :norm, :permute, :eigenenergies, :eigenstates, :groundstate, :matrix_element, :tr)
+export full, norm, permute, eigenenergies, eigenstates, groundstate, matrix_element, tr, diag
+const methods = (:full, :norm, :permute, :eigenenergies, :eigenstates, :groundstate, :matrix_element, :tr, :diag)
 
 # renamed
 # type 
