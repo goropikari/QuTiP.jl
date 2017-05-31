@@ -265,7 +265,8 @@ end
 # Functions whose type of return value is not Qobj.
 export  expect
 export esspec, esval
-for f in (:expect, :esspec, :esval, 
+export  essolve
+for f in (:expect, :esspec, :esval, :essolve, 
          correlation_class..., )
     sf = string(f)
     @eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
