@@ -103,7 +103,6 @@ keys(f::Quantum) = keys(f.o)
 #     end
 # end
 
-
 # export ducumented qutip API
 include("class/utilities.jl")
 include("class/sparse.jl")
@@ -166,7 +165,9 @@ include("class/gate.jl")
 
 include("attributes_methods.jl")
 
-
+###############################################################
+# Function
+###############################################################
 const qutipfn = (#utilities_class...,
                 sparse_class...,
                 simdiag_class...,
@@ -250,7 +251,6 @@ for f in visualization_class
     end
 end
 
-
 for f in utilities_class
     sf = string(f)
     @eval @doc LazyHelp(utilities,$sf) function $f(args...; kws...)
@@ -258,20 +258,6 @@ for f in utilities_class
             error("qutip.utilities ", version, " does not have qutip.utilities", $sf)
         end
         return pycall(utilities[$sf], PyAny, args...; kws...)
-    end
-end
-
-
-for m in methods
-    sm = string(m)
-    @eval function $m(x::Quantum, args...; kws...)
-        if !haskey(x, $sm)
-            error("KeyError: key $sm not found")
-        end
-        try
-            return convert(Quantum, x[$sm](args...; kws...))
-        end
-        return x[$sm](args...; kws...)
     end
 end
 
@@ -291,7 +277,35 @@ for f in (:expect, :esspec, :esval, :essolve,
 end
 
 
+###############################################################
+# attributes and methods
+###############################################################
+for m in attributes
+    sm = string(m)
+    @eval function $m(x::Quantum)
+        if !haskey(x, $sm)
+            error("KeyError: key $sm not found")
+        end
+        return getindex(x, Symbol($sm))
+    end
+end
+
+for m in methods
+    sm = string(m)
+    @eval function $m(x::Quantum, args...; kws...)
+        if !haskey(x, $sm)
+            error("KeyError: key $sm not found")
+        end
+        try
+            return convert(Quantum, x[$sm](args...; kws...))
+        end
+        return x[$sm](args...; kws...)
+    end
+end
+
+#######################################################################
 # To avoid name conflict with Base module functions, add prefix 'q'.
+#######################################################################
 export qidentity, qnum, qposition, qsqueeze # operators class
 const renamedfn = (:identity, :num, :position, :squeeze)
 for f in renamedfn
@@ -305,9 +319,17 @@ for f in renamedfn
     end
 end
 
+export qtype # attributes
+function qtype(x::Quantum)
+    sm = :type
+    if !haskey(x, sm)
+        error("KeyError: key $sm not found")
+    end
+    return x[sm]
+end
 
 export qconj, qexpm, qfull, qnorm, qpermute, qsqrtm # methdos
-const renamedmethods = (:conj, :expm, :norm, :permute, :sqrtm)
+const renamedmethods = (:conj, :expm, :full, :norm, :permute, :sqrtm, )
 for m in renamedmethods
     sm = string(m)
     nm = Symbol("q", m)
@@ -320,13 +342,6 @@ for m in renamedmethods
         end
         return x[$sm](args...; kws...)
     end
-end
-
-function qfull(x::Quantum, args...; kws...)
-    if !haskey(x, "full")
-        error("KeyError; key 'full' now found")
-    end
-    return getindex(x.o, "full")()
 end
 
 
