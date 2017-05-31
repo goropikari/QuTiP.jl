@@ -5,6 +5,9 @@ using Base.Test
 # write your own tests here
 # @test 1 == 1
 
+include("qobj.jl")
+
+
 @test  sigmax() * basis(2,0) == qt.sigmax() * qt.basis(2,0)
 
 @test sigmay() * basis(2,0) == qt.sigmay() * qt.basis(2,0)
