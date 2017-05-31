@@ -52,6 +52,7 @@ end
 const qutip = PyNULL()
 const ipynbtools = PyNULL()
 const visualization = PyNULL()
+const utilities = PyNULL()
 
 function __init__()
     pyimport_conda("IPython", "IPython")
@@ -59,6 +60,7 @@ function __init__()
     copy!(qutip, pyimport_conda("qutip", "qutip", "conda-forge"))
     copy!(ipynbtools, pyimport("qutip.ipynbtools"))
     copy!(visualization, pyimport("qutip.visualization"))
+    copy!(utilities, pyimport("qutip.utilities"))
     global const version = try
         convert(VersionNumber, qutip[:__version__])
     catch
@@ -165,7 +167,7 @@ include("class/gate.jl")
 include("attributes_methods.jl")
 
 
-const qutipfn = (utilities_class...,
+const qutipfn = (#utilities_class...,
                 sparse_class...,
                 simdiag_class...,
                 permute_class...,
@@ -245,6 +247,17 @@ for f in visualization_class
             error("qutip.visualization ", version, " does not have qutip.visualization", $sf)
         end
         return pycall(visualization[$sf], PyAny, args...; kws...)
+    end
+end
+
+
+for f in utilities_class
+    sf = string(f)
+    @eval @doc LazyHelp(utilities,$sf) function $f(args...; kws...)
+        if !haskey(utilities, $sf)
+            error("qutip.utilities ", version, " does not have qutip.utilities", $sf)
+        end
+        return pycall(utilities[$sf], PyAny, args...; kws...)
     end
 end
 
