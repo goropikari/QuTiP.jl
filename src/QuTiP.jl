@@ -78,13 +78,13 @@ hash(f::Quantum) = hash(f.o)
 pycall(f::Quantum, args...; kws...) = pycall(f.o, args...; kws...)
 (f::Quantum)(args...; kws...) = pycall(f.o, Quantum, args...; kws...)
 
-# getindex(f::Quantum, x) = getindex(f.o, x)
+getindex(f::Quantum, x) = getindex(f.o, x)
 # getindex(f::Quantum, x) = convert(Quantum, getindex(f.o, x)) # error when basis(2,0)[:isherm]
-getindex(f::Quantum, x) = try # inefficient
-        convert(Quantum, getindex(f.o, x)) 
-    catch
-        getindex(f.o, x)
-    end
+# getindex(f::Quantum, x) = try # inefficient
+#         convert(Quantum, getindex(f.o, x)) 
+#     catch
+#         getindex(f.o, x)
+#     end
 setindex!(f::Quantum, v, x) = setindex!(f.o, v, x)
 haskey(f::Quantum, x) = haskey(f.o, x)
 keys(f::Quantum) = keys(f.o)
