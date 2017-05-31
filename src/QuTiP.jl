@@ -262,6 +262,17 @@ for m in methods
     end
 end
 
+# Functions whose type of return value is not Qobj.
+export  expect
+for f in (:expect, )
+    sf = string(f)
+    @eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
+        if !haskey(qutip, $sf)
+            error("qutip ", version, " does not have qutip.", $sf)
+        end
+        return pycall(qutip[$sf], PyAny, args...; kws...)
+    end
+end
 
 
 # To avoid name conflict with Base module functions, add prefix 'q'.
