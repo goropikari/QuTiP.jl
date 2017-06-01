@@ -323,6 +323,21 @@ for m in (:conj, :expm, :sqrtm, :sinm, :cosm)
     end
 end
 
+export eigenstates, groundstate
+function eigenstates(x::Quantum, args...; kws...)
+    if !haskey(x, "eigenstates")
+        error("KeyError: key 'eigenstates' not found")
+    end
+    return convert(Tuple{Vector{Float64},Vector{Quantum}}, x[:eigenstates](args...; kws...))
+end
+
+function groundstate(x::Quantum, args...; kws...)
+    if !haskey(x, "groundstate")
+        error("KeyError: key 'groundstate' not found")
+    end
+    return convert(Tuple{Float64, Quantum}, x[:groundstate](args...; kws...))
+end
+
 
 
 #######################################################################
