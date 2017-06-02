@@ -377,7 +377,6 @@ function qpermute(x::Quantum, args...; kws...)
     end
     return convert(Quantum, x[$sm](args...; kws...))
 end
-end
 
 
 ###################################################
