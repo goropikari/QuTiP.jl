@@ -4,7 +4,7 @@ module QuTiP
 using PyCall
 import PyCall: PyNULL, pyimport_conda, pycall, PyObject
 import Base: +, -, *, /, ==, hash, getindex, setindex!, haskey, keys, show, convert
-import Base: conj, expm, sqrtm, full, norm, permute, diag
+import Base: conj, expm, sqrtm, full, norm, diag
 
 export qutip
 
@@ -367,6 +367,16 @@ function qtype(x::Quantum)
         error("KeyError: key $sm not found")
     end
     return x[sm]
+end
+
+export qpermute #methods
+function qpermute(x::Quantum, args...; kws...)
+    sm = :permute
+    if !haskey(x, $sm)
+        error("KeyError: key $sm not found")
+    end
+    return convert(Quantum, x[$sm](args...; kws...))
+end
 end
 
 
