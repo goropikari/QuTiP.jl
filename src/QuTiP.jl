@@ -233,6 +233,10 @@ for f in qutipfn
     end
 end
 
+export ⊗
+⊗(a::Quantum, b::Quantum) = tensor(a,b)
+
+
 for f in ipynbtools_class
     sf = string(f)
     @eval @doc LazyHelp(ipynbtools,$sf) function $f(args...; kws...)
