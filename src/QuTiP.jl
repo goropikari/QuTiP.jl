@@ -372,10 +372,10 @@ end
 export qpermute #methods
 function qpermute(x::Quantum, args...; kws...)
     sm = :permute
-    if !haskey(x, $sm)
+    if !haskey(x, sm)
         error("KeyError: key $sm not found")
     end
-    return convert(Quantum, x[$sm](args...; kws...))
+    return convert(Quantum, x[sm](args...; kws...))
 end
 
 
