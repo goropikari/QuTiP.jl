@@ -6,6 +6,7 @@ using Base.Test
 # @test 1 == 1
 
 include("qobj.jl")
+include("eseries.jl")
 
 
 @test  sigmax() * basis(2,0) == qt.sigmax() * qt.basis(2,0)
