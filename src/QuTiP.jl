@@ -316,6 +316,15 @@ for m in methods
     end
 end
 
+
+export ampl
+function ampl(x::Quantum)
+    if !haskey(x, "ampl")
+        error("KeyError: key 'ampl' not found")
+    end
+    return convert(Vector{Quantum}, x[:ampl])
+end
+
 export conj, expm, sqrtm, sinm, cosm
 for m in (:conj, :expm, :sqrtm, :sinm, :cosm)
     sm = string(m)
@@ -342,7 +351,16 @@ function groundstate(x::Quantum, args...; kws...)
     return convert(Tuple{Float64, Quantum}, x[:groundstate](args...; kws...))
 end
 
-
+export value, spec
+for m in (:value, :spec)
+    sm = string(m)
+    @eval function $m(x::Quantum, args...; kws...)
+        if !haskey(x, $sm)
+            error("KeyError: key $sm not found")
+        end
+        return convert(Vector{Quantum}, x[$sm](args...; kws...))
+    end
+end
 
 #######################################################################
 # To avoid name conflict with Base module functions, add prefix 'q'.
