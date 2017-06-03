@@ -49,6 +49,7 @@ All original python codes are left as comment.
 
 From [jrjohansson/qutip-lectures](https://github.com/jrjohansson/qutip-lectures)
 - [Lecture 0 - Introduction to QuTiP - The Quantum Toolbox in Python](https://github.com/goropikari/qutip-lectures/blob/master/Lecture-0-Introduction-to-QuTiP.ipynb)
+- [Lecture 1 QuTiP lecture: Vacuum Rabi oscillations in the Jaynes-Cummings model](https://github.com/goropikari/qutip-lectures/blob/master/Lecture-1-Jaynes-Cumming-model.ipynb)
 
 From [qutip/qutip-notebooks](https://github.com/qutip/qutip-notebooks)
 - [QuTiP example: Single-Qubit Dynamics](https://github.com/goropikari/qutip-notebooks/blob/master/examples/qubit-dynamics.ipynb)
