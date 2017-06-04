@@ -262,6 +262,8 @@ end
 -(a::Quantum, b::Quantum) = convert(Quantum, PyObject(a) - PyObject(b))
 *(a::Quantum, b::Quantum) = convert(Quantum, PyObject(a) * PyObject(b))
 
+(+)(a::Quantum) = a
+(-)(a::Quantum) = -1.0 * a
 
 function __init__()
     pyimport_conda("IPython", "IPython")
