@@ -418,7 +418,7 @@ end
 ###################################################
 
 +(a::Number, b::Quantum) = convert(Quantum, PyObject(b) + a)
--(a::Number, b::Quantum) = convert(Quantum, - PyObject(b) + a)
+-(a::Number, b::Quantum) = convert(Quantum, PyObject(b) * (-1) + a)
 *(a::Number, b::Quantum) = convert(Quantum, PyObject(b) * a)
 
 +(a::Quantum, b::Number) = convert(Quantum, PyObject(a) + b)
