@@ -58,9 +58,10 @@ From [qutip/qutip-notebooks](https://github.com/qutip/qutip-notebooks)
 - [QuTiP example: Dynamics of an atom-cavity system using three different solvers](https://github.com/goropikari/qutip-notebooks/blob/master/examples/atom-cavity-dynamics.ipynb)
 - [QuTiP example: Bloch-Redfield Master Equation (bloch-redfield.ipynb)](https://github.com/goropikari/qutip-notebooks/blob/master/examples/bloch-redfield.ipynb)
 - [QuTiP example: Bloch-Redfield Master Equation (brmesolve.ipynb)](https://github.com/goropikari/qutip-notebooks/blob/master/examples/brmesolve.ipynb)
-- [QuTiP example: Single-Qubit Dynamics](https://github.com/goropikari/qutip-notebooks/blob/master/examples/qubit-dynamics.ipynb)
+- [Steadystate of the Bloch-Redfield Master Equation](https://github.com/goropikari/qutip-notebooks/blob/master/examples/brmesolve-steadystate.ipynb)
 - [QuTiP example: Energy-levels of a quantum systems as a function of a single parameter](https://github.com/goropikari/qutip-notebooks/blob/master/examples/energy-levels.ipynb)
 - [QuTiP example: eseries](https://github.com/goropikari/qutip-notebooks/blob/master/examples/eseries.ipynb)
+- [QuTiP example: Single-Qubit Dynamics](https://github.com/goropikari/qutip-notebooks/blob/master/examples/qubit-dynamics.ipynb)
 - [QuTiP example: Dynamics of a Spin Chain](https://github.com/goropikari/qutip-notebooks/blob/master/examples/spin-chain.ipynb)
 
 # convert Qobj to Julia array
