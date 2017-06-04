@@ -52,6 +52,7 @@ From [jrjohansson/qutip-lectures](https://github.com/jrjohansson/qutip-lectures)
 - [Lecture 1 QuTiP lecture: Vacuum Rabi oscillations in the Jaynes-Cummings model](https://github.com/goropikari/qutip-lectures/blob/master/Lecture-1-Jaynes-Cumming-model.ipynb)
 - [Lecture 2B QuTiP lecture: Single-Atom-Lasing](https://github.com/goropikari/qutip-lectures/blob/master/Lecture-2B-Single-Atom-Lasing.ipynb)
 - [Lecture 4 QuTiP lecture: Correlation functions](https://github.com/goropikari/qutip-lectures/blob/master/Lecture-4-Correlation-Functions.ipynb)
+- [Lecture 5 QuTiP lecture: Evolution and quantum statistics of a quantum parameter amplifier](https://github.com/goropikari/qutip-lectures/blob/master/Lecture-5-Parametric-Amplifier.ipynb)
 
 From [qutip/qutip-notebooks](https://github.com/qutip/qutip-notebooks)
 - [QuTiP example: Correlation functions and spectrum of a atom-cavity system](https://github.com/goropikari/qutip-notebooks/blob/master/examples/atom-cavity-correlation-function.ipynb)
