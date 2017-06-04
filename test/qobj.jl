@@ -40,3 +40,10 @@ B = qt.sigmax() + qt.sigmay()
 @test A * A == B * B
 @test +A == A
 @test -A == A * (-1)
+
+@test eigenstates(A) == B[:eigenstates]()
+@test groundstate(A) == B[:groundstate]()
+@test qtype(A) == B[:type]
+@test qpermute(A ⊗ A, [1,0]) == qt.tensor(B,B)[:permute]([1,0])
+
+@test keys(A) == keys(B)
