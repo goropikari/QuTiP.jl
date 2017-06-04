@@ -22,3 +22,21 @@ B = qt.sigmax() + qt.sigmay()
 
 @test conj(A) == B[:conj]()
 
+@test haskey(A, "isherm")
+@test A - 1 == B - 1
+@test 1 - A == B * (-1) + 1
+@test -1 + A == B + (-1)
+@test - A + 1 == B * (-1) + 1
+@test A * 9 == B * 9
+@test A / 9 == B / 9
+@test A.o + A == B * 2
+@test A.o - A == B - B
+@test A.o * A == B * B
+@test A + A.o == B * 2
+@test A - A.o == B - B
+@test A * A.o == B * B
+@test A + A == B + B
+@test A - A == B - B
+@test A * A == B * B
+@test +A == A
+@test -A == A * (-1)

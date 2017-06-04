@@ -9,7 +9,7 @@ include("qobj.jl")
 include("eseries.jl")
 
 
-@test  sigmax() * basis(2,0) == qt.sigmax() * qt.basis(2,0)
+@test sigmax() * basis(2,0) == qt.sigmax() * qt.basis(2,0)
 
 @test sigmay() * basis(2,0) == qt.sigmay() * qt.basis(2,0)
 
