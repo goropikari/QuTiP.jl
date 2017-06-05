@@ -56,6 +56,7 @@ From [jrjohansson/qutip-lectures](https://github.com/jrjohansson/qutip-lectures)
 - [Lecture 6 QuTiP lecture: Quantum Monte-Carlo Trajectories](https://github.com/goropikari/qutip-lectures/blob/master/Lecture-6-Quantum-Monte-Carlo-Trajectories.ipynb)
 - [Lecture 7 Two-qubit iSWAP gate and process tomography](https://github.com/goropikari/qutip-lectures/blob/master/Lecture-7-iSWAP-gate.ipynb)
 - [Lecture 13 Resonance flourescence](https://github.com/goropikari/qutip-lectures/blob/master/Lecture-13-Resonance-flourescence.ipynb)
+- [Lecture 15: Nonclassically driven atoms (cascaded quantum systems)](https://github.com/goropikari/qutip-lectures/blob/master/Lecture-15-Nonclassically-driven-atoms.ipynb)
 
 From [qutip/qutip-notebooks](https://github.com/qutip/qutip-notebooks)
 - [QuTiP example: Correlation functions and spectrum of a atom-cavity system](https://github.com/goropikari/qutip-notebooks/blob/master/examples/atom-cavity-correlation-function.ipynb)
