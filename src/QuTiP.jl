@@ -268,9 +268,9 @@ for f in utilities_class
 end
 
 # Functions whose type of return value is not Qobj.
-export  expect
+export expect
 export esspec, esval
-export  essolve
+export essolve
 for f in (:expect, :esspec, :esval, :essolve, 
          correlation_class..., )
     sf = string(f)
@@ -280,6 +280,16 @@ for f in (:expect, :esspec, :esval, :essolve,
         end
         return pycall(qutip[$sf], PyAny, args...; kws...)
     end
+end
+
+export bloch_redfield_tensor
+f = (:bloch_redfield_tensor)
+sf = string(f)
+@eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
+    if !haskey(qutip, $sf)
+        error("qutip ", version, " does not have qutip.", $sf)
+    end
+    return pycall(qutip[$sf], Tuple{Quantum, Vector{Quantum}}, args...; kws...)
 end
 
 
