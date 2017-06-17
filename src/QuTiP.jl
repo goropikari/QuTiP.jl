@@ -63,6 +63,7 @@ function __init__()
     copy!(ipynbtools, pyimport("qutip.ipynbtools"))
     copy!(visualization, pyimport("qutip.visualization"))
     copy!(utilities, pyimport("qutip.utilities"))
+    pyimport("qutip.control")
     global const version = try
         convert(VersionNumber, qutip[:__version__])
     catch
