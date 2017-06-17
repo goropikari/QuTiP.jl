@@ -47,3 +47,5 @@ B = qt.sigmax() + qt.sigmay()
 @test qpermute(A ⊗ A, [1,0]) == qt.tensor(B,B)[:permute]([1,0])
 
 @test keys(A) == keys(B)
+
+@test collect(qubit_clifford_group()) == collect(qt.qubit_clifford_group()) 
