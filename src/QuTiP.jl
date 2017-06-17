@@ -3,7 +3,7 @@ __precompile__()
 module QuTiP 
 using PyCall
 import PyCall: PyNULL, pyimport_conda, pycall, PyObject
-import Base: +, -, *, /, ==, hash, getindex, setindex!, haskey, keys, show, convert
+import Base: +, -, *, /, ==, hash, getindex, setindex!, haskey, keys, show, convert, collect
 import Base: conj, expm, sqrtm, full, norm, diag
 
 export qutip
@@ -73,6 +73,7 @@ end
 
 PyObject(f::Quantum) = f.o
 convert(::Type{Quantum}, o::PyObject) = Quantum(o)
+collect(x::Quantum) = collect(PyObject(x))
 ==(f::Quantum, g::Quantum) = f.o == g.o
 ==(f::Quantum, g::PyObject) = f.o == g
 ==(f::PyObject, g::Quantum) = f == g.o
