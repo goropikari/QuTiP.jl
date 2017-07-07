@@ -92,7 +92,7 @@ julia> full(sigmax())
 ```
 
 # Renamed functions
-In order to avoid name conflict, some functions are rennamed.  
+In order to avoid name conflict, some functions are renamed.  
 original name --> renamed
 - position --> qposition
 - identity --> qidentity
