@@ -136,8 +136,9 @@ export degen, simdiag
 simdiag_module = (:degen, :simdiag, )
 
 ## solver
-export Options, Result, SolverConfiguration
-solver_module = (:Options, :Result, :SolverConfiguration, )
+export Options, Odeoptions, Odedata
+solver_module = (:Options, :Odeoptions, :Odedata)
+
 
 ## sparse
 export sp_profile, sp_bandwidth, sp_reverse_permute, sp_permute, sp_expm, sp_eigs, sp_reshape, sp_one_norm, sp_max_norm, sp_L2_norm, sp_inf_norm, sp_fro_norm
