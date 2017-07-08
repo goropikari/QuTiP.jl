@@ -54,6 +54,9 @@ end
 const qutip = PyNULL()
 const ipynbtools = PyNULL()
 const visualization = PyNULL()
+const nonmarkov_heom = PyNULL()
+const nonmarkov_memorycascade = PyNULL()
+const nonmarkov_transfertensor = PyNULL()
 
 function __init__()
     pyimport_conda("IPython", "IPython")
@@ -61,6 +64,9 @@ function __init__()
     copy!(qutip, pyimport_conda("qutip", "qutip", "conda-forge"))
     copy!(ipynbtools, pyimport("qutip.ipynbtools"))
     copy!(visualization, pyimport("qutip.visualization"))
+    copy!(nonmarkov_heom, pyimport("qutip.nonmarkov.heom"))
+    copy!(nonmarkov_memorycascade, pyimport("qutip.nonmarkov.memorycascade"))
+    copy!(nonmarkov_transfertensor, pyimport("qutip.nonmarkov.transfertensor"))
     global const version = try
         convert(VersionNumber, qutip[:__version__])
     catch
@@ -208,6 +214,35 @@ for f in utilities_module
     end
 end
 
+for f in nonmarkov_heom_module
+    sf = string(f)
+    @eval @doc LazyHelp(nonmarkov_heom,$sf) function $f(args...; kws...)
+        if !haskey(nonmarkov_heom, $sf)
+            error("qutip.nonmarkov.heom ", version, " does not have qutip.nonmarkov.heom.", $sf)
+        end
+        return pycall(nonmarkov_heom[$sf], Quantum, args...; kws...)
+    end
+end
+
+f = :MemoryCascade
+sf = string(f)
+@eval @doc LazyHelp(nonmarkov_memorycascade,$sf) function $f(args...; kws...)
+    if !haskey(nonmarkov_memorycascade, $sf)
+        error("qutip.nonmarkov.memorycascade ", version, " does not have qutip.nonmarkov.memorycascade.", $sf)
+    end
+    return pycall(nonmarkov_memorycascade[$sf], Quantum, args...; kws...)
+end
+
+for f in nonmarkov_transfertensor_module
+    sf = string(f)
+    @eval @doc LazyHelp(nonmarkov_transfertensor,$sf) function $f(args...; kws...)
+        if !haskey(nonmarkov_transfertensor, $sf)
+            error("qutip.nonmarkov.transfertensor ", version, " does not have qutip.nonmarkov.transfertensor.", $sf)
+        end
+        return pycall(nonmarkov_transfertensor[$sf], Quantum, args...; kws...)
+    end
+end
+
 # Functions whose type of return value is not Qobj.
 export expect
 export esspec, esval
@@ -232,7 +267,6 @@ sf = string(f)
     end
     return pycall(qutip[$sf], Tuple{Quantum, Vector{Quantum}}, args...; kws...)
 end
-
 
 ###############################################################
 # attributes and methods

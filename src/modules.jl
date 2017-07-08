@@ -194,3 +194,11 @@ visualization_module = (:hinton, :sphereplot, :matrix_histogram, :matrix_histogr
 ## wigner
 export wigner, qfunc, spin_q_function, spin_wigner
 wigner_module = (:wigner, :qfunc, :spin_q_function, :spin_wigner, )
+
+## nonmarkov
+export HEOMSolver, HSolverDL, _pad_csr
+export MemoryCascade
+export TTMSolverOptions, ttmsolve
+nonmarkov_heom_module = (:HEOMSolver, :HSolverDL, :_pad_csr)
+nonmarkov_memorycascade_module = (:MemoryCascade, )
+nonmarkov_transfertensor_module = (:TTMSolverOptions, :ttmsolve)
