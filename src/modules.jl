@@ -112,8 +112,8 @@ export isherm, issuper, isoper, isoperbra, isoperket, isbra, isket, shape, dims,
 qobj_module = (:isherm, :issuper, :isoper, :isoperbra, :isoperket, :isbra, :isket, :shape, :dims, :ptrace, :dag, :qobj_list_evaluate, :Qobj)
 
 ## random_objects
-export rand_stochastic, rand_super_bcsz, rand_super, rand_kraus_map, rand_dm_hs, rand_dm_ginibre, rand_dm, rand_ket_haar, rand_ket, rand_unitary_haar, rand_unitary, rand_herm, randnz, rand_jacobi_rotation
-const random_objects_module = (:rand_stochastic, :rand_super_bcsz, :rand_super, :rand_kraus_map, :rand_dm_hs, :rand_dm_ginibre, :rand_dm, :rand_ket_haar, :rand_ket, :rand_unitary_haar, :rand_unitary, :rand_herm, :randnz, :rand_jacobi_rotation)
+export rand_stochastic, rand_super_bcsz, rand_super, rand_dm_hs, rand_dm_ginibre, rand_dm, rand_ket_haar, rand_ket, rand_unitary_haar, rand_unitary, rand_herm 
+const random_objects_module = (:rand_stochastic, :rand_super_bcsz, :rand_super, :rand_dm_hs, :rand_dm_ginibre, :rand_dm, :rand_ket_haar, :rand_ket, :rand_unitary_haar, :rand_unitary, :rand_herm)
 
 ## rcsolve
 export rcsolve
