@@ -4,7 +4,7 @@ module QuTiP
 using PyCall
 import PyCall: PyNULL, pyimport_conda, pycall, PyObject
 import Base: +, -, *, /, ==, hash, getindex, setindex!, haskey, keys, show, convert, collect
-import Base: conj, expm, sqrtm, full, norm, diag
+import Base: conj, expm, sqrtm, full, norm, diag, ctranspose
 
 export qutip, Quantum
 
@@ -180,9 +180,9 @@ for f in qutipfn
     end
 end
 
-export ⊗
+export ⊗, ctranspose
 ⊗(a::Quantum, b::Quantum) = tensor(a,b)
-
+ctranspose(x::Quantum) = dag(x::Quantum)
 
 for f in ipynbtools_module
     sf = string(f)

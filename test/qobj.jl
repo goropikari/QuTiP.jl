@@ -1,6 +1,7 @@
 @test basis(2,0) == qt.basis(2,0)
 @test 1 + sigmax() + 1 == PyObject(1) + qt.sigmax() + PyObject(1)
 @test dag(basis(2,0)) == qt.basis(2,0)[:dag]()
+@test basis(2,0)' == qt.basis(2,0)[:dag]()
 
 A = sigmax() + sigmay()
 B = qt.sigmax() + qt.sigmay()
