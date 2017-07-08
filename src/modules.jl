@@ -67,10 +67,6 @@ graph_module = (:weighted_bipartite_matching, :maximum_bipartite_matching, :colu
 export hardware_info
 hardware_info_module = (:hardware_info, )
 
-## hsolve
-export hsolve
-hsolve_module = (:hsolve, )
-
 ## ipynbtools
 export plot_animation, parallel_map, parfor, HTMLProgressBar # version_table
 ipynbtools_module = (:plot_animation, :parallel_map, :parfor, :HTMLProgressBar, :version_table, )
