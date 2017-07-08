@@ -54,7 +54,6 @@ end
 const qutip = PyNULL()
 const ipynbtools = PyNULL()
 const visualization = PyNULL()
-const utilities = PyNULL()
 
 function __init__()
     pyimport_conda("IPython", "IPython")
@@ -62,7 +61,6 @@ function __init__()
     copy!(qutip, pyimport_conda("qutip", "qutip", "conda-forge"))
     copy!(ipynbtools, pyimport("qutip.ipynbtools"))
     copy!(visualization, pyimport("qutip.visualization"))
-    copy!(utilities, pyimport("qutip.utilities"))
     global const version = try
         convert(VersionNumber, qutip[:__version__])
     catch
@@ -202,11 +200,11 @@ end
 
 for f in utilities_module
     sf = string(f)
-    @eval @doc LazyHelp(utilities,$sf) function $f(args...; kws...)
-        if !haskey(utilities, $sf)
-            error("qutip.utilities ", version, " does not have qutip.utilities", $sf)
+    @eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
+        if !haskey(qutip, $sf)
+            error("qutip.utilities ", version, " does not have qutip.utilities. ", $sf)
         end
-        return pycall(utilities[$sf], PyAny, args...; kws...)
+        return pycall(qutip[$sf], PyAny, args...; kws...)
     end
 end
 
