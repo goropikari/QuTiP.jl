@@ -127,10 +127,6 @@ rhs_generate_module = (:rhs_clear, :rhs_generate, )
 export sesolve
 sesolve_module = (:sesolve, )
 
-## settings
-export load_rc_file
-settings_module = (:load_rc_file, )
-
 ## simdiag
 export degen, simdiag
 simdiag_module = (:degen, :simdiag, )
