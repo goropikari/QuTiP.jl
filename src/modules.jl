@@ -72,8 +72,8 @@ export plot_animation, parallel_map, parfor, HTMLProgressBar # version_table
 ipynbtools_module = (:plot_animation, :parallel_map, :parfor, :HTMLProgressBar, :version_table, )
 
 ## mcsolve
-export qutip_zvode, mcsolve
-mcsolve_module = (:qutip_zvode, :mcsolve, )
+export mcsolve
+mcsolve_module = (:mcsolve, )
 
 ## mesolve
 export mesolve, odesolve
