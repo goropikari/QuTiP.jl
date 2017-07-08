@@ -6,7 +6,7 @@ import PyCall: PyNULL, pyimport_conda, pycall, PyObject
 import Base: +, -, *, /, ==, hash, getindex, setindex!, haskey, keys, show, convert, collect
 import Base: conj, expm, sqrtm, full, norm, diag
 
-export qutip
+export qutip, Quantum
 
 import Base.show
 
