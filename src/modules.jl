@@ -153,8 +153,9 @@ export steadystate, steady, build_preconditioner, pseudo_inverse
 steadystate_module = (:steadystate, :steady, :build_preconditioner, :pseudo_inverse, )
 
 ## stochastic
-export StochasticSolverOptions, ssesolve, smesolve, ssepdpsolve, smepdpsolve, d1_psi_homodyne, d2_psi_homodyne, d1_psi_heterodyne, d2_psi_heterodyne, d1_psi_photocurrent, d2_psi_photocurrent, sop_H, sop_G, d1_rho_homodyne, d2_rho_homodyne, d1_rho_heterodyne, d2_rho_heterodyne, d1_rho_photocurrent, d2_rho_photocurrent
-stochastic_module = (:StochasticSolverOptions, :ssesolve, :smesolve, :ssepdpsolve, :smepdpsolve, :d1_psi_homodyne, :d2_psi_homodyne, :d1_psi_heterodyne, :d2_psi_heterodyne, :d1_psi_photocurrent, :d2_psi_photocurrent, :sop_H, :sop_G, :d1_rho_homodyne, :d2_rho_homodyne, :d1_rho_heterodyne, :d2_rho_heterodyne, :d1_rho_photocurrent, :d2_rho_photocurrent, )
+export ssesolve, ssepdpsolve, smesolve, smepdpsolve
+stochastic_module = (:ssesolve, :ssepdpsolve, :smesolve, :smepdpsolve)
+
 
 ## subsystem_apply
 export subsystem_apply
