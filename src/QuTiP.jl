@@ -55,6 +55,7 @@ const visualization = PyNULL()
 const nonmarkov_heom = PyNULL()
 const nonmarkov_memorycascade = PyNULL()
 const nonmarkov_transfertensor = PyNULL()
+const ui = PyNULL()
 
 function __init__()
     pyimport_conda("IPython", "IPython")
@@ -65,6 +66,7 @@ function __init__()
     copy!(nonmarkov_heom, pyimport("qutip.nonmarkov.heom"))
     copy!(nonmarkov_memorycascade, pyimport("qutip.nonmarkov.memorycascade"))
     copy!(nonmarkov_transfertensor, pyimport("qutip.nonmarkov.transfertensor"))
+    copy!(ui, pyimport("qutip.ui"))
     global const version = try
         convert(VersionNumber, qutip[:__version__])
     catch
@@ -233,6 +235,16 @@ for f in nonmarkov_transfertensor_module
             error("qutip.nonmarkov.transfertensor ", version, " does not have qutip.nonmarkov.transfertensor.", $sf)
         end
         return pycall(nonmarkov_transfertensor[$sf], Quantum, args...; kws...)
+    end
+end
+
+for f in ui_module
+    sf = string(f)
+    @eval @doc LazyHelp(ui,$sf) function $f(args...; kws...)
+        if !haskey(ui, $sf)
+            error("qutip.ui", version, " does not have qutip.ui.", $sf)
+        end
+        return pycall(ui[$sf], PyAny, args...; kws...)
     end
 end
 
