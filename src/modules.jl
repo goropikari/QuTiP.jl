@@ -72,8 +72,8 @@ export hsolve
 hsolve_module = (:hsolve, )
 
 # ipynbtools
-export plot_animation, parallel_map, parfor, HTMLProgressBa # version_table
-ipynbtools_module = (:plot_animation, :parallel_map, :parfor, :HTMLProgressBa, :version_table, )
+export plot_animation, parallel_map, parfor, HTMLProgressBar # version_table
+ipynbtools_module = (:plot_animation, :parallel_map, :parfor, :HTMLProgressBar, :version_table, )
 
 # mcsolve
 export qutip_zvode, mcsolve
