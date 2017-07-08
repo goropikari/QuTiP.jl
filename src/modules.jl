@@ -128,8 +128,8 @@ export sesolve
 sesolve_module = (:sesolve, )
 
 ## simdiag
-export degen, simdiag
-simdiag_module = (:degen, :simdiag, )
+export simdiag
+simdiag_module = (:simdiag, )
 
 ## solver
 export Options, Odeoptions, Odedata
