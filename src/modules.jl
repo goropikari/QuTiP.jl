@@ -202,3 +202,7 @@ export TTMSolverOptions, ttmsolve
 nonmarkov_heom_module = (:HEOMSolver, :HSolverDL, :_pad_csr)
 nonmarkov_memorycascade_module = (:MemoryCascade, )
 nonmarkov_transfertensor_module = (:TTMSolverOptions, :ttmsolve)
+
+## ui
+export BaseProgressBar, TextProgressBar, EnhancedTextProgressBar
+ui_module = (:BaseProgressBar, :TextProgressBar, :EnhancedTextProgressBar)
