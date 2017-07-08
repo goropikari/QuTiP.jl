@@ -1,6 +1,6 @@
 __precompile__()
 
-module QuTiP 
+module QuTiP
 using PyCall
 import PyCall: PyNULL, pyimport_conda, pycall, PyObject
 import Base: +, -, *, /, ==, hash, getindex, setindex!, haskey, keys, show, convert, collect
@@ -84,7 +84,7 @@ pycall(f::Quantum, args...; kws...) = pycall(f.o, args...; kws...)
 getindex(f::Quantum, x) = getindex(f.o, x)
 # getindex(f::Quantum, x) = convert(Quantum, getindex(f.o, x)) # error when basis(2,0)[:isherm]
 # getindex(f::Quantum, x) = try # inefficient
-#         convert(Quantum, getindex(f.o, x)) 
+#         convert(Quantum, getindex(f.o, x))
 #     catch
 #         getindex(f.o, x)
 #     end
@@ -107,121 +107,63 @@ keys(f::Quantum) = keys(f.o)
 # end
 
 # export ducumented qutip API
-include("class/utilities.jl")
-include("class/sparse.jl")
-include("class/simdiag.jl")
-include("class/permute.jl")
-include("class/parallel.jl")
-include("class/ipynbtools.jl")
-include("class/hardware_info.jl")
-include("class/graph.jl")
-include("class/fileio.jl")
-include("class/about.jl")
-
-include("class/tensor.jl")
-include("class/qobj.jl")
-include("class/partial_transpose.jl")
-include("class/expect.jl")
-
-include("class/metrics.jl")
-include("class/entropy.jl")
-include("class/countstat.jl")
-
-include("class/three_level_atom.jl")
-include("class/states.jl")
-include("class/random_objects.jl")
-include("class/continuous_variables.jl")
-include("class/superoperator.jl")
-include("class/superop_reps.jl")
-include("class/subsystem_apply.jl")
-include("class/operators.jl")
-
-include("class/bloch_redfield.jl")
-include("class/correlation.jl")
-include("class/eseries.jl")
-include("class/essolve.jl")
-include("class/floquet.jl")
-include("class/hsolve.jl")
-include("class/mcsolve.jl")
-include("class/mesolve.jl")
-include("class/propagator.jl")
-include("class/rcsolve.jl")
-include("class/rhs_generate.jl")
-include("class/sesolve.jl")
-include("class/solver.jl")
-include("class/steadystate.jl")
-include("class/stochastic.jl")
-include("class/memorycascade.jl")
-include("class/transfertensor.jl")
-
-include("class/settings.jl")
-
-include("class/bloch.jl")
-include("class/bloch3d.jl")
-include("class/distributions.jl")
-include("class/orbital.jl")
-include("class/tomography.jl")
-include("class/visualization.jl")
-include("class/wigner.jl")
-
-include("class/gate.jl")
-
+include("modules.jl")
 include("attributes_methods.jl")
 
 ###############################################################
 # Function
 ###############################################################
-const qutipfn = (#utilities_class...,
-                sparse_class...,
-                simdiag_class...,
-                permute_class...,
-                parallel_class...,
-                # ipynbtools_class...,
-                hardware_info_class...,
-                graph_class...,
-                fileio_class...,
-                about_class...,
-                tensor_class..., 
-                qobj_class...,
-                partial_transpose_class...,
-                expect_class...,
-                metrics_class...,
-                entropy_class..., 
-                countstat_class..., 
-                three_level_atom_class...,
-                states_class..., 
-                random_objects_class...,
-                continuous_variables_class...,
-                superoperator_class..., 
-                superop_reps_class..., 
-                subsystem_apply_class..., 
-                operators_class...,
-                bloch_redfield_class...,
-                # correlation_class...,
-                eseries_class...,
-                essolve_class...,
-                floquet_class...,
-                hsolve_class...,
-                mcsolve_class...,
-                mesolve_class...,
-                propagator_class...,
-                rcsolve_class...,
-                rhs_generate_class...,
-                sesolve_class...,
-                solver_class...,
-                steadystate_class...,
-                stochastic_class...,
-                memorycascade_class...,
-                transfertensor_class...,
-                settings_class...,
-                bloch_class...,
-                bloch3d_class...,
-                distributions_class...,
-                orbital_class...,
-                tomography_class...,
-                # visualization_class...,
-                wigner_class...,
-                gate_class...
+const qutipfn = (#utilities_module...,
+                sparse_module...,
+                simdiag_module...,
+                permute_module...,
+                parallel_module...,
+                # ipynbtools_module...,
+                hardware_info_module...,
+                graph_module...,
+                fileio_module...,
+                about_module...,
+                tensor_module...,
+                qobj_module...,
+                partial_transpose_module...,
+                expect_module...,
+                metrics_module...,
+                entropy_module...,
+                countstat_module...,
+                three_level_atom_module...,
+                states_module...,
+                random_objects_module...,
+                continuous_variables_module...,
+                superoperator_module...,
+                superop_reps_module...,
+                subsystem_apply_module...,
+                operators_module...,
+                bloch_redfield_module...,
+                # correlation_module...,
+                eseries_module...,
+                essolve_module...,
+                floquet_module...,
+                hsolve_module...,
+                mcsolve_module...,
+                mesolve_module...,
+                propagator_module...,
+                rcsolve_module...,
+                rhs_generate_module...,
+                sesolve_module...,
+                solver_module...,
+                steadystate_module...,
+                stochastic_module...,
+                memorycascade_module...,
+                transfertensor_module...,
+                settings_module...,
+                bloch_module...,
+                bloch3d_module...,
+                distributions_module...,
+                orbital_module...,
+                tomography_module...,
+                # visualization_module...,
+                wigner_module...,
+                gate_module...
                )
 
 for f in qutipfn
@@ -238,7 +180,7 @@ export ⊗
 ⊗(a::Quantum, b::Quantum) = tensor(a,b)
 
 
-for f in ipynbtools_class
+for f in ipynbtools_module
     sf = string(f)
     @eval @doc LazyHelp(ipynbtools,$sf) function $f(args...; kws...)
         if !haskey(ipynbtools, $sf)
@@ -248,7 +190,7 @@ for f in ipynbtools_class
     end
 end
 
-for f in visualization_class
+for f in visualization_module
     sf = string(f)
     @eval @doc LazyHelp(visualization,$sf) function $f(args...; kws...)
         if !haskey(visualization, $sf)
@@ -258,7 +200,7 @@ for f in visualization_class
     end
 end
 
-for f in utilities_class
+for f in utilities_module
     sf = string(f)
     @eval @doc LazyHelp(utilities,$sf) function $f(args...; kws...)
         if !haskey(utilities, $sf)
@@ -272,8 +214,8 @@ end
 export expect
 export esspec, esval
 export essolve
-for f in (:expect, :esspec, :esval, :essolve, 
-         correlation_class..., )
+for f in (:expect, :esspec, :esval, :essolve,
+         correlation_module..., )
     sf = string(f)
     @eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
         if !haskey(qutip, $sf)
@@ -376,7 +318,7 @@ end
 #######################################################################
 # To avoid name conflict with Base module functions, add prefix 'q'.
 #######################################################################
-export qidentity, qnum, qposition, qsqueeze # operators class
+export qidentity, qnum, qposition, qsqueeze # operators module
 const renamedfn = (:identity, :num, :position, :squeeze)
 for f in renamedfn
     sf = string(f)
