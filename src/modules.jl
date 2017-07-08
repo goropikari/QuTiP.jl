@@ -79,10 +79,6 @@ ipynbtools_module = (:plot_animation, :parallel_map, :parfor, :HTMLProgressBar, 
 export qutip_zvode, mcsolve
 mcsolve_module = (:qutip_zvode, :mcsolve, )
 
-## memorycascade
-export MemoryCascade
-memorycascade_module = (:MemoryCascade, )
-
 ## mesolve
 export mesolve, odesolve
 mesolve_module = (:mesolve, :odesolve, )
