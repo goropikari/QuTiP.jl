@@ -158,8 +158,8 @@ export subsystem_apply
 const subsystem_apply_module = (:subsystem_apply, )
 
 ## superop_reps
-export to_stinespring, to_kraus, to_super, to_chi, to_choi, choi_to_stinespring, chi_to_choi, choi_to_chi, kraus_to_super, kraus_to_choi, choi_to_kraus, choi_to_super, super_to_choi
-const superop_reps_module = (:to_stinespring, :to_kraus, :to_super, :to_chi, :to_choi, :choi_to_stinespring, :chi_to_choi, :choi_to_chi, :kraus_to_super, :kraus_to_choi, :choi_to_kraus, :choi_to_super, :super_to_choi)
+export to_stinespring, to_kraus, to_super, to_chi, to_choi, chi_to_choi, choi_to_chi, kraus_to_super, kraus_to_choi, choi_to_kraus, choi_to_super, super_to_choi
+const superop_reps_module = (:to_stinespring, :to_kraus, :to_super, :to_chi, :to_choi, :chi_to_choi, :choi_to_chi, :kraus_to_super, :kraus_to_choi, :choi_to_kraus, :choi_to_super, :super_to_choi)
 
 ## superoperator
 export sprepost, spre, spost, mat2vec_index, vec2mat_index, vec2mat, mat2vec, vector_to_operator, operator_to_vector, lindblad_dissipator, liouvillian_ref, liouvillian
