@@ -14,7 +14,6 @@ type Quantum
     o::PyObject
 end
 
-
 ###########################################################################
 # quoted from PyPlot.jl
 # Julia 0.4 help system: define a documentation object
@@ -48,7 +47,6 @@ function Base.Docs.catdoc(hs::LazyHelp...)
         end
     end
 end
-
 ###########################################################################
 
 const qutip = PyNULL()
@@ -95,7 +93,6 @@ getindex(f::Quantum, x) = getindex(f.o, x)
 setindex!(f::Quantum, v, x) = setindex!(f.o, v, x)
 haskey(f::Quantum, x) = haskey(f.o, x)
 keys(f::Quantum) = keys(f.o)
-
 
 
 # ref
@@ -179,10 +176,6 @@ for f in qutipfn
         return pycall(qutip[$sf], Quantum, args...; kws...)
     end
 end
-
-export ⊗, ctranspose
-⊗(a::Quantum, b::Quantum) = tensor(a,b)
-ctranspose(x::Quantum) = dag(x::Quantum)
 
 for f in ipynbtools_module
     sf = string(f)
@@ -301,7 +294,6 @@ for m in methods
     end
 end
 
-
 export ampl
 function ampl(x::Quantum)
     if !haskey(x, "ampl")
@@ -381,6 +373,10 @@ function qpermute(x::Quantum, args...; kws...)
     return convert(Quantum, x[sm](args...; kws...))
 end
 
+# define functions for convenience
+export ⊗, ctranspose
+⊗(a::Quantum, b::Quantum) = tensor(a,b)
+ctranspose(x::Quantum) = dag(x::Quantum)
 
 ###################################################
 # arithmetic
@@ -401,7 +397,6 @@ end
 #   +(::T<:Union{Int128, Int16, Int32, Int64, Int8, UInt128, UInt16, UInt32, UInt64, UInt8}, ::T<:Union{Int128, Int16, Int32, Int64, Int8, UInt128, UInt16, UInt32, UInt64, UInt8}) where T<:Union{Int128, Int16, Int32, Int64, Int8, UInt128, UInt16, UInt32, UInt64, UInt8} at int.jl:32
 #   ...
 ###################################################
-
 +(a::Number, b::Quantum) = convert(Quantum, PyObject(b) + a)
 -(a::Number, b::Quantum) = convert(Quantum, PyObject(b) * (-1) + a)
 *(a::Number, b::Quantum) = convert(Quantum, PyObject(b) * a)
