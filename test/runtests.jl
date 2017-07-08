@@ -8,6 +8,7 @@ using Base.Test
 include("qobj.jl")
 include("eseries.jl")
 include("bloch_redfield.jl")
+include("utilities.jl")
 
 @test sigmax() * basis(2,0) == qt.sigmax() * qt.basis(2,0)
 
