@@ -32,8 +32,8 @@ export Distribution, WignerDistribution, QDistribution, TwoModeQuadratureCorrela
 distributions_module = (:Distribution, :WignerDistribution, :QDistribution, :TwoModeQuadratureCorrelation, :HarmonicOscillatorWaveFunction, :HarmonicOscillatorProbabilityFunction, )
 
 ## entropy
-export entangling_power, participation_ratio, entropy_conditional, entropy_mutual, negativity, concurrence, entropy_linear, entropy_vn
-entropy_module = (:entangling_power, :participation_ratio, :entropy_conditional, :entropy_mutual, :negativity, :concurrence, :entropy_linear, :entropy_vn)
+export entangling_power, entropy_conditional, entropy_mutual, negativity, concurrence, entropy_linear, entropy_vn
+entropy_module = (:entangling_power, :entropy_conditional, :entropy_mutual, :negativity, :concurrence, :entropy_linear, :entropy_vn)
 
 ## eseries
 export eseries, estidy
