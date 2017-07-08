@@ -1,9 +1,11 @@
 __precompile__()
 
-module QuTiP 
+module QuTiP
 using PyCall
 import PyCall: PyNULL, pyimport_conda, pycall, PyObject
-import Base: +, -, *, /, ==, hash, getindex, setindex!, haskey, keys, show, convert
+import Base: +, -, *, /, ==, hash, getindex, setindex!, haskey, keys, show, convert, collect
+import Base: conj, expm, sqrtm, full, norm, diag
+
 export qutip
 
 import Base.show
@@ -11,20 +13,6 @@ import Base.show
 type Quantum
     o::PyObject
 end
-
-PyObject(f::Quantum) = f.o
-convert(::Type{Quantum}, o::PyObject) = Quantum(o)
-==(f::Quantum, g::Quantum) = f.o == g.o
-==(f::Quantum, g::PyObject) = f.o == g
-==(f::PyObject, g::Quantum) = f == g.o
-hash(f::Quantum) = hash(f.o)
-pycall(f::Quantum, args...; kws...) = pycall(f.o, args...; kws...)
-(f::Quantum)(args...; kws...) = pycall(f.o, Quantum, args...; kws...)
-
-getindex(f::Quantum, x) = getindex(f.o, x)
-setindex!(f::Quantum, v, x) = setindex!(f.o, v, x)
-haskey(f::Quantum, x) = haskey(f.o, x)
-keys(f::Quantum) = keys(f.o)
 
 
 ###########################################################################
@@ -63,10 +51,46 @@ end
 
 ###########################################################################
 
-
 const qutip = PyNULL()
 const ipynbtools = PyNULL()
 const visualization = PyNULL()
+
+function __init__()
+    pyimport_conda("IPython", "IPython")
+    pyimport_conda("matplotlib", "matplotlib")
+    copy!(qutip, pyimport_conda("qutip", "qutip", "conda-forge"))
+    copy!(ipynbtools, pyimport("qutip.ipynbtools"))
+    copy!(visualization, pyimport("qutip.visualization"))
+    global const version = try
+        convert(VersionNumber, qutip[:__version__])
+    catch
+        v"0.0" # fallback
+    end
+end
+
+
+PyObject(f::Quantum) = f.o
+convert(::Type{Quantum}, o::PyObject) = Quantum(o)
+collect(x::Quantum) = collect(PyObject(x))
+==(f::Quantum, g::Quantum) = f.o == g.o
+==(f::Quantum, g::PyObject) = f.o == g
+==(f::PyObject, g::Quantum) = f == g.o
+hash(f::Quantum) = hash(f.o)
+pycall(f::Quantum, args...; kws...) = pycall(f.o, args...; kws...)
+(f::Quantum)(args...; kws...) = pycall(f.o, Quantum, args...; kws...)
+
+getindex(f::Quantum, x) = getindex(f.o, x)
+# getindex(f::Quantum, x) = convert(Quantum, getindex(f.o, x)) # error when basis(2,0)[:isherm]
+# getindex(f::Quantum, x) = try # inefficient
+#         convert(Quantum, getindex(f.o, x))
+#     catch
+#         getindex(f.o, x)
+#     end
+setindex!(f::Quantum, v, x) = setindex!(f.o, v, x)
+haskey(f::Quantum, x) = haskey(f.o, x)
+keys(f::Quantum) = keys(f.o)
+
+
 
 # ref
 # https://github.com/JuliaPy/PyPlot.jl/blob/master/src/PyPlot.jl#L166
@@ -80,119 +104,64 @@ const visualization = PyNULL()
 #     end
 # end
 
-
 # export ducumented qutip API
-include("class/utilities.jl")
-include("class/sparse.jl")
-include("class/simdiag.jl")
-include("class/permute.jl")
-include("class/parallel.jl")
-include("class/ipynbtools.jl")
-include("class/hardware_info.jl")
-include("class/graph.jl")
-include("class/fileio.jl")
-include("class/about.jl")
+include("modules.jl")
+include("attributes_methods.jl")
 
-include("class/tensor.jl")
-include("class/qobj.jl")
-include("class/partial_transpose.jl")
-include("class/expect.jl")
-
-include("class/metrics.jl")
-include("class/entropy.jl")
-include("class/countstat.jl")
-
-include("class/three_level_atom.jl")
-include("class/states.jl")
-include("class/random_objects.jl")
-include("class/continuous_variables.jl")
-include("class/superoperator.jl")
-include("class/superop_reps.jl")
-include("class/subsystem_apply.jl")
-include("class/operators.jl")
-
-include("class/bloch_redfield.jl")
-include("class/correlation.jl")
-include("class/eseries.jl")
-include("class/essolve.jl")
-include("class/floquet.jl")
-include("class/hsolve.jl")
-include("class/mcsolve.jl")
-include("class/mesolve.jl")
-include("class/propagator.jl")
-include("class/rcsolve.jl")
-include("class/rhs_generate.jl")
-include("class/sesolve.jl")
-include("class/solver.jl")
-include("class/steadystate.jl")
-include("class/stochastic.jl")
-include("class/memorycascade.jl")
-include("class/transfertensor.jl")
-
-include("class/settings.jl")
-
-include("class/bloch.jl")
-include("class/bloch3d.jl")
-include("class/distributions.jl")
-include("class/orbital.jl")
-include("class/tomography.jl")
-include("class/visualization.jl")
-include("class/wigner.jl")
-
-include("class/gate.jl")
-
-
-const qutipfn = (utilities_class...,
-                sparse_class...,
-                simdiag_class...,
-                permute_class...,
-                parallel_class...,
-                # ipynbtools_class...,
-                hardware_info_class...,
-                graph_class...,
-                fileio_class...,
-                about_class...,
-                tensor_class..., 
-                qobj_class...,
-                partial_transpose_class...,
-                expect_class...,
-                metrics_class...,
-                entropy_class..., 
-                countstat_class..., 
-                three_level_atom_class...,
-                states_class..., 
-                random_objects_class...,
-                continuous_variables_class...,
-                superoperator_class..., 
-                superop_reps_class..., 
-                subsystem_apply_class..., 
-                operators_class...,
-                bloch_redfield_class...,
-                correlation_class...,
-                eseries_class...,
-                essolve_class...,
-                floquet_class...,
-                hsolve_class...,
-                mcsolve_class...,
-                mesolve_class...,
-                propagator_class...,
-                rcsolve_class...,
-                rhs_generate_class...,
-                sesolve_class...,
-                solver_class...,
-                steadystate_class...,
-                stochastic_class...,
-                memorycascade_class...,
-                transfertensor_class...,
-                settings_class...,
-                bloch_class...,
-                bloch3d_class...,
-                distributions_class...,
-                orbital_class...,
-                tomography_class...,
-                # visualization_class...,
-                wigner_class...,
-                gate_class...
+###############################################################
+# Function
+###############################################################
+const qutipfn = (#utilities_module...,
+                sparse_module...,
+                simdiag_module...,
+                permute_module...,
+                parallel_module...,
+                # ipynbtools_module...,
+                hardware_info_module...,
+                graph_module...,
+                fileio_module...,
+                about_module...,
+                tensor_module...,
+                qobj_module...,
+                partial_transpose_module...,
+                expect_module...,
+                metrics_module...,
+                entropy_module...,
+                countstat_module...,
+                three_level_atom_module...,
+                states_module...,
+                random_objects_module...,
+                continuous_variables_module...,
+                superoperator_module...,
+                superop_reps_module...,
+                subsystem_apply_module...,
+                operators_module...,
+                bloch_redfield_module...,
+                # correlation_module...,
+                eseries_module...,
+                essolve_module...,
+                floquet_module...,
+                # hsolve_module...,
+                mcsolve_module...,
+                mesolve_module...,
+                propagator_module...,
+                rcsolve_module...,
+                rhs_generate_module...,
+                sesolve_module...,
+                solver_module...,
+                steadystate_module...,
+                stochastic_module...,
+                memorycascade_module...,
+                transfertensor_module...,
+                settings_module...,
+                bloch_module...,
+                bloch3d_module...,
+                distributions_module...,
+                orbital_module...,
+                tomography_module...,
+                # visualization_module...,
+                wigner_module...,
+                gate_module...
                )
 
 for f in qutipfn
@@ -205,7 +174,11 @@ for f in qutipfn
     end
 end
 
-for f in ipynbtools_class
+export ⊗
+⊗(a::Quantum, b::Quantum) = tensor(a,b)
+
+
+for f in ipynbtools_module
     sf = string(f)
     @eval @doc LazyHelp(ipynbtools,$sf) function $f(args...; kws...)
         if !haskey(ipynbtools, $sf)
@@ -215,7 +188,7 @@ for f in ipynbtools_class
     end
 end
 
-for f in visualization_class
+for f in visualization_module
     sf = string(f)
     @eval @doc LazyHelp(visualization,$sf) function $f(args...; kws...)
         if !haskey(visualization, $sf)
@@ -225,9 +198,125 @@ for f in visualization_class
     end
 end
 
+for f in utilities_module
+    sf = string(f)
+    @eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
+        if !haskey(qutip, $sf)
+            error("qutip.utilities ", version, " does not have qutip.utilities. ", $sf)
+        end
+        return pycall(qutip[$sf], PyAny, args...; kws...)
+    end
+end
 
+# Functions whose type of return value is not Qobj.
+export expect
+export esspec, esval
+export essolve
+for f in (:expect, :esspec, :esval, :essolve,
+         correlation_module..., )
+    sf = string(f)
+    @eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
+        if !haskey(qutip, $sf)
+            error("qutip ", version, " does not have qutip.", $sf)
+        end
+        return pycall(qutip[$sf], PyAny, args...; kws...)
+    end
+end
+
+export bloch_redfield_tensor
+f = (:bloch_redfield_tensor)
+sf = string(f)
+@eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
+    if !haskey(qutip, $sf)
+        error("qutip ", version, " does not have qutip.", $sf)
+    end
+    return pycall(qutip[$sf], Tuple{Quantum, Vector{Quantum}}, args...; kws...)
+end
+
+
+###############################################################
+# attributes and methods
+###############################################################
+for m in attributes
+    sm = string(m)
+    @eval function $m(x::Quantum)
+        if !haskey(x, $sm)
+            error("KeyError: key $sm not found")
+        end
+        return getindex(x, Symbol($sm))
+    end
+end
+
+for m in methods_qobj
+    sm = string(m)
+    @eval function $m(x::Quantum, args...; kws...)
+        if !haskey(x, $sm)
+            error("KeyError: key $sm not found")
+        end
+        return convert(Quantum, x[$sm](args...; kws...))
+    end
+end
+
+for m in methods
+    sm = string(m)
+    @eval function $m(x::Quantum, args...; kws...)
+        if !haskey(x, $sm)
+            error("KeyError: key $sm not found")
+        end
+        return x[$sm](args...; kws...)
+    end
+end
+
+
+export ampl
+function ampl(x::Quantum)
+    if !haskey(x, "ampl")
+        error("KeyError: key 'ampl' not found")
+    end
+    return convert(Vector{Quantum}, x[:ampl])
+end
+
+export conj, expm, sqrtm, sinm, cosm
+for m in (:conj, :expm, :sqrtm, :sinm, :cosm)
+    sm = string(m)
+    @eval function $m(x::Quantum, args...; kws...)
+        if !haskey(x, $sm)
+            error("KeyError: key $sm not found")
+        end
+        return convert(Quantum, x[$sm](args...; kws...))
+    end
+end
+
+export eigenstates, groundstate
+function eigenstates(x::Quantum, args...; kws...)
+    if !haskey(x, "eigenstates")
+        error("KeyError: key 'eigenstates' not found")
+    end
+    return convert(Tuple{Vector{Float64},Vector{Quantum}}, x[:eigenstates](args...; kws...))
+end
+
+function groundstate(x::Quantum, args...; kws...)
+    if !haskey(x, "groundstate")
+        error("KeyError: key 'groundstate' not found")
+    end
+    return convert(Tuple{Float64, Quantum}, x[:groundstate](args...; kws...))
+end
+
+export value, spec
+for m in (:value, :spec)
+    sm = string(m)
+    @eval function $m(x::Quantum, args...; kws...)
+        if !haskey(x, $sm)
+            error("KeyError: key $sm not found")
+        end
+        return convert(Vector{Quantum}, x[$sm](args...; kws...))
+    end
+end
+
+#######################################################################
 # To avoid name conflict with Base module functions, add prefix 'q'.
-export qidentity, qnum, qposition, qsqueeze # operators class
+#######################################################################
+export qidentity, qnum, qposition, qsqueeze # operators module
 const renamedfn = (:identity, :num, :position, :squeeze)
 for f in renamedfn
     sf = string(f)
@@ -240,7 +329,45 @@ for f in renamedfn
     end
 end
 
+export qtype # attributes
+function qtype(x::Quantum)
+    sm = :type
+    if !haskey(x, sm)
+        error("KeyError: key $sm not found")
+    end
+    return x[sm]
+end
+
+export qpermute #methods
+function qpermute(x::Quantum, args...; kws...)
+    sm = :permute
+    if !haskey(x, sm)
+        error("KeyError: key $sm not found")
+    end
+    return convert(Quantum, x[sm](args...; kws...))
+end
+
+
+###################################################
 # arithmetic
+#
+# Why I define arithmetic?
+# julia> @pyimport qutip as qt
+# julia> qt.sigmax() + 1
+# PyObject Quantum object: dims = [[2], [2]], shape = (2, 2), type = oper, isherm = True
+# Qobj data =
+# [[ 1.  1.]
+#  [ 1.  1.]]
+#
+# julia> 1 + qt.sigmax()
+# ERROR: MethodError: no method matching +(::Int64, ::PyCall.PyObject)
+# Closest candidates are:
+#   +(::Any, ::Any, ::Any, ::Any...) at operators.jl:424
+#   +(::PyCall.PyObject, ::Any) at /home/tk/.julia/v0.6/PyCall/src/PyCall.jl:702
+#   +(::T<:Union{Int128, Int16, Int32, Int64, Int8, UInt128, UInt16, UInt32, UInt64, UInt8}, ::T<:Union{Int128, Int16, Int32, Int64, Int8, UInt128, UInt16, UInt32, UInt64, UInt8}) where T<:Union{Int128, Int16, Int32, Int64, Int8, UInt128, UInt16, UInt32, UInt64, UInt8} at int.jl:32
+#   ...
+###################################################
+
 +(a::Number, b::Quantum) = convert(Quantum, PyObject(b) + a)
 -(a::Number, b::Quantum) = convert(Quantum, PyObject(b) * (-1) + a)
 *(a::Number, b::Quantum) = convert(Quantum, PyObject(b) * a)
@@ -264,21 +391,6 @@ end
 
 (+)(a::Quantum) = a
 (-)(a::Quantum) = -1.0 * a
-
-function __init__()
-    pyimport_conda("IPython", "IPython")
-    pyimport_conda("matplotlib", "matplotlib")
-    copy!(qutip, pyimport_conda("qutip", "qutip", "conda-forge"))
-    copy!(ipynbtools, pyimport("qutip.ipynbtools"))
-    copy!(visualization, pyimport("qutip.visualization"))
-    global const version = try
-        convert(VersionNumber, qutip[:__version__])
-    catch
-        v"0.0" # fallback
-    end
-end
-
-
 
 end # module
 
