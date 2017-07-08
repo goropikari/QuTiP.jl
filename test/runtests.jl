@@ -9,6 +9,9 @@ include("qobj.jl")
 include("eseries.jl")
 include("bloch_redfield.jl")
 
+x = basis(2,0)
+@test hash(x) == hash(x.o)
+
 @test sigmax() * basis(2,0) == qt.sigmax() * qt.basis(2,0)
 
 @test sigmay() * basis(2,0) == qt.sigmay() * qt.basis(2,0)
