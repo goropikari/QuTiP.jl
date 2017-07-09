@@ -206,3 +206,9 @@ nonmarkov_transfertensor_module = (:TTMSolverOptions, :ttmsolve)
 ## ui
 export BaseProgressBar, TextProgressBar, EnhancedTextProgressBar
 ui_module = (:BaseProgressBar, :TextProgressBar, :EnhancedTextProgressBar)
+
+## qip
+export Gate, QubitCircuit, qubit_states, DispersivecQED, LinearSpinChain, CircularSpinChain
+qip_module = (:Gate, :QubitCircuit, :qubit_states)
+qip_models_cqed_module = (:DispersivecQED)
+qip_models_spinchain_module = (:LinearSpinChain, :CircularSpinChain)

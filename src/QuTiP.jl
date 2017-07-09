@@ -56,6 +56,8 @@ const nonmarkov_heom = PyNULL()
 const nonmarkov_memorycascade = PyNULL()
 const nonmarkov_transfertensor = PyNULL()
 const ui = PyNULL()
+const qip_cqed = PyNULL()
+const qip_spinchain = PyNULL()
 
 function __init__()
     pyimport_conda("IPython", "IPython")
@@ -67,6 +69,8 @@ function __init__()
     copy!(nonmarkov_memorycascade, pyimport("qutip.nonmarkov.memorycascade"))
     copy!(nonmarkov_transfertensor, pyimport("qutip.nonmarkov.transfertensor"))
     copy!(ui, pyimport("qutip.ui"))
+    copy!(qip_cqed, pyimport("qutip.qip.models.cqed"))
+    copy!(qip_spinchain, pyimport("qutip.qip.models.spinchain"))
     global const version = try
         convert(VersionNumber, qutip[:__version__])
     catch
@@ -166,7 +170,8 @@ const qutipfn = (#utilities_module...,
                 tomography_module...,
                 # visualization_module...,
                 wigner_module...,
-                gate_module...
+                gate_module...,
+                qip_module...
                )
 
 for f in qutipfn
@@ -247,6 +252,26 @@ for f in ui_module
         return pycall(ui[$sf], PyAny, args...; kws...)
     end
 end
+
+f = qip_models_cqed_module
+sf = string(f)
+@eval @doc LazyHelp(qip_cqed,$sf) function $f(args...; kws...)
+    if !haskey(qip_cqed, $sf)
+        error("qutip.qip.models.cqed ", version, " does not have qutip.qip.models.cqed.", $sf)
+    end
+    return pycall(qip_cqed[$sf], Quantum, args...; kws...)
+end
+
+for f in qip_models_spinchain_module
+    sf = string(f)
+    @eval @doc LazyHelp(qip_spinchain,$sf) function $f(args...; kws...)
+        if !haskey(qip_spinchain, $sf)
+            error("qutip.qip.models.spinchain", version, " does not have qutip.qip.models.spinchain.", $sf)
+        end
+        return pycall(qip_spinchain[$sf], PyAny, args...; kws...)
+    end
+end
+
 
 # Functions whose type of return value is not Qobj.
 export expect
