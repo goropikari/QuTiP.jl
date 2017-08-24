@@ -135,7 +135,7 @@ const qutipfn = (#utilities_module...,
                 partial_transpose_module...,
                 expect_module...,
                 metrics_module...,
-                entropy_module...,
+                # entropy_module...,
                 countstat_module...,
                 three_level_atom_module...,
                 states_module...,
@@ -191,6 +191,16 @@ for f in ipynbtools_module
             error("qutip.ipynbtools ", version, " does not have qutip.ipynbtools", $sf)
         end
         return pycall(ipynbtools[$sf], PyAny, args...; kws...)
+    end
+end
+
+for f in entropy_module 
+    sf = string(f)
+    @eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
+        if !haskey(qutip, $sf)
+            error("qutip ", version, " does not have qutip.", $sf)
+        end
+        return pycall(qutip[$sf], PyAny, args...; kws...)
     end
 end
 

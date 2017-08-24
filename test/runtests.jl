@@ -6,6 +6,7 @@ using Base.Test
 # @test 1 == 1
 
 include("qobj.jl")
+include("entropy.jl")
 include("eseries.jl")
 include("bloch_redfield.jl")
 include("utilities.jl")
