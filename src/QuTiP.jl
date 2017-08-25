@@ -14,6 +14,10 @@ type Quantum
     o::PyObject
 end
 
+
+include("display.jl")
+
+
 ###########################################################################
 # quoted from PyPlot.jl
 # Julia 0.4 help system: define a documentation object
