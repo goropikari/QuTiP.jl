@@ -67,7 +67,7 @@ From [qutip/qutip-notebooks](https://github.com/qutip/qutip-notebooks)
 - [Steadystate of the Bloch-Redfield Master Equation (brmesolve-steadystate.ipynb)](https://github.com/goropikari/qutip-notebooks/blob/master/examples/brmesolve-steadystate.ipynb)
 - [QuTiP Example: Clifford Group Elements (clifford-group.ipynb)](https://github.com/goropikari/qutip-notebooks/blob/master/examples/clifford-group.ipynb)
 - [QuTiP example: Energy-levels of a quantum systems as a function of a single parameter (energy-levels.ipynb)](https://github.com/goropikari/qutip-notebooks/blob/master/examples/energy-levels.ipynb)
-- [QuTiP example: eseries (energy-levels.ipynb)](https://github.com/goropikari/qutip-notebooks/blob/master/examples/eseries.ipynb)
+- [QuTiP example: eseries (eseries.ipynb)](https://github.com/goropikari/qutip-notebooks/blob/master/examples/eseries.ipynb)
 - [QuTiP example: Single-Qubit Dynamics (qubit-dynamics.ipynb)](https://github.com/goropikari/qutip-notebooks/blob/master/examples/qubit-dynamics.ipynb)
 - [QuTiP example: Dynamics of a Spin Chain (spin-chain.ipynb)](https://github.com/goropikari/qutip-notebooks/blob/master/examples/spin-chain.ipynb)
 
