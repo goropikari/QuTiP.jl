@@ -301,7 +301,8 @@ end
 export expect
 export esspec, esval
 export essolve
-for f in (:expect, :esspec, :esval, :essolve,
+export wigner
+for f in (:expect, :esspec, :esval, :essolve, :wigner,
          correlation_module..., )
     sf = string(f)
     @eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
