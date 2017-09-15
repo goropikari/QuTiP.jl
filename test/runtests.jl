@@ -13,6 +13,7 @@ include("bloch_redfield.jl")
 include("utilities.jl")
 include("ui.jl")
 include("display.jl")
+include("wigner.jl")
 
 x = basis(2,0)
 @test hash(x) == hash(x.o)

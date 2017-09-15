@@ -192,8 +192,8 @@ export hinton, sphereplot, matrix_histogram, matrix_histogram_complex, plot_ener
 visualization_module = (:hinton, :sphereplot, :matrix_histogram, :matrix_histogram_complex, :plot_energy_levels, :energy_level_diagram, :plot_fock_distribution, :fock_distribution, :plot_wigner, :plot_wigner_fock_distribution, :wigner_fock_distribution, :plot_expectation_values, :plot_spin_distribution_2d, :plot_spin_distribution_3d, :complex_array_to_rgb, :plot_qubism, :plot_schmidt, )
 
 ## wigner
-export wigner, qfunc, spin_q_function, spin_wigner
-wigner_module = (:wigner, :qfunc, :spin_q_function, :spin_wigner, )
+export qfunc, spin_q_function, spin_wigner # wigner  
+wigner_module = (:qfunc, :spin_q_function, :spin_wigner )
 
 ## nonmarkov
 export HEOMSolver, HSolverDL, _pad_csr
