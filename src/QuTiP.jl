@@ -14,9 +14,7 @@ type Quantum
     o::PyObject
 end
 
-
 include("display.jl")
-
 
 ###########################################################################
 # quoted from PyPlot.jl
@@ -62,6 +60,7 @@ const nonmarkov_transfertensor = PyNULL()
 const ui = PyNULL()
 const qip_cqed = PyNULL()
 const qip_spinchain = PyNULL()
+const qip_qft = PyNULL()
 
 function __init__()
     pyimport_conda("IPython", "IPython")
@@ -75,6 +74,7 @@ function __init__()
     copy!(ui, pyimport("qutip.ui"))
     copy!(qip_cqed, pyimport("qutip.qip.models.cqed"))
     copy!(qip_spinchain, pyimport("qutip.qip.models.spinchain"))
+    copy!(qip_qft, pyimport("qutip.qip.algorithms.qft"))
     global const version = try
         convert(VersionNumber, qutip[:__version__])
     catch
@@ -175,7 +175,7 @@ const qutipfn = (#utilities_module...,
                 # visualization_module...,
                 wigner_module...,
                 gate_module...,
-                qip_module...
+                qip_module...,
                )
 
 for f in qutipfn
@@ -192,13 +192,13 @@ for f in ipynbtools_module
     sf = string(f)
     @eval @doc LazyHelp(ipynbtools,$sf) function $f(args...; kws...)
         if !haskey(ipynbtools, $sf)
-            error("qutip.ipynbtools ", version, " does not have qutip.ipynbtools", $sf)
+            error("qutip ", version, " does not have qutip.ipynbtools", $sf)
         end
         return pycall(ipynbtools[$sf], PyAny, args...; kws...)
     end
 end
 
-for f in metrics_module 
+for f in metrics_module
     sf = string(f)
     @eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
         if !haskey(qutip, $sf)
@@ -208,7 +208,7 @@ for f in metrics_module
     end
 end
 
-for f in entropy_module 
+for f in entropy_module
     sf = string(f)
     @eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
         if !haskey(qutip, $sf)
@@ -222,7 +222,7 @@ for f in visualization_module
     sf = string(f)
     @eval @doc LazyHelp(visualization,$sf) function $f(args...; kws...)
         if !haskey(visualization, $sf)
-            error("qutip.visualization ", version, " does not have qutip.visualization", $sf)
+            error("qutip ", version, " does not have qutip.visualization", $sf)
         end
         return pycall(visualization[$sf], PyAny, args...; kws...)
     end
@@ -232,7 +232,7 @@ for f in utilities_module
     sf = string(f)
     @eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
         if !haskey(qutip, $sf)
-            error("qutip.utilities ", version, " does not have qutip.utilities. ", $sf)
+            error("qutip ", version, " does not have qutip.utilities. ", $sf)
         end
         return pycall(qutip[$sf], PyAny, args...; kws...)
     end
@@ -242,7 +242,7 @@ for f in nonmarkov_heom_module
     sf = string(f)
     @eval @doc LazyHelp(nonmarkov_heom,$sf) function $f(args...; kws...)
         if !haskey(nonmarkov_heom, $sf)
-            error("qutip.nonmarkov.heom ", version, " does not have qutip.nonmarkov.heom.", $sf)
+            error("qutip ", version, " does not have qutip.nonmarkov.heom.", $sf)
         end
         return pycall(nonmarkov_heom[$sf], Quantum, args...; kws...)
     end
@@ -252,7 +252,7 @@ f = :MemoryCascade
 sf = string(f)
 @eval @doc LazyHelp(nonmarkov_memorycascade,$sf) function $f(args...; kws...)
     if !haskey(nonmarkov_memorycascade, $sf)
-        error("qutip.nonmarkov.memorycascade ", version, " does not have qutip.nonmarkov.memorycascade.", $sf)
+        error("qutip ", version, " does not have qutip.nonmarkov.memorycascade.", $sf)
     end
     return pycall(nonmarkov_memorycascade[$sf], Quantum, args...; kws...)
 end
@@ -261,7 +261,7 @@ for f in nonmarkov_transfertensor_module
     sf = string(f)
     @eval @doc LazyHelp(nonmarkov_transfertensor,$sf) function $f(args...; kws...)
         if !haskey(nonmarkov_transfertensor, $sf)
-            error("qutip.nonmarkov.transfertensor ", version, " does not have qutip.nonmarkov.transfertensor.", $sf)
+            error("qutip ", version, " does not have qutip.nonmarkov.transfertensor.", $sf)
         end
         return pycall(nonmarkov_transfertensor[$sf], Quantum, args...; kws...)
     end
@@ -271,7 +271,7 @@ for f in ui_module
     sf = string(f)
     @eval @doc LazyHelp(ui,$sf) function $f(args...; kws...)
         if !haskey(ui, $sf)
-            error("qutip.ui", version, " does not have qutip.ui.", $sf)
+            error("qutip ", version, " does not have qutip.ui.", $sf)
         end
         return pycall(ui[$sf], PyAny, args...; kws...)
     end
@@ -281,7 +281,7 @@ f = qip_models_cqed_module
 sf = string(f)
 @eval @doc LazyHelp(qip_cqed,$sf) function $f(args...; kws...)
     if !haskey(qip_cqed, $sf)
-        error("qutip.qip.models.cqed ", version, " does not have qutip.qip.models.cqed.", $sf)
+        error("qutip ", version, " does not have qutip.qip.models.cqed.", $sf)
     end
     return pycall(qip_cqed[$sf], Quantum, args...; kws...)
 end
@@ -290,9 +290,19 @@ for f in qip_models_spinchain_module
     sf = string(f)
     @eval @doc LazyHelp(qip_spinchain,$sf) function $f(args...; kws...)
         if !haskey(qip_spinchain, $sf)
-            error("qutip.qip.models.spinchain", version, " does not have qutip.qip.models.spinchain.", $sf)
+            error("qutip ", version, " does not have qutip.qip.models.spinchain.", $sf)
         end
         return pycall(qip_spinchain[$sf], PyAny, args...; kws...)
+    end
+end
+
+for f in qip_algorithms_qft
+    sf = string(f)
+    @eval @doc LazyHelp(qip_qft,$sf) function $f(args...; kws...)
+        if !haskey(qip_qft, $sf)
+            error("qutip ", version, " does not have qutip.qip.algorithms.qft.", $sf)
+        end
+        return pycall(qip_qft[$sf], PyAny, args...; kws...)
     end
 end
 
@@ -484,4 +494,3 @@ ctranspose(x::Quantum) = dag(x::Quantum)
 (-)(a::Quantum) = -1.0 * a
 
 end # module
-
