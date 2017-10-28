@@ -84,8 +84,8 @@ export unitarity, bures_angle, bures_dist, hilbert_dist, tracedist, average_gate
 metrics_module = (:unitarity, :bures_angle, :bures_dist, :hilbert_dist, :tracedist, :average_gate_fidelity, :process_fidelity, :fidelity)
 
 ## operators
-export jmat, spin_Jx, spin_Jy, spin_Jz, spin_Jm, spin_Jp, spin_J_set, sigmap, sigmam, sigmax, sigmay, sigmaz, destroy, create, qeye, momentum, squeezing, displace, commutator, qutrit_ops, qdiags, phase, enr_destroy, enr_identity
-const operators_module = (:jmat, :spin_Jx, :spin_Jy, :spin_Jz, :spin_Jm, :spin_Jp, :spin_J_set, :sigmap, :sigmam, :sigmax, :sigmay, :sigmaz, :destroy, :create, :qeye, :momentum, :squeezing, :displace, :commutator, :qutrit_ops, :qdiags, :phase, :enr_destroy, :enr_identity)
+export jmat, spin_Jx, spin_Jy, spin_Jz, spin_Jm, spin_Jp, spin_J_set, sigmap, sigmam, sigmax, sigmay, sigmaz, destroy, create, qeye, momentum, squeezing, displace, commutator, qutrit_ops, qdiags, phase, enr_destroy, enr_identity, qzero, charge, tunneling
+const operators_module = (:jmat, :spin_Jx, :spin_Jy, :spin_Jz, :spin_Jm, :spin_Jp, :spin_J_set, :sigmap, :sigmam, :sigmax, :sigmay, :sigmaz, :destroy, :create, :qeye, :momentum, :squeezing, :displace, :commutator, :qutrit_ops, :qdiags, :phase, :enr_destroy, :enr_identity, :qzero, :charge, :tunneling)
 
 ## orbital
 export orbital
