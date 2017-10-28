@@ -14,6 +14,7 @@ include("utilities.jl")
 include("ui.jl")
 include("display.jl")
 include("wigner.jl")
+include("qft.jl")
 
 x = basis(2,0)
 @test hash(x) == hash(x.o)
@@ -37,7 +38,7 @@ X = sigmax()
 Y = 1 + dag(X) + dag(X) + X + 1
 @test full(Y) == [2.+0im 3.; 3. 2.]
 
-es3 = eseries([0.5*sigmaz(), 0.5*sigmaz()], [1im, -1im]) + eseries([-0.5im*sigmax(), 0.5im*sigmax()], [1im, -1im]) 
+es3 = eseries([0.5*sigmaz(), 0.5*sigmaz()], [1im, -1im]) + eseries([-0.5im*sigmax(), 0.5im*sigmax()], [1im, -1im])
 rho = fock_dm(2, 1)
 es3_expect = expect(rho, es3)
 @test es3_expect[:shape] == Any[1,1]

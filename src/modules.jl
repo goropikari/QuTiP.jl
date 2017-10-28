@@ -112,7 +112,7 @@ export isherm, issuper, isoper, isoperbra, isoperket, isbra, isket, shape, dims,
 qobj_module = (:isherm, :issuper, :isoper, :isoperbra, :isoperket, :isbra, :isket, :shape, :dims, :ptrace, :dag, :qobj_list_evaluate, :Qobj)
 
 ## random_objects
-export rand_stochastic, rand_super_bcsz, rand_super, rand_dm_hs, rand_dm_ginibre, rand_dm, rand_ket_haar, rand_ket, rand_unitary_haar, rand_unitary, rand_herm 
+export rand_stochastic, rand_super_bcsz, rand_super, rand_dm_hs, rand_dm_ginibre, rand_dm, rand_ket_haar, rand_ket, rand_unitary_haar, rand_unitary, rand_herm
 const random_objects_module = (:rand_stochastic, :rand_super_bcsz, :rand_super, :rand_dm_hs, :rand_dm_ginibre, :rand_dm, :rand_ket_haar, :rand_ket, :rand_unitary_haar, :rand_unitary, :rand_herm)
 
 ## rcsolve
@@ -192,7 +192,7 @@ export hinton, sphereplot, matrix_histogram, matrix_histogram_complex, plot_ener
 visualization_module = (:hinton, :sphereplot, :matrix_histogram, :matrix_histogram_complex, :plot_energy_levels, :energy_level_diagram, :plot_fock_distribution, :fock_distribution, :plot_wigner, :plot_wigner_fock_distribution, :wigner_fock_distribution, :plot_expectation_values, :plot_spin_distribution_2d, :plot_spin_distribution_3d, :complex_array_to_rgb, :plot_qubism, :plot_schmidt, )
 
 ## wigner
-export qfunc, spin_q_function, spin_wigner # wigner  
+export qfunc, spin_q_function, spin_wigner # wigner
 wigner_module = (:qfunc, :spin_q_function, :spin_wigner )
 
 ## nonmarkov
@@ -212,3 +212,7 @@ export Gate, QubitCircuit, qubit_states, DispersivecQED, LinearSpinChain, Circul
 qip_module = (:Gate, :QubitCircuit, :qubit_states)
 qip_models_cqed_module = (:DispersivecQED)
 qip_models_spinchain_module = (:LinearSpinChain, :CircularSpinChain)
+
+## algorithms
+export qft, qft_steps, qft_gate_sequence
+qip_algorithms_qft = (:qft, :qft_steps, :qft_gate_sequence)
