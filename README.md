@@ -49,16 +49,16 @@ To test this package and compare python and julia, I translate some Jupyter note
 All original python codes are left as comment.  
 
 From [jrjohansson/qutip-lectures](https://github.com/jrjohansson/qutip-lectures)
-- [Lecture 0 Introduction to QuTiP - The Quantum Toolbox in Python](https://github.com/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/Lecture-0-Introduction-to-QuTiP.ipynb)
-- [Lecture 1 QuTiP lecture: Vacuum Rabi oscillations in the Jaynes-Cummings model](https://github.com/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/Lecture-1-Jaynes-Cumming-model.ipynb)
-- [Lecture 2B QuTiP lecture: Single-Atom-Lasing](https://github.com/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/Lecture-2B-Single-Atom-Lasing.ipynb)
-- [Lecture 4 QuTiP lecture: Correlation functions](https://github.com/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/Lecture-4-Correlation-Functions.ipynb)
-- [Lecture 5 QuTiP lecture: Evolution and quantum statistics of a quantum parameter amplifier](https://github.com/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/Lecture-5-Parametric-Amplifier.ipynb)
-- [Lecture 6 QuTiP lecture: Quantum Monte-Carlo Trajectories](https://github.com/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/Lecture-6-Quantum-Monte-Carlo-Trajectories.ipynb)
-- [Lecture 7 Two-qubit iSWAP gate and process tomography](https://github.com/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/Lecture-7-iSWAP-gate.ipynb)
-- [Lecture 13 Resonance flourescence](https://github.com/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/Lecture-13-Resonance-flourescence.ipynb)
-- [Lecture 15: Nonclassically driven atoms (cascaded quantum systems)](https://github.com/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/Lecture-15-Nonclassically-driven-atoms.ipynb)
-- [Lecture 16: Gallery of Wigner functions](https://github.com/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/Lecture-16-Gallery-of-Wigner-functions.ipynb)
+- [Lecture 0 Introduction to QuTiP - The Quantum Toolbox in Python](https://github.com/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/julia/Lecture-0-Introduction-to-QuTiP.ipynb)
+- [Lecture 1 QuTiP lecture: Vacuum Rabi oscillations in the Jaynes-Cummings model](https://github.com/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/julia/Lecture-1-Jaynes-Cumming-model.ipynb)
+- [Lecture 2B QuTiP lecture: Single-Atom-Lasing](https://github.com/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/julia/Lecture-2B-Single-Atom-Lasing.ipynb)
+- [Lecture 4 QuTiP lecture: Correlation functions](https://github.com/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/julia/Lecture-4-Correlation-Functions.ipynb)
+- [Lecture 5 QuTiP lecture: Evolution and quantum statistics of a quantum parameter amplifier](https://github.com/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/julia/Lecture-5-Parametric-Amplifier.ipynb)
+- [Lecture 6 QuTiP lecture: Quantum Monte-Carlo Trajectories](https://github.com/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/julia/Lecture-6-Quantum-Monte-Carlo-Trajectories.ipynb)
+- [Lecture 7 Two-qubit iSWAP gate and process tomography](https://github.com/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/julia/Lecture-7-iSWAP-gate.ipynb)
+- [Lecture 13 Resonance flourescence](https://github.com/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/julia/Lecture-13-Resonance-flourescence.ipynb)
+- [Lecture 15: Nonclassically driven atoms (cascaded quantum systems)](https://github.com/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/julia/Lecture-15-Nonclassically-driven-atoms.ipynb)
+- [Lecture 16: Gallery of Wigner functions](https://github.com/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/julia/Lecture-16-Gallery-of-Wigner-functions.ipynb)
 
 # convert Qobj to Julia array
 To convert Oobj to julia array, use `full`.
