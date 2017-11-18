@@ -1,218 +1,426 @@
-## about
-# export about
+# From qutip 4.2.0
+
+# about.py
+# __all__ = [about]
+## export about
 about_module = (:about, )
 
-## bloch
+# bloch.py
+# __all__ = [Bloch]
 export Bloch
 bloch_module = (:Bloch, )
 
-## bloch3d
+# bloch3d.py
+# __all__ = [Bloch3d]
 export Bloch3d
 bloch3d_module = (:Bloch3d, )
 
-## bloch_redfield
+# bloch_redfield.py
+# __all__ = [brmesolve, bloch_redfield_solve, bloch_redfield_tensor]
+# bloch_redfield_tensor is defined individually.
 export brmesolve, bloch_redfield_solve
-bloch_redfield_module = (:brmesolve, :bloch_redfield_solve, )
-    # bloch_redfield_tensor is defined individually.
+bloch_redfield_module = (:brmesolve, :bloch_redfield_solve)
 
-## continuous_variables
-export logarithmic_negativity, wigner_covariance_matrix, correlation_matrix_quadrature, correlation_matrix_field, covariance_matrix, correlation_matrix
-const continuous_variables_module = (:logarithmic_negativity, :wigner_covariance_matrix, :correlation_matrix_quadrature, :correlation_matrix_field, :covariance_matrix, :correlation_matrix)
+# configrc.py
+# There is no __all__.
 
-## correlation
+# continuous_variables.py
+# __all__ = [correlation_matrix, covariance_matrix, correlation_matrix_field, correlation_matrix_quadrature, wigner_covariance_matrix, logarithmic_negativity]
+export correlation_matrix, covariance_matrix,  correlation_matrix_field, correlation_matrix_quadrature, wigner_covariance_matrix, logarithmic_negativity
+const continuous_variables_module = (:correlation_matrix, :covariance_matrix, :correlation_matrix_field, :correlation_matrix_quadrature, :wigner_covariance_matrix, :logarithmic_negativity)
+
+# correlation.py
+# __all__ = [correlation_2op_1t, correlation_2op_2t, correlation_3op_1t, correlation_3op_2t, coherence_function_g1, coherence_function_g2, spectrum, spectrum_correlation_fft, correlation_ss, correlation, correlation_4op_1t, correlation_4op_2t, spectrum_ss, spectrum_pi]
 export correlation_2op_1t, correlation_2op_2t, correlation_3op_1t, correlation_3op_2t, coherence_function_g1, coherence_function_g2, spectrum, spectrum_correlation_fft, correlation_ss, correlation, correlation_4op_1t, correlation_4op_2t, spectrum_ss, spectrum_pi
-correlation_module = (:correlation_2op_1t, :correlation_2op_2t, :correlation_3op_1t, :correlation_3op_2t, :coherence_function_g1, :coherence_function_g2, :spectrum, :spectrum_correlation_fft, :correlation_ss, :correlation, :correlation_4op_1t, :correlation_4op_2t, :spectrum_ss, :spectrum_pi, )
+correlation_module = (:correlation_2op_1t, :correlation_2op_2t, :correlation_3op_1t, :correlation_3op_2t, :coherence_function_g1, :coherence_function_g2, :spectrum, :spectrum_correlation_fft, :correlation_ss, :correlation, :correlation_4op_1t, :correlation_4op_2t, :spectrum_ss, :spectrum_pi)
 
-## countstat
-export countstat_current_noise, countstat_current
-countstat_module = (:countstat_current_noise, :countstat_current, )
+# countstat.py
+# __all__ = [countstat_current, countstat_current_noise]
+export countstat_current, countstat_current_noise
+countstat_module = (:countstat_current, :countstat_current_noise)
 
-## distributions
+# dimensions.py
+# __all__ = [] # Everything should be explicitly imported, not made available
+#              # by default.
+
+# distributions.py
+# __all__ = [Distribution, WignerDistribution, QDistribution, TwoModeQuadratureCorrelation, HarmonicOscillatorWaveFunction, HarmonicOscillatorProbabilityFunction]
 export Distribution, WignerDistribution, QDistribution, TwoModeQuadratureCorrelation, HarmonicOscillatorWaveFunction, HarmonicOscillatorProbabilityFunction
-distributions_module = (:Distribution, :WignerDistribution, :QDistribution, :TwoModeQuadratureCorrelation, :HarmonicOscillatorWaveFunction, :HarmonicOscillatorProbabilityFunction, )
+distributions_module = (:Distribution, :WignerDistribution, :QDistribution, :TwoModeQuadratureCorrelation, :HarmonicOscillatorWaveFunction, :HarmonicOscillatorProbabilityFunction)
 
-## entropy
-export entangling_power, entropy_conditional, entropy_mutual, negativity, concurrence, entropy_linear, entropy_vn
-entropy_module = (:entangling_power, :entropy_conditional, :entropy_mutual, :negativity, :concurrence, :entropy_linear, :entropy_vn)
+# entropy.py
+# __all__ = [entropy_vn, entropy_linear, entropy_mutual, negativity, concurrence, entropy_conditional, entangling_power]
+export entropy_vn, entropy_linear, entropy_mutual, negativity, concurrence, entropy_conditional, entangling_power
+entropy_module = (:entropy_vn, :entropy_linear, :entropy_mutual, :negativity, :concurrence, :entropy_conditional, :entangling_power)
 
-## eseries
+# eseries.py
+# __all__ = [eseries, esval, esspec, estidy]
+# esspec and esval are defined individually.
 export eseries, estidy
-eseries_module = (:eseries, :estidy, )
+eseries_module = (:eseries, :estidy)
 
-## essolve
+# essolve.py
+# __all__ = [essolve, ode2es]
+# essolve is defined individually.
 export ode2es
 essolve_module = (:ode2es, )
 
-## expect
+# expect.py
+# __all__ = [expect, variance]
+# expect is defined individually.
 export variance
 expect_module = (:variance, )
 
-## fileio
-export qload, qsave, file_data_read, file_data_store
-fileio_module = (:qload, :qsave, :file_data_read, :file_data_store, )
+# fastsparse.py
+# There is no __all__.
 
-## floquet
+# fileio.py
+# __all__ = [file_data_store, file_data_read, qsave, qload]
+export file_data_store, file_data_read, qsave, qload
+fileio_module = (:file_data_store, :file_data_read, :qsave, :qload)
+
+# floquet.py
+# __all__ = [floquet_modes, floquet_modes_t, floquet_modes_table, floquet_modes_t_lookup, floquet_states, floquet_states_t, floquet_wavefunction, floquet_wavefunction_t, floquet_state_decomposition, fsesolve, floquet_master_equation_rates, floquet_collapse_operators, floquet_master_equation_tensor, floquet_master_equation_steadystate, floquet_basis_transform, floquet_markov_mesolve, fmmesolve]
 export floquet_modes, floquet_modes_t, floquet_modes_table, floquet_modes_t_lookup, floquet_states, floquet_states_t, floquet_wavefunction, floquet_wavefunction_t, floquet_state_decomposition, fsesolve, floquet_master_equation_rates, floquet_collapse_operators, floquet_master_equation_tensor, floquet_master_equation_steadystate, floquet_basis_transform, floquet_markov_mesolve, fmmesolve
-floquet_module = (:floquet_modes, :floquet_modes_t, :floquet_modes_table, :floquet_modes_t_lookup, :floquet_states, :floquet_states_t, :floquet_wavefunction, :floquet_wavefunction_t, :floquet_state_decomposition, :fsesolve, :floquet_master_equation_rates, :floquet_collapse_operators, :floquet_master_equation_tensor, :floquet_master_equation_steadystate, :floquet_basis_transform, :floquet_markov_mesolve, :fmmesolve, )
+floquet_module = (:floquet_modes, :floquet_modes_t, :floquet_modes_table, :floquet_modes_t_lookup, :floquet_states, :floquet_states_t, :floquet_wavefunction, :floquet_wavefunction_t, :floquet_state_decomposition, :fsesolve, :floquet_master_equation_rates, :floquet_collapse_operators, :floquet_master_equation_tensor, :floquet_master_equation_steadystate, :floquet_basis_transform, :floquet_markov_mesolve, :fmmesolve)
 
-## gate
-export rx, ry, rz, sqrtnot, snot, phasegate, cphase, cnot, csign, berkeley, swapalpha, swap, iswap, sqrtswap, sqrtiswap, fredkin, toffoli, rotation, controlled_gate, globalphase, hadamard_transform, gate_sequence_product, gate_expand_1toN, gate_expand_2toN, gate_expand_3toN, qubit_clifford_group
-gate_module = (:rx, :ry, :rz, :sqrtnot, :snot, :phasegate, :cphase, :cnot, :csign, :berkeley, :swapalpha, :swap, :iswap, :sqrtswap, :sqrtiswap, :fredkin, :toffoli, :rotation, :controlled_gate, :globalphase, :hadamard_transform, :gate_sequence_product, :gate_expand_1toN, :gate_expand_2toN, :gate_expand_3toN, :qubit_clifford_group, )
+# graph.py
+# __all__ = [graph_degree, column_permutation, breadth_first_search,reverse_cuthill_mckee, maximum_bipartite_matching, weighted_bipartite_matching]
+export graph_degree, column_permutation, breadth_first_search,reverse_cuthill_mckee, maximum_bipartite_matching, weighted_bipartite_matching
+graph_module = (:graph_degree, :column_permutation, :breadth_first_search, :reverse_cuthill_mckee, :maximum_bipartite_matching, :weighted_bipartite_matching)
 
-## graph
-export weighted_bipartite_matching, maximum_bipartite_matching, column_permutation, breadth_first_search, graph_degree
-graph_module = (:weighted_bipartite_matching, :maximum_bipartite_matching, :column_permutation, :breadth_first_search, :graph_degree, )
-
-## hardware_info
-export hardware_info
+# hardware_info.py
+# __all__ = [hardware_info]
 hardware_info_module = (:hardware_info, )
 
-## ipynbtools
-export plot_animation, parallel_map, parfor, HTMLProgressBar # version_table
-ipynbtools_module = (:plot_animation, :parallel_map, :parfor, :HTMLProgressBar, :version_table, )
+# interpolate.py
+# __all__ = [Cubic_Spline]
+export Cubic_Spline
+interpolate_module = (:Cubic_Spline, )
 
-## mcsolve
+# ipynbtools.py
+#            if IPython.version_info[0] >= 4:
+#                try:
+#                    from ipyparallel import Client
+#                    __all__ = [version_table, parfor, plot_animation,
+#                                parallel_map, HTMLProgressBar]
+#                except:
+#                     __all__ = [version_table, plot_animation, HTMLProgressBar]
+#            else:
+#                try:
+#                    from IPython.parallel import Client
+#                    __all__ = [version_table, parfor, plot_animation,
+#                                parallel_map, HTMLProgressBar]
+#                except:
+#                     __all__ = [version_table, plot_animation, HTMLProgressBar]
+export version_table, plot_animation, HTMLProgressBar
+ipynbtools_module = (:version_table, :plot_animation, :HTMLProgressBar)
+
+# logging_utils.py
+# __all__ = [get_logger]
+export get_logger
+logging_utils_module = (:get_logger, )
+
+# matplotlib_utilities.py
+# __all__ = [wigner_cmap, MidpointNorm, complex_phase_cmap]
+export wigner_cmap, MidpointNorm, complex_phase_cmap
+matplotlib_utilities_module = (:wigner_cmap, :MidpointNorm, :complex_phase_cmap)
+
+# mcsolve.py
+# __all__ = [mcsolve]
 export mcsolve
 mcsolve_module = (:mcsolve, )
 
-## mesolve
+# mesolve.py
+# __all__ = [mesolve, odesolve]
 export mesolve, odesolve
-mesolve_module = (:mesolve, :odesolve, )
+mesolve_module = (:mesolve, :odesolve)
 
-## metrics
-export unitarity, bures_angle, bures_dist, hilbert_dist, tracedist, average_gate_fidelity, process_fidelity, fidelity
-metrics_module = (:unitarity, :bures_angle, :bures_dist, :hilbert_dist, :tracedist, :average_gate_fidelity, :process_fidelity, :fidelity)
+# metrics.py
+# __all__ = [fidelity, tracedist, bures_dist, bures_angle, hilbert_dist, average_gate_fidelity, process_fidelity, unitarity, dnorm]
+export fidelity, tracedist, bures_dist, bures_angle, hilbert_dist, average_gate_fidelity, process_fidelity, unitarity, dnorm
+metrics_module = (:fidelity, :tracedist, :bures_dist, :bures_angle, :hilbert_dist, :average_gate_fidelity, :process_fidelity, :unitarity, :dnorm)
 
-## operators
-export jmat, spin_Jx, spin_Jy, spin_Jz, spin_Jm, spin_Jp, spin_J_set, sigmap, sigmam, sigmax, sigmay, sigmaz, destroy, create, qeye, momentum, squeezing, displace, commutator, qutrit_ops, qdiags, phase, enr_destroy, enr_identity, qzero, charge, tunneling
-const operators_module = (:jmat, :spin_Jx, :spin_Jy, :spin_Jz, :spin_Jm, :spin_Jp, :spin_J_set, :sigmap, :sigmam, :sigmax, :sigmay, :sigmaz, :destroy, :create, :qeye, :momentum, :squeezing, :displace, :commutator, :qutrit_ops, :qdiags, :phase, :enr_destroy, :enr_identity, :qzero, :charge, :tunneling)
+# operators.py
+# __all__ = [jmat, spin_Jx, spin_Jy, spin_Jz, spin_Jm, spin_Jp, spin_J_set, sigmap, sigmam, sigmax, sigmay, sigmaz, destroy, create, qeye, identity, position, momentum, num, squeeze, squeezing, displace, commutator, qutrit_ops, qdiags, phase, qzero, enr_destroy, enr_identity, charge, tunneling]
+# identity, position, num and squeeze are renamed in order to avoid name conflict with Base module functions.
+export jmat, spin_Jx, spin_Jy, spin_Jz, spin_Jm, spin_Jp, spin_J_set, sigmap, sigmam, sigmax, sigmay, sigmaz, destroy, create, qeye, momentum, squeezing, displace, commutator, qutrit_ops, qdiags, phase, qzero, enr_destroy, enr_identity, charge, tunneling
+operators_module = (:jmat, :spin_Jx, :spin_Jy, :spin_Jz, :spin_Jm, :spin_Jp, :spin_J_set, :sigmap, :sigmam, :sigmax, :sigmay, :sigmaz, :destroy, :create, :qeye, :identity, :position, :momentum, :num, :squeeze, :squeezing, :displace, :commutator, :qutrit_ops, :qdiags, :phase, :qzero, :enr_destroy, :enr_identity, :charge, :tunneling)
 
-## orbital
+# orbital.py
+# __all__ = [orbital]
 export orbital
 orbital_module = (:orbital, )
 
-## parallel
-export parallel_map, serial_map, parfor
-parallel_module = (:parallel_map, :serial_map, :parfor, )
+# parallel.py
+# __all__ = [parfor, parallel_map, serial_map]
+export parfor, parallel_map, serial_map
+parallel_module = (:parfor, :parallel_map, :serial_map)
 
-## partial_transpose
+# partial_transpose.py
+# __all__ = [partial_transpose]
 export partial_transpose
 partial_transpose_module = (:partial_transpose, )
 
-## permute
+# permute.py
+# __all__ = [reshuffle]
 export reshuffle
 permute_module = (:reshuffle, )
 
-## propagator
+# propagator.py
+# __all__ = [propagator, propagator_steadystate]
 export propagator, propagator_steadystate
-propagator_module = (:propagator, :propagator_steadystate, )
+propagator_module = (:propagator, :propagator_steadystate)
 
-## qobj
-export isherm, issuper, isoper, isoperbra, isoperket, isbra, isket, shape, dims, ptrace, dag, qobj_list_evaluate, Qobj
-qobj_module = (:isherm, :issuper, :isoper, :isoperbra, :isoperket, :isbra, :isket, :shape, :dims, :ptrace, :dag, :qobj_list_evaluate, :Qobj)
+# qobj.py
+# __all__ = [Qobj, qobj_list_evaluate, ptrace, dag, isequal, issuper, isoper, isoperket, isoperbra, isket, isbra, isherm, shape, dims]
+export Qobj, qobj_list_evaluate, ptrace, dag, isequal, issuper, isoper, isoperket, isoperbra, isket, isbra, isherm, shape, dims
+qobj_module = (:Qobj, :qobj_list_evaluate, :ptrace, :dag, :isequal, :issuper, :isoper, :isoperket, :isoperbra, :isket, :isbra, :isherm, :shape, :dims)
 
-## random_objects
-export rand_stochastic, rand_super_bcsz, rand_super, rand_dm_hs, rand_dm_ginibre, rand_dm, rand_ket_haar, rand_ket, rand_unitary_haar, rand_unitary, rand_herm
-const random_objects_module = (:rand_stochastic, :rand_super_bcsz, :rand_super, :rand_dm_hs, :rand_dm_ginibre, :rand_dm, :rand_ket_haar, :rand_ket, :rand_unitary_haar, :rand_unitary, :rand_herm)
+# random_objects.py
+# __all__ = [rand_herm, rand_unitary, rand_ket, rand_dm, rand_unitary_haar, rand_ket_haar, rand_dm_ginibre, rand_dm_hs, rand_super_bcsz, rand_stochastic, rand_super]
+export rand_herm, rand_unitary, rand_ket, rand_dm, rand_unitary_haar, rand_ket_haar, rand_dm_ginibre, rand_dm_hs, rand_super_bcsz, rand_stochastic, rand_super
+random_objects_module = (:rand_herm, :rand_unitary, :rand_ket, :rand_dm, :rand_unitary_haar, :rand_ket_haar, :rand_dm_ginibre, :rand_dm_hs, :rand_super_bcsz, :rand_stochastic, :rand_super)
 
-## rcsolve
+# rcsolve.py
+# __all__ = [rcsolve]
 export rcsolve
 rcsolve_module = (:rcsolve, )
 
-## rhs_generate
-export rhs_clear, rhs_generate
-rhs_generate_module = (:rhs_clear, :rhs_generate, )
+# rhs_generate.py
+# __all__ = [rhs_generate, rhs_clear]
+export rhs_generate, rhs_clear
+rhs_generate_module = (:rhs_generate, :rhs_clear)
 
-## sesolve
+# semidefinite.py
+# There is no __all__.
+
+# sesolve.py
+# __all__ = [sesolve]
 export sesolve
 sesolve_module = (:sesolve, )
 
-## simdiag
+# settings.py
+# There is no __all__.
+
+# simdiag.py
+# __all__ = [simdiag]
 export simdiag
 simdiag_module = (:simdiag, )
 
-## solver
+# solver.py
+# __all__ = [Options, Odeoptions, Odedata]
 export Options, Odeoptions, Odedata
 solver_module = (:Options, :Odeoptions, :Odedata)
 
+# sparse.py
+# __all__ = [sp_fro_norm, sp_inf_norm, sp_L2_norm, sp_max_norm, sp_one_norm, sp_reshape, sp_eigs, sp_expm, sp_permute, sp_reverse_permute, sp_bandwidth, sp_profile]
+export sp_fro_norm, sp_inf_norm, sp_L2_norm, sp_max_norm, sp_one_norm, sp_reshape, sp_eigs, sp_expm, sp_permute, sp_reverse_permute, sp_bandwidth, sp_profile
+sparse_module = (:sp_fro_norm, :sp_inf_norm, :sp_L2_norm, :sp_max_norm, :sp_one_norm, :sp_reshape, :sp_eigs, :sp_expm, :sp_permute, :sp_reverse_permute, :sp_bandwidth, :sp_profile)
 
-## sparse
-export sp_profile, sp_bandwidth, sp_reverse_permute, sp_permute, sp_expm, sp_eigs, sp_reshape, sp_one_norm, sp_max_norm, sp_L2_norm, sp_inf_norm, sp_fro_norm
-sparse_module = (:sp_profile, :sp_bandwidth, :sp_reverse_permute, :sp_permute, :sp_expm, :sp_eigs, :sp_reshape, :sp_one_norm, :sp_max_norm, :sp_L2_norm, :sp_inf_norm, :sp_fro_norm)
+# states.py
+# __all__ = [basis, qutrit_basis, coherent, coherent_dm, fock_dm, fock, thermal_dm, maximally_mixed_dm, ket2dm, projection, qstate, ket, bra, state_number_enumerate, state_number_index, state_index_number, state_number_qobj, phase_basis, zero_ket, spin_state, spin_coherent, bell_state, singlet_state, triplet_states, w_state, ghz_state, enr_state_dictionaries, enr_fock, enr_thermal_dm]
+export basis, qutrit_basis, coherent, coherent_dm, fock_dm, fock, thermal_dm, maximally_mixed_dm, ket2dm, projection, qstate, ket, bra, state_number_enumerate, state_number_index, state_index_number, state_number_qobj, phase_basis, zero_ket, spin_state, spin_coherent, bell_state, singlet_state, triplet_states, w_state, ghz_state, enr_state_dictionaries, enr_fock, enr_thermal_dm
+states_module = (:basis, :qutrit_basis, :coherent, :coherent_dm, :fock_dm, :fock, :thermal_dm, :maximally_mixed_dm, :ket2dm, :projection, :qstate, :ket, :bra, :state_number_enumerate, :state_number_index, :state_index_number, :state_number_qobj, :phase_basis, :zero_ket, :spin_state, :spin_coherent, :bell_state, :singlet_state, :triplet_states, :w_state, :ghz_state, :enr_state_dictionaries, :enr_fock, :enr_thermal_dm)
 
-## states
-export ghz_state, w_state, triplet_states, singlet_state, bell_state, spin_coherent, spin_state, zero_ket, phase_basis, enr_thermal_dm, enr_fock, enr_state_dictionaries, state_number_qobj, state_index_number, state_number_index, state_number_enumerate, bra, ket, qstate, projection, ket2dm, maximally_mixed_dm, thermal_dm, fock, fock_dm, coherent_dm, coherent, qutrit_basis, basis
-const states_module = (:ghz_state, :w_state, :triplet_states, :singlet_state, :bell_state, :spin_coherent, :spin_state, :zero_ket, :phase_basis, :enr_thermal_dm, :enr_fock, :enr_state_dictionaries, :state_number_qobj, :state_index_number, :state_number_index, :state_number_enumerate, :bra, :ket, :qstate, :projection, :ket2dm, :maximally_mixed_dm, :thermal_dm, :fock, :fock_dm, :coherent_dm, :coherent, :qutrit_basis, :basis)
-
-## steadystate
+# steadystate.py
+# __all__ = [steadystate, steady, build_preconditioner, pseudo_inverse]
 export steadystate, steady, build_preconditioner, pseudo_inverse
-steadystate_module = (:steadystate, :steady, :build_preconditioner, :pseudo_inverse, )
+steadystate_module = (:steadystate, :steady, :build_preconditioner, :pseudo_inverse)
 
-## stochastic
+# stochastic.py
+# __all__ = [ssesolve, ssepdpsolve, smesolve, smepdpsolve]
 export ssesolve, ssepdpsolve, smesolve, smepdpsolve
 stochastic_module = (:ssesolve, :ssepdpsolve, :smesolve, :smepdpsolve)
 
-
-## subsystem_apply
+# subsystem_apply.py
+# __all__ = [subsystem_apply]
 export subsystem_apply
-const subsystem_apply_module = (:subsystem_apply, )
+subsystem_apply_module = (:subsystem_apply, )
 
-## superop_reps
-export to_stinespring, to_kraus, to_super, to_chi, to_choi, chi_to_choi, choi_to_chi, kraus_to_super, kraus_to_choi, choi_to_kraus, choi_to_super, super_to_choi
-const superop_reps_module = (:to_stinespring, :to_kraus, :to_super, :to_chi, :to_choi, :chi_to_choi, :choi_to_chi, :kraus_to_super, :kraus_to_choi, :choi_to_kraus, :choi_to_super, :super_to_choi)
+# superop_reps.py
+# __all__ = [super_to_choi, choi_to_super, choi_to_kraus, kraus_to_choi, kraus_to_super, choi_to_chi, chi_to_choi, to_choi, to_chi, to_super, to_kraus, to_stinespring]
+export super_to_choi, choi_to_super, choi_to_kraus, kraus_to_choi, kraus_to_super, choi_to_chi, chi_to_choi, to_choi, to_chi, to_super, to_kraus, to_stinespring
+superop_reps_module = (:super_to_choi, :choi_to_super, :choi_to_kraus, :kraus_to_choi, :kraus_to_super, :choi_to_chi, :chi_to_choi, :to_choi, :to_chi, :to_super, :to_kraus, :to_stinespring)
 
-## superoperator
-export sprepost, spre, spost, mat2vec_index, vec2mat_index, vec2mat, mat2vec, vector_to_operator, operator_to_vector, lindblad_dissipator, liouvillian_ref, liouvillian
-const superoperator_module = (:sprepost, :spre, :spost, :mat2vec_index, :vec2mat_index, :vec2mat, :mat2vec, :vector_to_operator, :operator_to_vector, :lindblad_dissipator, :liouvillian_ref, :liouvillian
-)
+# superoperator.py
+# __all__ = [liouvillian, liouvillian_ref, lindblad_dissipator, operator_to_vector, vector_to_operator, mat2vec, vec2mat, vec2mat_index, mat2vec_index, spost, spre, sprepost]
+export liouvillian, liouvillian_ref, lindblad_dissipator, operator_to_vector, vector_to_operator, mat2vec, vec2mat, vec2mat_index, mat2vec_index, spost, spre, sprepost
+superoperator_module = (:liouvillian, :liouvillian_ref, :lindblad_dissipator, :operator_to_vector, :vector_to_operator, :mat2vec, :vec2mat, :vec2mat_index, :mat2vec_index, :spost, :spre, :sprepost)
 
-## tensor
-export tensor_contract, composite, super_tensor, tensor
-tensor_module = (:tensor_contract, :composite, :super_tensor, :tensor)
+# tensor.py
+# __all__ = [tensor, super_tensor, composite, tensor_swap, tensor_contract]
+export tensor, super_tensor, composite, tensor_swap, tensor_contract
+tensor_module = (:tensor, :super_tensor, :composite, :tensor_swap, :tensor_contract)
 
-## three_level_atom
-export three_level_ops, three_level_basis
-const three_level_atom_module = (:three_level_ops, :three_level_basis)
+# testing.py
+# There is no __all__.
 
-## tomography
+# three_level_atom.py
+# __all__ = [three_level_basis, three_level_ops]
+export three_level_basis, three_level_ops
+three_level_atom_module = (:three_level_basis, :three_level_ops)
+
+# tomography.py
+# __all__ = [qpt_plot, qpt_plot_combined, qpt]
 export qpt_plot, qpt_plot_combined, qpt
-tomography_module = (:qpt_plot, :qpt_plot_combined, :qpt, )
+tomography_module = (:qpt_plot, :qpt_plot_combined, :qpt)
 
-## transfertensor
-export TTMSolverOptions, ttmsolve
-transfertensor_module = (:TTMSolverOptions, :ttmsolve, )
-
-## utilities
-export  n_thermal, linspace_with, clebsch, convert_unit, view_methods
+# utilities.py
+# __all__ = [n_thermal, linspace_with, clebsch, convert_unit, view_methods]
+export n_thermal, linspace_with, clebsch, convert_unit, view_methods
 utilities_module = (:n_thermal, :linspace_with, :clebsch, :convert_unit, :view_methods)
-# utilities_module = (:view_methods, :convert_mK_to_GHz, :convert_GHz_to_mK, :convert_mK_to_meV, :convert_meV_to_mK, :convert_meV_to_J, :convert_J_to_meV, :convert_meV_to_GHz, :convert_GHz_to_meV, :convert_unit, :clebsch, :linspace_with, :n_thermal)
 
-## visualization
-export hinton, sphereplot, matrix_histogram, matrix_histogram_complex, plot_energy_levels, energy_level_diagram, plot_fock_distribution, fock_distribution, plot_wigner, plot_wigner_fock_distribution, wigner_fock_distribution, plot_expectation_values, plot_spin_distribution_2d, plot_spin_distribution_3d, complex_array_to_rgb, plot_qubism, plot_schmidt
-visualization_module = (:hinton, :sphereplot, :matrix_histogram, :matrix_histogram_complex, :plot_energy_levels, :energy_level_diagram, :plot_fock_distribution, :fock_distribution, :plot_wigner, :plot_wigner_fock_distribution, :wigner_fock_distribution, :plot_expectation_values, :plot_spin_distribution_2d, :plot_spin_distribution_3d, :complex_array_to_rgb, :plot_qubism, :plot_schmidt, )
+# visualization.py
+# __all__ = [hinton, sphereplot, energy_level_diagram, plot_fock_distribution, wigner_fock_distribution, plot_wigner_fock_distribution, plot_wigner, plot_expectation_values, plot_spin_distribution_2d, plot_spin_distribution_3d, plot_qubism, plot_schmidt, complex_array_to_rgb, matrix_histogram, matrix_histogram_complex, sphereplot]
+export hinton, sphereplot, energy_level_diagram, plot_fock_distribution, wigner_fock_distribution, plot_wigner_fock_distribution, plot_wigner, plot_expectation_values, plot_spin_distribution_2d, plot_spin_distribution_3d, plot_qubism, plot_schmidt, complex_array_to_rgb, matrix_histogram, matrix_histogram_complex, sphereplot
+visualization_module = (:hinton, :sphereplot, :energy_level_diagram, :plot_fock_distribution, :wigner_fock_distribution, :plot_wigner_fock_distribution, :plot_wigner, :plot_expectation_values, :plot_spin_distribution_2d, :plot_spin_distribution_3d, :plot_qubism, :plot_schmidt, :complex_array_to_rgb, :matrix_histogram, :matrix_histogram_complex, :sphereplot)
 
-## wigner
-export qfunc, spin_q_function, spin_wigner # wigner
-wigner_module = (:qfunc, :spin_q_function, :spin_wigner )
+# wigner.py
+# __all__ = ['wigner', 'qfunc', 'spin_q_function', 'spin_wigner']
+# wigner is defined individually.
+export qfunc, spin_q_function, spin_wigner
+wigner_module = (:qfunc, :spin_q_function, :spin_wigner)
 
-## nonmarkov
-export HEOMSolver, HSolverDL, _pad_csr
-export MemoryCascade
-export TTMSolverOptions, ttmsolve
-nonmarkov_heom_module = (:HEOMSolver, :HSolverDL, :_pad_csr)
-nonmarkov_memorycascade_module = (:MemoryCascade, )
-nonmarkov_transfertensor_module = (:TTMSolverOptions, :ttmsolve)
 
-## ui
-export BaseProgressBar, TextProgressBar, EnhancedTextProgressBar
-ui_module = (:BaseProgressBar, :TextProgressBar, :EnhancedTextProgressBar)
+###############################################################
+# Function
+###############################################################
+const qutipfn = (
+                about_module...,
+                bloch_module...,
+                bloch3d_module...,
+                bloch_redfield_module...,
+                continuous_variables_module...,
+                correlation_module...,
+                countstat_module...,
+                distributions_module...,
+                # entropy_module...,
+                eseries_module...,
+                essolve_module...,
+                expect_module...,
+                fileio_module...,
+                floquet_module...,
+                graph_module...,
+                hardware_info_module...,
+                interpolate_module...,
+                # ipynbtools_module...,
+                logging_utils_module...,
+                matplotlib_utilities_module...,
+                mcsolve_module...,
+                mesolve_module...,
+                # metrics_module...,
+                operators_module...,
+                orbital_module...,
+                parallel_module...,
+                partial_transpose_module...,
+                permute_module...,
+                propagator_module...,
+                qobj_module...,
+                random_objects_module...,
+                rcsolve_module...,
+                rhs_generate_module...,
+                sesolve_module...,
+                simdiag_module...,
+                solver_module...,
+                sparse_module...,
+                states_module...,
+                steadystate_module...,
+                stochastic_module...,
+                subsystem_apply_module...,
+                superop_reps_module...,
+                superoperator_module...,
+                tensor_module...,
+                three_level_atom_module...,
+                tomography_module...,
+                # utilities_module...,
+                # visualization_module...,
+                wigner_module...
+               )
 
-## qip
-export Gate, QubitCircuit, qubit_states, DispersivecQED, LinearSpinChain, CircularSpinChain
-qip_module = (:Gate, :QubitCircuit, :qubit_states)
-qip_models_cqed_module = (:DispersivecQED)
-qip_models_spinchain_module = (:LinearSpinChain, :CircularSpinChain)
+for f in qutipfn
+    sf = string(f)
+    @eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
+        if !haskey(qutip, $sf)
+            error("qutip ", version, " does not have qutip.", $sf)
+        end
+        return pycall(qutip[$sf], Quantum, args...; kws...)
+    end
+end
 
-## algorithms
-export qft, qft_steps, qft_gate_sequence
-qip_algorithms_qft = (:qft, :qft_steps, :qft_gate_sequence)
+for f in ipynbtools_module
+    sf = string(f)
+    @eval @doc LazyHelp(ipynbtools,$sf) function $f(args...; kws...)
+        if !haskey(ipynbtools, $sf)
+            error("qutip ", version, " does not have qutip.ipynbtools", $sf)
+        end
+        return pycall(ipynbtools[$sf], PyAny, args...; kws...)
+    end
+end
+
+for f in metrics_module
+    sf = string(f)
+    @eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
+        if !haskey(qutip, $sf)
+            error("qutip ", version, " does not have qutip.", $sf)
+        end
+        return pycall(qutip[$sf], PyAny, args...; kws...)
+    end
+end
+
+for f in entropy_module
+    sf = string(f)
+    @eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
+        if !haskey(qutip, $sf)
+            error("qutip ", version, " does not have qutip.", $sf)
+        end
+        return pycall(qutip[$sf], PyAny, args...; kws...)
+    end
+end
+
+for f in visualization_module
+    sf = string(f)
+    @eval @doc LazyHelp(visualization,$sf) function $f(args...; kws...)
+        if !haskey(visualization, $sf)
+            error("qutip ", version, " does not have qutip.visualization", $sf)
+        end
+        return pycall(visualization[$sf], PyAny, args...; kws...)
+    end
+end
+
+for f in utilities_module
+    sf = string(f)
+    @eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
+        if !haskey(qutip, $sf)
+            error("qutip ", version, " does not have qutip.utilities. ", $sf)
+        end
+        return pycall(qutip[$sf], PyAny, args...; kws...)
+    end
+end
+
+
+# Functions whose type of return value is not Qobj.
+export expect
+export esspec, esval
+export essolve
+export wigner
+for f in (:expect, :esspec, :esval, :essolve, :wigner,
+         correlation_module...)
+    sf = string(f)
+    @eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
+        if !haskey(qutip, $sf)
+            error("qutip ", version, " does not have qutip.", $sf)
+        end
+        return pycall(qutip[$sf], PyAny, args...; kws...)
+    end
+end
+
+export bloch_redfield_tensor
+f = (:bloch_redfield_tensor)
+sf = string(f)
+@eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
+    if !haskey(qutip, $sf)
+        error("qutip ", version, " does not have qutip.", $sf)
+    end
+    return pycall(qutip[$sf], Tuple{Quantum, Vector{Quantum}}, args...; kws...)
+end
