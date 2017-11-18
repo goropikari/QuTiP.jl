@@ -17,7 +17,7 @@ end
 include("display.jl")
 
 ###########################################################################
-# quoted from PyPlot.jl
+# quoted from PyPlot.jl https://github.com/JuliaPy/PyPlot.jl/blob/2476177334dd0640711c2ca5d2c5c6bb0dc3c317/src/PyPlot.jl#L18
 # Julia 0.4 help system: define a documentation object
 # that lazily looks up help from a PyObject via zero or more keys.
 # This saves us time when loading PyPlot, since we don't have
@@ -52,29 +52,12 @@ end
 ###########################################################################
 
 const qutip = PyNULL()
-const ipynbtools = PyNULL()
 const visualization = PyNULL()
-const nonmarkov_heom = PyNULL()
-const nonmarkov_memorycascade = PyNULL()
-const nonmarkov_transfertensor = PyNULL()
-const ui = PyNULL()
-const qip_cqed = PyNULL()
-const qip_spinchain = PyNULL()
-const qip_qft = PyNULL()
-
 function __init__()
     pyimport_conda("IPython", "IPython")
     pyimport_conda("matplotlib", "matplotlib")
     copy!(qutip, pyimport_conda("qutip", "qutip", "conda-forge"))
-    copy!(ipynbtools, pyimport("qutip.ipynbtools"))
     copy!(visualization, pyimport("qutip.visualization"))
-    copy!(nonmarkov_heom, pyimport("qutip.nonmarkov.heom"))
-    copy!(nonmarkov_memorycascade, pyimport("qutip.nonmarkov.memorycascade"))
-    copy!(nonmarkov_transfertensor, pyimport("qutip.nonmarkov.transfertensor"))
-    copy!(ui, pyimport("qutip.ui"))
-    copy!(qip_cqed, pyimport("qutip.qip.models.cqed"))
-    copy!(qip_spinchain, pyimport("qutip.qip.models.spinchain"))
-    copy!(qip_qft, pyimport("qutip.qip.algorithms.qft"))
     global const version = try
         convert(VersionNumber, qutip[:__version__])
     catch
@@ -117,333 +100,45 @@ keys(f::Quantum) = keys(f.o)
 #     end
 # end
 
+###############################################################################
 # export ducumented qutip API
+###############################################################################
 include("modules.jl")
 include("attributes_methods.jl")
 
-###############################################################
-# Function
-###############################################################
-const qutipfn = (#utilities_module...,
-                sparse_module...,
-                simdiag_module...,
-                permute_module...,
-                parallel_module...,
-                # ipynbtools_module...,
-                hardware_info_module...,
-                graph_module...,
-                fileio_module...,
-                about_module...,
-                tensor_module...,
-                qobj_module...,
-                partial_transpose_module...,
-                expect_module...,
-                # metrics_module...,
-                # entropy_module...,
-                countstat_module...,
-                three_level_atom_module...,
-                states_module...,
-                random_objects_module...,
-                continuous_variables_module...,
-                superoperator_module...,
-                superop_reps_module...,
-                subsystem_apply_module...,
-                operators_module...,
-                bloch_redfield_module...,
-                # correlation_module...,
-                eseries_module...,
-                essolve_module...,
-                floquet_module...,
-                # hsolve_module...,
-                mcsolve_module...,
-                mesolve_module...,
-                propagator_module...,
-                rcsolve_module...,
-                rhs_generate_module...,
-                sesolve_module...,
-                solver_module...,
-                steadystate_module...,
-                stochastic_module...,
-                # memorycascade_module...,
-                transfertensor_module...,
-                # settings_module...,
-                bloch_module...,
-                bloch3d_module...,
-                distributions_module...,
-                orbital_module...,
-                tomography_module...,
-                # visualization_module...,
-                wigner_module...,
-                gate_module...,
-                qip_module...,
-               )
-
-for f in qutipfn
-    sf = string(f)
-    @eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
-        if !haskey(qutip, $sf)
-            error("qutip ", version, " does not have qutip.", $sf)
+    ############################################################################
+    # In order to avoid name conflict with Base module functions, add prefix 'q'.
+    ############################################################################
+    export qidentity, qposition, qnum, qsqueeze# operators module
+    const renamedfn = (:identity, :position, :num, :squeeze)
+    for f in renamedfn
+        sf = string(f)
+        nf = Symbol("q", f)
+        @eval @doc LazyHelp(qutip,$sf) function $nf(args...; kws...)
+            if !haskey(qutip, $sf)
+                error("qutip ", version, " does not have qutip.", $sf)
+            end
+            return pycall(qutip[$sf], Quantum, args...; kws...)
         end
-        return pycall(qutip[$sf], Quantum, args...; kws...)
     end
-end
 
-for f in ipynbtools_module
-    sf = string(f)
-    @eval @doc LazyHelp(ipynbtools,$sf) function $f(args...; kws...)
-        if !haskey(ipynbtools, $sf)
-            error("qutip ", version, " does not have qutip.ipynbtools", $sf)
-        end
-        return pycall(ipynbtools[$sf], PyAny, args...; kws...)
-    end
-end
-
-for f in metrics_module
-    sf = string(f)
-    @eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
-        if !haskey(qutip, $sf)
-            error("qutip ", version, " does not have qutip.", $sf)
-        end
-        return pycall(qutip[$sf], PyAny, args...; kws...)
-    end
-end
-
-for f in entropy_module
-    sf = string(f)
-    @eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
-        if !haskey(qutip, $sf)
-            error("qutip ", version, " does not have qutip.", $sf)
-        end
-        return pycall(qutip[$sf], PyAny, args...; kws...)
-    end
-end
-
-for f in visualization_module
-    sf = string(f)
-    @eval @doc LazyHelp(visualization,$sf) function $f(args...; kws...)
-        if !haskey(visualization, $sf)
-            error("qutip ", version, " does not have qutip.visualization", $sf)
-        end
-        return pycall(visualization[$sf], PyAny, args...; kws...)
-    end
-end
-
-for f in utilities_module
-    sf = string(f)
-    @eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
-        if !haskey(qutip, $sf)
-            error("qutip ", version, " does not have qutip.utilities. ", $sf)
-        end
-        return pycall(qutip[$sf], PyAny, args...; kws...)
-    end
-end
-
-for f in nonmarkov_heom_module
-    sf = string(f)
-    @eval @doc LazyHelp(nonmarkov_heom,$sf) function $f(args...; kws...)
-        if !haskey(nonmarkov_heom, $sf)
-            error("qutip ", version, " does not have qutip.nonmarkov.heom.", $sf)
-        end
-        return pycall(nonmarkov_heom[$sf], Quantum, args...; kws...)
-    end
-end
-
-f = :MemoryCascade
-sf = string(f)
-@eval @doc LazyHelp(nonmarkov_memorycascade,$sf) function $f(args...; kws...)
-    if !haskey(nonmarkov_memorycascade, $sf)
-        error("qutip ", version, " does not have qutip.nonmarkov.memorycascade.", $sf)
-    end
-    return pycall(nonmarkov_memorycascade[$sf], Quantum, args...; kws...)
-end
-
-for f in nonmarkov_transfertensor_module
-    sf = string(f)
-    @eval @doc LazyHelp(nonmarkov_transfertensor,$sf) function $f(args...; kws...)
-        if !haskey(nonmarkov_transfertensor, $sf)
-            error("qutip ", version, " does not have qutip.nonmarkov.transfertensor.", $sf)
-        end
-        return pycall(nonmarkov_transfertensor[$sf], Quantum, args...; kws...)
-    end
-end
-
-for f in ui_module
-    sf = string(f)
-    @eval @doc LazyHelp(ui,$sf) function $f(args...; kws...)
-        if !haskey(ui, $sf)
-            error("qutip ", version, " does not have qutip.ui.", $sf)
-        end
-        return pycall(ui[$sf], PyAny, args...; kws...)
-    end
-end
-
-f = qip_models_cqed_module
-sf = string(f)
-@eval @doc LazyHelp(qip_cqed,$sf) function $f(args...; kws...)
-    if !haskey(qip_cqed, $sf)
-        error("qutip ", version, " does not have qutip.qip.models.cqed.", $sf)
-    end
-    return pycall(qip_cqed[$sf], Quantum, args...; kws...)
-end
-
-for f in qip_models_spinchain_module
-    sf = string(f)
-    @eval @doc LazyHelp(qip_spinchain,$sf) function $f(args...; kws...)
-        if !haskey(qip_spinchain, $sf)
-            error("qutip ", version, " does not have qutip.qip.models.spinchain.", $sf)
-        end
-        return pycall(qip_spinchain[$sf], PyAny, args...; kws...)
-    end
-end
-
-for f in qip_algorithms_qft
-    sf = string(f)
-    @eval @doc LazyHelp(qip_qft,$sf) function $f(args...; kws...)
-        if !haskey(qip_qft, $sf)
-            error("qutip ", version, " does not have qutip.qip.algorithms.qft.", $sf)
-        end
-        return pycall(qip_qft[$sf], PyAny, args...; kws...)
-    end
-end
-
-
-# Functions whose type of return value is not Qobj.
-export expect
-export esspec, esval
-export essolve
-export wigner
-for f in (:expect, :esspec, :esval, :essolve, :wigner,
-         correlation_module..., )
-    sf = string(f)
-    @eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
-        if !haskey(qutip, $sf)
-            error("qutip ", version, " does not have qutip.", $sf)
-        end
-        return pycall(qutip[$sf], PyAny, args...; kws...)
-    end
-end
-
-export bloch_redfield_tensor
-f = (:bloch_redfield_tensor)
-sf = string(f)
-@eval @doc LazyHelp(qutip,$sf) function $f(args...; kws...)
-    if !haskey(qutip, $sf)
-        error("qutip ", version, " does not have qutip.", $sf)
-    end
-    return pycall(qutip[$sf], Tuple{Quantum, Vector{Quantum}}, args...; kws...)
-end
-
-###############################################################
-# attributes and methods
-###############################################################
-for m in attributes
-    sm = string(m)
-    @eval function $m(x::Quantum)
-        if !haskey(x, $sm)
+    export qtype # attributes
+    function qtype(x::Quantum)
+        sm = :type
+        if !haskey(x, sm)
             error("KeyError: key $sm not found")
         end
-        return getindex(x, Symbol($sm))
+        return x[sm]
     end
-end
 
-for m in methods_qobj
-    sm = string(m)
-    @eval function $m(x::Quantum, args...; kws...)
-        if !haskey(x, $sm)
+    export qpermute #methods
+    function qpermute(x::Quantum, args...; kws...)
+        sm = :permute
+        if !haskey(x, sm)
             error("KeyError: key $sm not found")
         end
-        return convert(Quantum, x[$sm](args...; kws...))
+        return convert(Quantum, x[sm](args...; kws...))
     end
-end
-
-for m in methods
-    sm = string(m)
-    @eval function $m(x::Quantum, args...; kws...)
-        if !haskey(x, $sm)
-            error("KeyError: key $sm not found")
-        end
-        return x[$sm](args...; kws...)
-    end
-end
-
-export ampl
-function ampl(x::Quantum)
-    if !haskey(x, "ampl")
-        error("KeyError: key 'ampl' not found")
-    end
-    return convert(Vector{Quantum}, x[:ampl])
-end
-
-export conj, expm, sqrtm, sinm, cosm
-for m in (:conj, :expm, :sqrtm, :sinm, :cosm)
-    sm = string(m)
-    @eval function $m(x::Quantum, args...; kws...)
-        if !haskey(x, $sm)
-            error("KeyError: key $sm not found")
-        end
-        return convert(Quantum, x[$sm](args...; kws...))
-    end
-end
-
-export eigenstates, groundstate
-function eigenstates(x::Quantum, args...; kws...)
-    if !haskey(x, "eigenstates")
-        error("KeyError: key 'eigenstates' not found")
-    end
-    return convert(Tuple{Vector{Float64},Vector{Quantum}}, x[:eigenstates](args...; kws...))
-end
-
-function groundstate(x::Quantum, args...; kws...)
-    if !haskey(x, "groundstate")
-        error("KeyError: key 'groundstate' not found")
-    end
-    return convert(Tuple{Float64, Quantum}, x[:groundstate](args...; kws...))
-end
-
-export value, spec
-for m in (:value, :spec)
-    sm = string(m)
-    @eval function $m(x::Quantum, args...; kws...)
-        if !haskey(x, $sm)
-            error("KeyError: key $sm not found")
-        end
-        return convert(Vector{Quantum}, x[$sm](args...; kws...))
-    end
-end
-
-#######################################################################
-# To avoid name conflict with Base module functions, add prefix 'q'.
-#######################################################################
-export qidentity, qnum, qposition, qsqueeze # operators module
-const renamedfn = (:identity, :num, :position, :squeeze)
-for f in renamedfn
-    sf = string(f)
-    nf = Symbol("q", f)
-    @eval @doc LazyHelp(qutip,$sf) function $nf(args...; kws...)
-        if !haskey(qutip, $sf)
-            error("qutip ", version, " does not have qutip.", $sf)
-        end
-        return pycall(qutip[$sf], Quantum, args...; kws...)
-    end
-end
-
-export qtype # attributes
-function qtype(x::Quantum)
-    sm = :type
-    if !haskey(x, sm)
-        error("KeyError: key $sm not found")
-    end
-    return x[sm]
-end
-
-export qpermute #methods
-function qpermute(x::Quantum, args...; kws...)
-    sm = :permute
-    if !haskey(x, sm)
-        error("KeyError: key $sm not found")
-    end
-    return convert(Quantum, x[sm](args...; kws...))
-end
 
 # define functions for convenience
 export ⊗, ctranspose
@@ -453,7 +148,8 @@ ctranspose(x::Quantum) = dag(x::Quantum)
 ###################################################
 # arithmetic
 #
-# Why I define arithmetic?
+# Why do we define arithmetic?
+# Example
 # julia> @pyimport qutip as qt
 # julia> qt.sigmax() + 1
 # PyObject Quantum object: dims = [[2], [2]], shape = (2, 2), type = oper, isherm = True
