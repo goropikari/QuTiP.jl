@@ -113,8 +113,8 @@ interpolate_module = (:Cubic_Spline, )
 #                                parallel_map, HTMLProgressBar]
 #                except:
 #                     __all__ = [version_table, plot_animation, HTMLProgressBar]
-export version_table, plot_animation, HTMLProgressBar
-ipynbtools_module = (:version_table, :plot_animation, :HTMLProgressBar)
+# export version_table, plot_animation, HTMLProgressBar
+# ipynbtools_module = (:version_table, :plot_animation, :HTMLProgressBar)
 
 # logging_utils.py
 # __all__ = [get_logger]
@@ -348,15 +348,15 @@ for f in qutipfn
     end
 end
 
-for f in ipynbtools_module
-    sf = string(f)
-    @eval @doc LazyHelp(ipynbtools,$sf) function $f(args...; kws...)
-        if !haskey(ipynbtools, $sf)
-            error("qutip ", version, " does not have qutip.ipynbtools", $sf)
-        end
-        return pycall(ipynbtools[$sf], PyAny, args...; kws...)
-    end
-end
+# for f in ipynbtools_module
+#     sf = string(f)
+#     @eval @doc LazyHelp(qutip[:ipynbtools],$sf) function $f(args...; kws...)
+#         if !haskey(ipynbtools, $sf)
+#             error("qutip ", version, " does not have qutip.ipynbtools", $sf)
+#         end
+#         return pycall(qutip[:ipynbtools][$sf], PyAny, args...; kws...)
+#     end
+# end
 
 for f in metrics_module
     sf = string(f)
