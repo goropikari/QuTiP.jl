@@ -4,7 +4,7 @@ module QuTiP
 using PyCall
 import PyCall: PyNULL, pyimport_conda, pycall, PyObject
 import Base: +, -, *, /, ==, hash, getindex, setindex!, haskey, keys, show, convert, collect
-import Base: conj, expm, sqrtm, full, norm, diag, ctranspose
+import Base: conj, expm, sqrtm, full, norm, diag
 
 export qutip, Quantum
 
@@ -141,6 +141,7 @@ include("attributes_methods.jl")
     end
 
 # define functions for convenience
+import Base.ctranspose
 export ⊗, ctranspose
 ⊗(a::Quantum, b::Quantum) = tensor(a,b)
 ctranspose(x::Quantum) = dag(x::Quantum)
