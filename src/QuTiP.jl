@@ -53,11 +53,17 @@ end
 
 const qutip = PyNULL()
 const visualization = PyNULL()
+const nonmarkov = PyNULL()
+const transfertensor = PyNULL()
+const memorycascade = PyNULL()
 function __init__()
     pyimport_conda("IPython", "IPython")
     pyimport_conda("matplotlib", "matplotlib")
     copy!(qutip, pyimport_conda("qutip", "qutip", "conda-forge"))
     copy!(visualization, pyimport("qutip.visualization"))
+    copy!(nonmarkov, pyimport("qutip.nonmarkov"))
+    copy!(transfertensor, pyimport("qutip.nonmarkov.transfertensor"))
+    copy!(memorycascade, pyimport("qutip.nonmarkov.memorycascade"))
     global const version = try
         convert(VersionNumber, qutip[:__version__])
     catch

@@ -424,3 +424,32 @@ sf = string(f)
     end
     return pycall(qutip[$sf], Tuple{Quantum, Vector{Quantum}}, args...; kws...)
 end
+
+
+module Nonmarkov
+using ..QuTiP
+import PyCall: PyNULL, pyimport, pycall
+import QuTiP: LazyHelp, Quantum, qutip, nonmarkov, transfertensor, memorycascade
+
+# nonmarkov/memorycascade.py and nonmarkov/transfertensor.py
+export ttmsolve, MemoryCascade
+
+f = :ttmsolve
+sf = string(f)
+@eval @doc LazyHelp(transfertensor, $sf) function $f(args...; kws...)
+    if !haskey(transfertensor, $sf)
+        error("qutip.nonmarkov.transfertensor ", version, " does not have qutip.nonmarkov.transfertensor", $sf)
+    end
+    return pycall(transfertensor[$sf], Quantum, args...; kws...)
+end
+
+f = :MemoryCascade
+sf = string(f)
+@eval @doc LazyHelp(memorycascade,$sf) function $f(args...; kws...)
+    if !haskey(memorycascade, $sf)
+        error("qutip.nonmarkov.memorycascade ", version, " does not have qutip.nonmarkov.memorycascade", $sf)
+    end
+    return pycall(memorycascade[$sf], Quantum, args...; kws...)
+end
+
+end # module nonmarkov
