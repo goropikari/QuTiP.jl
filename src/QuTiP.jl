@@ -8,7 +8,7 @@ export qutip
 
 import Base.show
 
-type Quantum
+mutable struct Quantum
     o::PyObject
 end
 
@@ -33,7 +33,7 @@ keys(f::Quantum) = keys(f.o)
 # that lazily looks up help from a PyObject via zero or more keys.
 # This saves us time when loading PyPlot, since we don't have
 # to load up all of the documentation strings right away.
-immutable LazyHelp
+struct LazyHelp
     o::PyObject
     keys::Tuple{Vararg{String}}
     LazyHelp(o::PyObject) = new(o, ())
