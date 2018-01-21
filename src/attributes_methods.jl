@@ -1,3 +1,5 @@
+import Base: conj, expm, sqrtm, full, norm, diag
+
 ###################
 # Qobj
 ###################
