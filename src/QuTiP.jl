@@ -1,6 +1,6 @@
 __precompile__()
 
-module QuTiP 
+module QuTiP
 using PyCall
 import PyCall: PyNULL, pyimport_conda, pycall, PyObject
 import Base: +, -, *, /, ==, hash, getindex, setindex!, haskey, keys, show, convert
@@ -152,20 +152,20 @@ const qutipfn = (utilities_class...,
                 graph_class...,
                 fileio_class...,
                 about_class...,
-                tensor_class..., 
+                tensor_class...,
                 qobj_class...,
                 partial_transpose_class...,
                 expect_class...,
                 metrics_class...,
-                entropy_class..., 
-                countstat_class..., 
+                entropy_class...,
+                countstat_class...,
                 three_level_atom_class...,
-                states_class..., 
+                states_class...,
                 random_objects_class...,
                 continuous_variables_class...,
-                superoperator_class..., 
-                superop_reps_class..., 
-                subsystem_apply_class..., 
+                superoperator_class...,
+                superop_reps_class...,
+                subsystem_apply_class...,
                 operators_class...,
                 bloch_redfield_class...,
                 correlation_class...,
@@ -240,9 +240,28 @@ for f in renamedfn
     end
 end
 
+###################################################
 # arithmetic
+#
+# Why do we define arithmetic?
+# Example
+# julia> @pyimport qutip as qt
+# julia> qt.sigmax() + 1
+# PyObject Quantum object: dims = [[2], [2]], shape = (2, 2), type = oper, isherm = True
+# Qobj data =
+# [[ 1.  1.]
+#  [ 1.  1.]]
+#
+# julia> 1 + qt.sigmax()
+# ERROR: MethodError: no method matching +(::Int64, ::PyCall.PyObject)
+# Closest candidates are:
+#   +(::Any, ::Any, ::Any, ::Any...) at operators.jl:424
+#   +(::PyCall.PyObject, ::Any) at /home/tk/.julia/v0.6/PyCall/src/PyCall.jl:702
+#   +(::T<:Union{Int128, Int16, Int32, Int64, Int8, UInt128, UInt16, UInt32, UInt64, UInt8}, ::T<:Union{Int128, Int16, Int32, Int64, Int8, UInt128, UInt16, UInt32, UInt64, UInt8}) where T<:Union{Int128, Int16, Int32, Int64, Int8, UInt128, UInt16, UInt32, UInt64, UInt8} at int.jl:32
+#   ...
+###################################################
 +(a::Number, b::Quantum) = convert(Quantum, PyObject(b) + a)
--(a::Number, b::Quantum) = convert(Quantum, - PyObject(b) + a)
+-(a::Number, b::Quantum) = convert(Quantum, PyObject(b) * (-1) + a)
 *(a::Number, b::Quantum) = convert(Quantum, PyObject(b) * a)
 
 +(a::Quantum, b::Number) = convert(Quantum, PyObject(a) + b)
@@ -262,6 +281,10 @@ end
 -(a::Quantum, b::Quantum) = convert(Quantum, PyObject(a) - PyObject(b))
 *(a::Quantum, b::Quantum) = convert(Quantum, PyObject(a) * PyObject(b))
 
+(+)(a::Quantum) = a
+(-)(a::Quantum) = -1.0 * a
+
+
 
 function __init__()
     pyimport_conda("IPython", "IPython")
@@ -279,4 +302,3 @@ end
 
 
 end # module
-
