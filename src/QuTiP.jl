@@ -109,6 +109,7 @@ keys(f::Quantum) = keys(f.o)
 # export ducumented qutip API
 ###############################################################################
 include("modules.jl")
+include("attributes_methods.jl")
 
     ############################################################################
     # In order to avoid name conflict with Base module functions, add prefix 'q'.
