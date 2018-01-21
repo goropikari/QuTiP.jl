@@ -28,7 +28,7 @@ keys(f::Quantum) = keys(f.o)
 
 
 ###########################################################################
-# quoted from PyPlot.jl
+# quoted from PyPlot.jl https://github.com/JuliaPy/PyPlot.jl/blob/2476177334dd0640711c2ca5d2c5c6bb0dc3c317/src/PyPlot.jl#L18
 # Julia 0.4 help system: define a documentation object
 # that lazily looks up help from a PyObject via zero or more keys.
 # This saves us time when loading PyPlot, since we don't have
