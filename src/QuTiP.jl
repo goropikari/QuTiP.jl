@@ -3,9 +3,9 @@ __precompile__()
 module QuTiP
 using PyCall
 import PyCall: PyNULL, pyimport_conda, pycall, PyObject
-import Base: +, -, *, /, ==, hash, getindex, setindex!, haskey, keys, show, convert, ctranspose
+import Base: +, -, *, /, ==, hash, getindex, setindex!, haskey, keys, show, convert, collect, ctranspose
 export ⊗, ctranspose
-export qutip
+export qutip, Quantum
 
 mutable struct Quantum
     o::PyObject
