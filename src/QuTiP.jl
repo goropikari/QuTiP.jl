@@ -11,6 +11,8 @@ mutable struct Quantum
     o::PyObject
 end
 
+include("display.jl")
+
 PyObject(f::Quantum) = f.o
 convert(::Type{Quantum}, o::PyObject) = Quantum(o)
 ==(f::Quantum, g::Quantum) = f.o == g.o
