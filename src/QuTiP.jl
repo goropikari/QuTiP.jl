@@ -3,10 +3,9 @@ __precompile__()
 module QuTiP
 using PyCall
 import PyCall: PyNULL, pyimport_conda, pycall, PyObject
-import Base: +, -, *, /, ==, hash, getindex, setindex!, haskey, keys, show, convert
+import Base: +, -, *, /, ==, hash, getindex, setindex!, haskey, keys, show, convert, ctranspose
+export ⊗, ctranspose
 export qutip
-
-import Base.show
 
 mutable struct Quantum
     o::PyObject
@@ -239,6 +238,10 @@ for f in renamedfn
         return pycall(qutip[$sf], Quantum, args...; kws...)
     end
 end
+
+# define functions for convenience
+⊗(a::Quantum, b::Quantum) = tensor(a,b)
+ctranspose(x::Quantum) = dag(x::Quantum)
 
 ###################################################
 # arithmetic
