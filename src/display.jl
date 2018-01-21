@@ -8,8 +8,8 @@ function show(io::IO, ::MIME"text/latex", s::Quantum)
     end
 end
 
-function show(io::IO, ::MIME"text/latex", s::Vector{Quantum})
-    for item in s
-        show(io, "text/latex", item)
-    end
-end
+# function show(io::IO, ::MIME"text/latex", s::Vector{Quantum})
+#     for item in s
+#         show(io, "text/latex", item)
+#     end
+# end
