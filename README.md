@@ -76,26 +76,6 @@ H = [H0,[H1, fnj2py(H1_coeff)]]
 output = mesolve(H, psi0, t, c_ops, [ada, sigma_UU, sigma_GG])
 ```
 
-# Examples
-In order to test this package and compare python and julia, I translate some Jupyter notebooks about qutip into Julia.
-All original python codes are left as comment.  
-
-From [jrjohansson/qutip-lectures](https://github.com/jrjohansson/qutip-lectures)
-- [Lecture 0 Introduction to QuTiP - The Quantum Toolbox in Python](http://nbviewer.jupyter.org/github/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/julia/Lecture-0-Introduction-to-QuTiP.ipynb)
-- [Lecture 1 QuTiP lecture: Vacuum Rabi oscillations in the Jaynes-Cummings model](http://nbviewer.jupyter.org/github/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/julia/Lecture-1-Jaynes-Cumming-model.ipynb)
-- [Lecture 2A Cavity Qubit Gates](http://nbviewer.jupyter.org/github/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/julia/Lecture-2A-Cavity-Qubit-Gates.ipynb)
-- [Lecture 2B QuTiP lecture: Single-Atom-Lasing](http://nbviewer.jupyter.org/github/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/julia/Lecture-2B-Single-Atom-Lasing.ipynb)
-- [Lecture 3A Dicke model](http://nbviewer.jupyter.org/github/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/julia/Lecture-3A-Dicke-model.ipynb)
-- [Lecture 3B Jaynes Cumming model with ultrastrong coupling](http://nbviewer.jupyter.org/github/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/julia/Lecture-3B-Jaynes-Cumming-model-with-ultrastrong-coupling.ipynb)
-- [Lecture 4 QuTiP lecture: Correlation functions](http://nbviewer.jupyter.org/github/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/julia/Lecture-4-Correlation-Functions.ipynb)
-- [Lecture 5 QuTiP lecture: Evolution and quantum statistics of a quantum parameter amplifier](http://nbviewer.jupyter.org/github/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/julia/Lecture-5-Parametric-Amplifier.ipynb)
-- [Lecture 6 QuTiP lecture: Quantum Monte-Carlo Trajectories](http://nbviewer.jupyter.org/github/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/julia/Lecture-6-Quantum-Monte-Carlo-Trajectories.ipynb)
-- [Lecture 7 Two-qubit iSWAP gate and process tomography](http://nbviewer.jupyter.org/github/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/julia/Lecture-7-iSWAP-gate.ipynb)
-- [Lecture 8 Adiabatic quantum computing](http://nbviewer.jupyter.org/github/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/julia/Lecture-8-Adiabatic-quantum-computing.ipynb)
-- [Lecture 13 Resonance flourescence](http://nbviewer.jupyter.org/github/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/julia/Lecture-13-Resonance-flourescence.ipynb)
-- [Lecture 15: Nonclassically driven atoms (cascaded quantum systems)](http://nbviewer.jupyter.org/github/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/julia/Lecture-15-Nonclassically-driven-atoms.ipynb)
-- [Lecture 16: Gallery of Wigner functions](http://nbviewer.jupyter.org/github/goropikari/qutip-lectures/blob/For_qutip_v4.2.0/julia/Lecture-16-Gallery-of-Wigner-functions.ipynb)
-
 # convert Qobj to Julia array
 To convert Oobj to julia array, use `full`.
 ```julia
